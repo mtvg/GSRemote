@@ -1,0 +1,447 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		14272DB81D077905002E18DA /* GSBluetoothBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14272DB71D077905002E18DA /* GSBluetoothBridge.swift */; };
+		142D8CDC1D08E14300945AF9 /* GSScanningScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142D8CDB1D08E14300945AF9 /* GSScanningScreen.swift */; };
+		142D8CDE1D08E36F00945AF9 /* GSPresentationScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142D8CDD1D08E36F00945AF9 /* GSPresentationScreen.swift */; };
+		14757C6B1D00B8F700290B89 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14757C6A1D00B8F700290B89 /* AppDelegate.swift */; };
+		14757C701D00B8F700290B89 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14757C6E1D00B8F700290B89 /* Main.storyboard */; };
+		14757C721D00B8F700290B89 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14757C711D00B8F700290B89 /* Assets.xcassets */; };
+		14757C751D00B8F700290B89 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14757C731D00B8F700290B89 /* LaunchScreen.storyboard */; };
+		14757C851D00B9AC00290B89 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14757C841D00B9AC00290B89 /* main.swift */; };
+		14757C8B1D00B9E300290B89 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14757C8A1D00B9E300290B89 /* SwiftyJSON.swift */; };
+		14757C8C1D00B9E300290B89 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14757C8A1D00B9E300290B89 /* SwiftyJSON.swift */; };
+		7748BC911D0699C900F6B9A5 /* GSBluetoothAdvertiser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7748BC901D0699C900F6B9A5 /* GSBluetoothAdvertiser.swift */; };
+		7748BC931D069F8200F6B9A5 /* GSBluetoothCentral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7748BC921D069F8200F6B9A5 /* GSBluetoothCentral.swift */; };
+		7748BC951D06A65500F6B9A5 /* GSBluetoothScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7748BC941D06A65500F6B9A5 /* GSBluetoothScanner.swift */; };
+		7748BC971D06ADEC00F6B9A5 /* GSBluetoothPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7748BC961D06ADEC00F6B9A5 /* GSBluetoothPeripheral.swift */; };
+		77795C701D09346100975383 /* GSConnectionScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77795C6F1D09346100975383 /* GSConnectionScreen.swift */; };
+		77F89C641D0539EA0044624D /* GSChromeBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F89C631D0539EA0044624D /* GSChromeBridge.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		14757C801D00B9AC00290B89 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		14272DB71D077905002E18DA /* GSBluetoothBridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GSBluetoothBridge.swift; sourceTree = "<group>"; };
+		142D8CDB1D08E14300945AF9 /* GSScanningScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GSScanningScreen.swift; sourceTree = "<group>"; };
+		142D8CDD1D08E36F00945AF9 /* GSPresentationScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GSPresentationScreen.swift; sourceTree = "<group>"; };
+		14757C671D00B8F700290B89 /* GSRemote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GSRemote.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		14757C6A1D00B8F700290B89 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		14757C6F1D00B8F700290B89 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		14757C711D00B8F700290B89 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		14757C741D00B8F700290B89 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		14757C761D00B8F700290B89 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		14757C821D00B9AC00290B89 /* gsremotehelper */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = gsremotehelper; sourceTree = BUILT_PRODUCTS_DIR; };
+		14757C841D00B9AC00290B89 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		14757C8A1D00B9E300290B89 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
+		7748BC901D0699C900F6B9A5 /* GSBluetoothAdvertiser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GSBluetoothAdvertiser.swift; sourceTree = "<group>"; };
+		7748BC921D069F8200F6B9A5 /* GSBluetoothCentral.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GSBluetoothCentral.swift; sourceTree = "<group>"; };
+		7748BC941D06A65500F6B9A5 /* GSBluetoothScanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GSBluetoothScanner.swift; sourceTree = "<group>"; };
+		7748BC961D06ADEC00F6B9A5 /* GSBluetoothPeripheral.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GSBluetoothPeripheral.swift; sourceTree = "<group>"; };
+		77795C6F1D09346100975383 /* GSConnectionScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GSConnectionScreen.swift; sourceTree = "<group>"; };
+		77F89C631D0539EA0044624D /* GSChromeBridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GSChromeBridge.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		14757C641D00B8F700290B89 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		14757C7F1D00B9AC00290B89 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		14757C5E1D00B8F700290B89 = {
+			isa = PBXGroup;
+			children = (
+				14757C891D00B9D700290B89 /* Common */,
+				14757C691D00B8F700290B89 /* GSRemote */,
+				14757C831D00B9AC00290B89 /* gsremotehelper */,
+				14757C681D00B8F700290B89 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		14757C681D00B8F700290B89 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				14757C671D00B8F700290B89 /* GSRemote.app */,
+				14757C821D00B9AC00290B89 /* gsremotehelper */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		14757C691D00B8F700290B89 /* GSRemote */ = {
+			isa = PBXGroup;
+			children = (
+				14757C6A1D00B8F700290B89 /* AppDelegate.swift */,
+				142D8CDB1D08E14300945AF9 /* GSScanningScreen.swift */,
+				142D8CDD1D08E36F00945AF9 /* GSPresentationScreen.swift */,
+				77795C6F1D09346100975383 /* GSConnectionScreen.swift */,
+				77795C6E1D092E8100975383 /* Bluetooth */,
+				14757C6E1D00B8F700290B89 /* Main.storyboard */,
+				14757C711D00B8F700290B89 /* Assets.xcassets */,
+				14757C731D00B8F700290B89 /* LaunchScreen.storyboard */,
+				14757C761D00B8F700290B89 /* Info.plist */,
+			);
+			path = GSRemote;
+			sourceTree = "<group>";
+		};
+		14757C831D00B9AC00290B89 /* gsremotehelper */ = {
+			isa = PBXGroup;
+			children = (
+				14757C841D00B9AC00290B89 /* main.swift */,
+				77F89C631D0539EA0044624D /* GSChromeBridge.swift */,
+				7748BC901D0699C900F6B9A5 /* GSBluetoothAdvertiser.swift */,
+				7748BC921D069F8200F6B9A5 /* GSBluetoothCentral.swift */,
+			);
+			path = gsremotehelper;
+			sourceTree = "<group>";
+		};
+		14757C891D00B9D700290B89 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				14757C8A1D00B9E300290B89 /* SwiftyJSON.swift */,
+			);
+			name = Common;
+			sourceTree = "<group>";
+		};
+		77795C6E1D092E8100975383 /* Bluetooth */ = {
+			isa = PBXGroup;
+			children = (
+				7748BC941D06A65500F6B9A5 /* GSBluetoothScanner.swift */,
+				7748BC961D06ADEC00F6B9A5 /* GSBluetoothPeripheral.swift */,
+				14272DB71D077905002E18DA /* GSBluetoothBridge.swift */,
+			);
+			name = Bluetooth;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		14757C661D00B8F700290B89 /* GSRemote */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 14757C791D00B8F700290B89 /* Build configuration list for PBXNativeTarget "GSRemote" */;
+			buildPhases = (
+				14757C631D00B8F700290B89 /* Sources */,
+				14757C641D00B8F700290B89 /* Frameworks */,
+				14757C651D00B8F700290B89 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GSRemote;
+			productName = GSRemote;
+			productReference = 14757C671D00B8F700290B89 /* GSRemote.app */;
+			productType = "com.apple.product-type.application";
+		};
+		14757C811D00B9AC00290B89 /* gsremotehelper */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 14757C861D00B9AC00290B89 /* Build configuration list for PBXNativeTarget "gsremotehelper" */;
+			buildPhases = (
+				14757C7E1D00B9AC00290B89 /* Sources */,
+				14757C7F1D00B9AC00290B89 /* Frameworks */,
+				14757C801D00B9AC00290B89 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = gsremotehelper;
+			productName = gsremotehelper;
+			productReference = 14757C821D00B9AC00290B89 /* gsremotehelper */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		14757C5F1D00B8F700290B89 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = MTVG;
+				TargetAttributes = {
+					14757C661D00B8F700290B89 = {
+						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = W2EQ6NT7V9;
+					};
+					14757C811D00B9AC00290B89 = {
+						CreatedOnToolsVersion = 7.3;
+					};
+				};
+			};
+			buildConfigurationList = 14757C621D00B8F700290B89 /* Build configuration list for PBXProject "GSRemote" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 14757C5E1D00B8F700290B89;
+			productRefGroup = 14757C681D00B8F700290B89 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				14757C661D00B8F700290B89 /* GSRemote */,
+				14757C811D00B9AC00290B89 /* gsremotehelper */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		14757C651D00B8F700290B89 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				14757C751D00B8F700290B89 /* LaunchScreen.storyboard in Resources */,
+				14757C721D00B8F700290B89 /* Assets.xcassets in Resources */,
+				14757C701D00B8F700290B89 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		14757C631D00B8F700290B89 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7748BC971D06ADEC00F6B9A5 /* GSBluetoothPeripheral.swift in Sources */,
+				14757C6B1D00B8F700290B89 /* AppDelegate.swift in Sources */,
+				14757C8B1D00B9E300290B89 /* SwiftyJSON.swift in Sources */,
+				142D8CDC1D08E14300945AF9 /* GSScanningScreen.swift in Sources */,
+				7748BC951D06A65500F6B9A5 /* GSBluetoothScanner.swift in Sources */,
+				14272DB81D077905002E18DA /* GSBluetoothBridge.swift in Sources */,
+				142D8CDE1D08E36F00945AF9 /* GSPresentationScreen.swift in Sources */,
+				77795C701D09346100975383 /* GSConnectionScreen.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		14757C7E1D00B9AC00290B89 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				77F89C641D0539EA0044624D /* GSChromeBridge.swift in Sources */,
+				7748BC931D069F8200F6B9A5 /* GSBluetoothCentral.swift in Sources */,
+				7748BC911D0699C900F6B9A5 /* GSBluetoothAdvertiser.swift in Sources */,
+				14757C851D00B9AC00290B89 /* main.swift in Sources */,
+				14757C8C1D00B9E300290B89 /* SwiftyJSON.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		14757C6E1D00B8F700290B89 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				14757C6F1D00B8F700290B89 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		14757C731D00B8F700290B89 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				14757C741D00B8F700290B89 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		14757C771D00B8F700290B89 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		14757C781D00B8F700290B89 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		14757C7A1D00B8F700290B89 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = GSRemote/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = net.mtvg.GSRemote2;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+			};
+			name = Debug;
+		};
+		14757C7B1D00B8F700290B89 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = GSRemote/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = net.mtvg.GSRemote2;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+			};
+			name = Release;
+		};
+		14757C871D00B9AC00290B89 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		14757C881D00B9AC00290B89 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		14757C621D00B8F700290B89 /* Build configuration list for PBXProject "GSRemote" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				14757C771D00B8F700290B89 /* Debug */,
+				14757C781D00B8F700290B89 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		14757C791D00B8F700290B89 /* Build configuration list for PBXNativeTarget "GSRemote" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				14757C7A1D00B8F700290B89 /* Debug */,
+				14757C7B1D00B8F700290B89 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		14757C861D00B9AC00290B89 /* Build configuration list for PBXNativeTarget "gsremotehelper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				14757C871D00B9AC00290B89 /* Debug */,
+				14757C881D00B9AC00290B89 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 14757C5F1D00B8F700290B89 /* Project object */;
+}

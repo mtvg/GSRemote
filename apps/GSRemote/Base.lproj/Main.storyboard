@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="nVb-cL-tUm">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <scenes>
+        <!--Google Slides Remote Control-->
+        <scene sceneID="uAG-T3-7m4">
+            <objects>
+                <tableViewController id="UR4-2Q-Wmy" customClass="GSScanningScreen" customModule="GSRemote" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="66" sectionHeaderHeight="28" sectionFooterHeight="28" id="p9t-UP-ijI">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <inset key="separatorInset" minX="6" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="peripheralcell" textLabel="ixb-IX-oNv" detailTextLabel="v0t-Ff-RIA" imageView="7f0-rm-ISE" rowHeight="66" style="IBUITableViewCellStyleSubtitle" id="Xub-50-7tS">
+                                <rect key="frame" x="0.0" y="122" width="375" height="66"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Xub-50-7tS" id="y5r-pS-mrx">
+                                    <rect key="frame" x="0.0" y="0.0" width="342" height="65"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ixb-IX-oNv">
+                                            <rect key="frame" x="70" y="11" width="46" height="29"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="v0t-Ff-RIA">
+                                            <rect key="frame" x="70" y="40" width="41" height="14"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="fileicon" id="7f0-rm-ISE">
+                                            <rect key="frame" x="15" y="12" width="40" height="40"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </imageView>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <inset key="separatorInset" minX="6" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="UR4-2Q-Wmy" id="YsX-Ti-g2o"/>
+                            <outlet property="delegate" destination="UR4-2Q-Wmy" id="6fe-XK-PaV"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Google Slides Remote Control" prompt="Scanning for presentations..." id="iOm-i6-oPq"/>
+                    <connections>
+                        <segue destination="WCV-ps-Lxr" kind="show" identifier="Connection" id="vUo-rP-qC5"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="t7U-KQ-OZ9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="105.5" y="1163.5"/>
+        </scene>
+        <!--Title-->
+        <scene sceneID="RRY-gS-QKV">
+            <objects>
+                <viewController id="WCV-ps-Lxr" customClass="GSConnectionScreen" customModule="GSRemote" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="UBo-jv-2An"/>
+                        <viewControllerLayoutGuide type="bottom" id="pSo-sa-WwQ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="krI-Xs-IKQ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Title" prompt="Hostname" id="nRg-fD-F7r"/>
+                    <connections>
+                        <segue destination="Np8-GF-fgK" kind="show" identifier="Presentation" id="nIw-D7-Ggd"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YM3-mC-xdU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="634.5" y="1163.5"/>
+        </scene>
+        <!--Title-->
+        <scene sceneID="s3t-dc-Fq1">
+            <objects>
+                <viewController id="Np8-GF-fgK" customClass="GSPresentationScreen" customModule="GSRemote" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="UJr-Mt-BJl"/>
+                        <viewControllerLayoutGuide type="bottom" id="rGS-gM-fRG"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="a9u-3I-dmL">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Title" prompt="Hostname" id="9oW-kP-tGr"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="g9h-ab-mBJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1144.5" y="1163.5"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="aNa-GM-QZF">
+            <objects>
+                <navigationController id="nVb-cL-tUm" sceneMemberID="viewController">
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ka1-7P-P3t">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="UR4-2Q-Wmy" kind="relationship" relationship="rootViewController" id="u8k-6q-csO"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3D6-TA-14Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-406" y="1164"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="fileicon" width="40" height="40"/>
+    </resources>
+</document>

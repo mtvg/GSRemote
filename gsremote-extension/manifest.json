@@ -1,0 +1,53 @@
+{
+  "name": "Google Slides Remote Control",
+  "version": "0.1",
+  "manifest_version": 2,
+  "description": "Control Google Slides over Bluetooth with your iPhone",
+  "page_action": {
+    "default_icon": "img/icon-48.png",
+    "default_title": "Google Slides Remote Control"
+  },
+  "background": {
+    "scripts": [
+      "js/gsremote-background.js"
+    ],
+    "persistent": false
+  },
+  "permissions" : [
+	"declarativeContent", "nativeMessaging",   
+	"https://docs.google.com/presentation/*",  
+    "https://docs.google.com/*/presentation/*",  
+    "https://www.youtube.com/_forcedembed_/*"
+  ],
+  "icons": {
+    "16": "img/icon-16.png",
+    "48": "img/icon-48.png",
+    "128": "img/icon-128.png"
+  },
+  "web_accessible_resources": [
+    "js/gsremote-youtube-injection.js"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://docs.google.com/*/presentation/*",
+        "https://docs.google.com/presentation/*"
+      ],
+      "match_about_blank" : true,
+      "all_frames" : true,
+      "js": [
+        "js/gsremote.js"
+      ]
+    },
+    {
+      "matches": [
+        "https://www.youtube.com/_forcedembed_/*"
+      ],
+      "match_about_blank" : false,
+      "all_frames" : false,
+      "js": [
+        "js/gsremote-youtube.js"
+      ]
+    }
+  ]
+}
