@@ -17,11 +17,11 @@ class GSBluetoothScanner: NSObject, CBCentralManagerDelegate, CBPeripheralDelega
     let GSREMOTE_ADVDATA = CBUUID(string: "4B090A0B-4AD5-45B9-9FCF-FA6CA47339BB")
     
     var deviceDiscoveryCallback:((JSON)->())?
-    var peripheralUpdateCallback:(([GSPeripheral])->())?
+    var peripheralUpdateCallback:(([GSScannedPeripheral])->())?
     
     var discoveredPeripherals = [CBPeripheral]()
     var discoveredPeripheralsID = [CBPeripheral:String]()
-    var availablePeripherals = [GSPeripheral]()
+    var availablePeripherals = [GSScannedPeripheral]()
     var scanIsRequested = false
     var isScanning = false
     var peripheralLifeTimer:NSTimer?
@@ -62,7 +62,7 @@ class GSBluetoothScanner: NSObject, CBCentralManagerDelegate, CBPeripheralDelega
     
     func checkPeripheralsLife() {
         var listUpdated = false
-        while let index = availablePeripherals.indexOf({$0.lastSeen.timeIntervalSinceNow < -4}) {
+        while let index = availablePeripherals.indexOf({$0.lastSeen.timeIntervalSinceNow < -6}) {
             availablePeripherals.removeAtIndex(index)
             listUpdated = true
         }
@@ -135,8 +135,8 @@ class GSBluetoothScanner: NSObject, CBCentralManagerDelegate, CBPeripheralDelega
     func peripheral(peripheral: CBPeripheral, didUpdateValueForCharacteristic characteristic: CBCharacteristic, error: NSError?) {
         if characteristic.UUID == GSREMOTE_ADVDATA && characteristic.value != nil && isScanning {
             let j = JSON(data: characteristic.value!)
-            if let name = j["name"].string, let host = j["host"].string, let uuid = j["uuid"].string {
-                let p = GSPeripheral(name: name, host: host, uuid: uuid, peripheral: peripheral, pid: discoveredPeripheralsID[peripheral]!, lastSeen: NSDate())
+            if let name = j["name"].string, let host = j["host"].string, let count = j["count"].string, let uuid = j["uuid"].string {
+                let p = GSScannedPeripheral(name: name, host: host, count: Int(count)!, uuid: uuid, peripheral: peripheral, pid: discoveredPeripheralsID[peripheral]!, lastSeen: NSDate())
                 availablePeripherals.append(p)
                 //print(p.name+" added")
                 if peripheralUpdateCallback != nil {
@@ -158,9 +158,10 @@ class GSBluetoothScanner: NSObject, CBCentralManagerDelegate, CBPeripheralDelega
     }
 }
 
-struct GSPeripheral {
+struct GSScannedPeripheral {
     let name:String
     let host:String
+    let count:Int
     let uuid:String
     let peripheral:CBPeripheral
     let pid:String

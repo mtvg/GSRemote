@@ -7,16 +7,54 @@
 //
 
 import UIKit
+import CoreBluetooth
 
 class GSConnectionScreen: UIViewController {
     
-    var connectingPeripheral:GSPeripheral?
+    var scannedPeripheral:GSScannedPeripheral!
+    var bluetoothPeripheral:GSBluetoothPeripheral!
 
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var statusLabel: UILabel!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.hidesBackButton = true
+        navigationItem.title = scannedPeripheral.name
+        navigationItem.prompt = scannedPeripheral.host
+
+        bluetoothPeripheral = GSBluetoothPeripheral(withCBUUID: CBUUID(string: scannedPeripheral.uuid))
+        bluetoothPeripheral.centralConnectionCallback = onPresentationConnected
+    }
+    
+    func onPresentationConnected(central:CBCentral) {
+        statusLabel.text = "Connected"
+        bluetoothPeripheral.centralConnectionCallback = nil
         
-        navigationItem.title = connectingPeripheral?.name
-        navigationItem.prompt = connectingPeripheral?.host
+        performSegueWithIdentifier("Presentation", sender: self)
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        activityIndicator.startAnimating()
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        activityIndicator.stopAnimating()
     }
 
+    @IBAction func cancelConnection(sender: AnyObject) {
+        navigationController?.popViewControllerAnimated(true)
+        bluetoothPeripheral.cancelConnection()
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "Presentation" {
+            let presentation:GSPresentationScreen = segue.destinationViewController as! GSPresentationScreen
+            presentation.bluetoothPeripheral = bluetoothPeripheral
+            presentation.scannedPeripheral = scannedPeripheral
+        }
+    }
 }

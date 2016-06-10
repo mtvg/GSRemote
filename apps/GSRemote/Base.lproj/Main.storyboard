@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="nVb-cL-tUm">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="nVb-cL-tUm">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Google Slides Remote Control-->
@@ -26,14 +27,14 @@
                                             <rect key="frame" x="70" y="11" width="46" height="29"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="v0t-Ff-RIA">
                                             <rect key="frame" x="70" y="40" width="41" height="14"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="fileicon" id="7f0-rm-ISE">
@@ -70,10 +71,38 @@
                     <view key="view" contentMode="scaleToFill" id="krI-Xs-IKQ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="lC6-mk-guE">
+                                <rect key="frame" x="177" y="324" width="20" height="20"/>
+                            </activityIndicatorView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Establishing connection..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KcU-Ke-cI0">
+                                <rect key="frame" x="89" y="352" width="196" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LYj-I8-5kR">
+                                <rect key="frame" x="163" y="617" width="48" height="30"/>
+                                <state key="normal" title="Cancel"/>
+                                <connections>
+                                    <action selector="cancelConnection:" destination="WCV-ps-Lxr" eventType="touchUpInside" id="X5I-dY-kSk"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="KcU-Ke-cI0" firstAttribute="centerX" secondItem="lC6-mk-guE" secondAttribute="centerX" id="3A7-WJ-PGj"/>
+                            <constraint firstItem="LYj-I8-5kR" firstAttribute="centerX" secondItem="KcU-Ke-cI0" secondAttribute="centerX" id="3pz-aC-WJt"/>
+                            <constraint firstItem="lC6-mk-guE" firstAttribute="centerY" secondItem="krI-Xs-IKQ" secondAttribute="centerY" id="Akn-b7-dzN"/>
+                            <constraint firstItem="lC6-mk-guE" firstAttribute="centerX" secondItem="krI-Xs-IKQ" secondAttribute="centerX" id="JYf-uI-1Jt"/>
+                            <constraint firstAttribute="bottom" secondItem="LYj-I8-5kR" secondAttribute="bottom" constant="20" symbolic="YES" id="Mn3-2m-98r"/>
+                            <constraint firstItem="KcU-Ke-cI0" firstAttribute="top" secondItem="lC6-mk-guE" secondAttribute="bottom" constant="8" symbolic="YES" id="UsU-fk-pOl"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Title" prompt="Hostname" id="nRg-fD-F7r"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="lC6-mk-guE" id="K2O-sh-El9"/>
+                        <outlet property="statusLabel" destination="KcU-Ke-cI0" id="Gwd-UT-LKu"/>
                         <segue destination="Np8-GF-fgK" kind="show" identifier="Presentation" id="nIw-D7-Ggd"/>
                     </connections>
                 </viewController>
@@ -84,7 +113,7 @@
         <!--Title-->
         <scene sceneID="s3t-dc-Fq1">
             <objects>
-                <viewController id="Np8-GF-fgK" customClass="GSPresentationScreen" customModule="GSRemote" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="Np8-GF-fgK" customClass="GSPresentationScreen" customModule="GSRemote" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="UJr-Mt-BJl"/>
                         <viewControllerLayoutGuide type="bottom" id="rGS-gM-fRG"/>
@@ -92,13 +121,99 @@
                     <view key="view" contentMode="scaleToFill" id="a9u-3I-dmL">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0rm-bh-I1j" userLabel="Container">
+                                <rect key="frame" x="0.0" y="94" width="375" height="573"/>
+                                <subviews>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="16f-x4-0xn">
+                                        <rect key="frame" x="0.0" y="287" width="375" height="286"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <prototypes>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ExtraCell" id="gUB-TP-4Qy">
+                                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gUB-TP-4Qy" id="O41-YZ-SYz">
+                                                    <rect key="frame" x="0.0" y="0.0" width="342" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                </tableViewCellContentView>
+                                            </tableViewCell>
+                                        </prototypes>
+                                    </tableView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rfl-s7-Ph2" userLabel="Touch Zone">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="287"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <gestureRecognizers/>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="pxk-9w-NIU" appends="YES" id="wBC-C6-bUm"/>
+                                            <outletCollection property="gestureRecognizers" destination="lbK-Nm-sbK" appends="YES" id="CxS-vR-pqR"/>
+                                        </connections>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="16f-x4-0xn" secondAttribute="trailing" id="6iu-yw-dzb"/>
+                                    <constraint firstItem="16f-x4-0xn" firstAttribute="leading" secondItem="0rm-bh-I1j" secondAttribute="leading" id="8pb-l6-6av"/>
+                                    <constraint firstItem="Rfl-s7-Ph2" firstAttribute="top" secondItem="0rm-bh-I1j" secondAttribute="top" id="9HU-rn-g0d"/>
+                                    <constraint firstItem="16f-x4-0xn" firstAttribute="top" secondItem="0rm-bh-I1j" secondAttribute="centerY" id="CwE-OM-JlA"/>
+                                    <constraint firstAttribute="bottom" secondItem="16f-x4-0xn" secondAttribute="bottom" id="KQN-bf-M9T"/>
+                                    <constraint firstItem="Rfl-s7-Ph2" firstAttribute="bottom" secondItem="16f-x4-0xn" secondAttribute="top" id="Kr2-fB-zHL"/>
+                                    <constraint firstAttribute="trailing" secondItem="Rfl-s7-Ph2" secondAttribute="trailing" id="iRM-vd-VU0"/>
+                                    <constraint firstItem="Rfl-s7-Ph2" firstAttribute="leading" secondItem="0rm-bh-I1j" secondAttribute="leading" id="nUI-Gn-uLs"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="rGS-gM-fRG" firstAttribute="top" secondItem="0rm-bh-I1j" secondAttribute="bottom" id="8rc-Bj-cCn"/>
+                            <constraint firstItem="0rm-bh-I1j" firstAttribute="leading" secondItem="a9u-3I-dmL" secondAttribute="leading" id="L0y-Nz-F74"/>
+                            <constraint firstAttribute="trailing" secondItem="0rm-bh-I1j" secondAttribute="trailing" id="wKN-pG-bJf"/>
+                            <constraint firstItem="0rm-bh-I1j" firstAttribute="top" secondItem="UJr-Mt-BJl" secondAttribute="bottom" id="wKn-6d-dAu"/>
+                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Title" prompt="Hostname" id="9oW-kP-tGr"/>
+                    <navigationItem key="navigationItem" title="Title" prompt="Slides" id="9oW-kP-tGr">
+                        <barButtonItem key="leftBarButtonItem" image="disconnect" id="Swb-LL-Vc0">
+                            <connections>
+                                <action selector="onDisconnect:" destination="Np8-GF-fgK" id="1AG-o8-Av4"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="extraTableView" destination="16f-x4-0xn" id="f8I-eX-0ot"/>
+                        <segue destination="FcK-f2-79d" kind="show" identifier="Extra" id="6tp-1g-TZV"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g9h-ab-mBJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="right" id="pxk-9w-NIU">
+                    <connections>
+                        <action selector="onSwipeRight:" destination="Np8-GF-fgK" id="Sku-db-0La"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <swipeGestureRecognizer direction="left" id="lbK-Nm-sbK">
+                    <connections>
+                        <action selector="onSwipeLeft:" destination="Np8-GF-fgK" id="RJ4-o2-hBU"/>
+                    </connections>
+                </swipeGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1144.5" y="1163.5"/>
+        </scene>
+        <!--Extra-->
+        <scene sceneID="1PQ-aB-PKK">
+            <objects>
+                <viewController id="FcK-f2-79d" customClass="GSExtraScreen" customModule="GSRemote" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y5u-LD-SLH"/>
+                        <viewControllerLayoutGuide type="bottom" id="2Pb-PJ-UHa"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8dM-1k-OP4">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Extra" prompt="Slides" id="hw6-RT-3QN"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9C7-1G-9h7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1632.5" y="1163.5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="aNa-GM-QZF">
@@ -119,6 +234,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="disconnect" width="25" height="25"/>
         <image name="fileicon" width="40" height="40"/>
     </resources>
 </document>

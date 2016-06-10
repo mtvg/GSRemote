@@ -17,6 +17,7 @@
 		14757C851D00B9AC00290B89 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14757C841D00B9AC00290B89 /* main.swift */; };
 		14757C8B1D00B9E300290B89 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14757C8A1D00B9E300290B89 /* SwiftyJSON.swift */; };
 		14757C8C1D00B9E300290B89 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14757C8A1D00B9E300290B89 /* SwiftyJSON.swift */; };
+		14C43E871D0A3A97007A101B /* GSExtraScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C43E861D0A3A97007A101B /* GSExtraScreen.swift */; };
 		7748BC911D0699C900F6B9A5 /* GSBluetoothAdvertiser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7748BC901D0699C900F6B9A5 /* GSBluetoothAdvertiser.swift */; };
 		7748BC931D069F8200F6B9A5 /* GSBluetoothCentral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7748BC921D069F8200F6B9A5 /* GSBluetoothCentral.swift */; };
 		7748BC951D06A65500F6B9A5 /* GSBluetoothScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7748BC941D06A65500F6B9A5 /* GSBluetoothScanner.swift */; };
@@ -50,6 +51,7 @@
 		14757C821D00B9AC00290B89 /* gsremotehelper */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = gsremotehelper; sourceTree = BUILT_PRODUCTS_DIR; };
 		14757C841D00B9AC00290B89 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		14757C8A1D00B9E300290B89 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
+		14C43E861D0A3A97007A101B /* GSExtraScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GSExtraScreen.swift; sourceTree = "<group>"; };
 		7748BC901D0699C900F6B9A5 /* GSBluetoothAdvertiser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GSBluetoothAdvertiser.swift; sourceTree = "<group>"; };
 		7748BC921D069F8200F6B9A5 /* GSBluetoothCentral.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GSBluetoothCentral.swift; sourceTree = "<group>"; };
 		7748BC941D06A65500F6B9A5 /* GSBluetoothScanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GSBluetoothScanner.swift; sourceTree = "<group>"; };
@@ -100,8 +102,9 @@
 			children = (
 				14757C6A1D00B8F700290B89 /* AppDelegate.swift */,
 				142D8CDB1D08E14300945AF9 /* GSScanningScreen.swift */,
-				142D8CDD1D08E36F00945AF9 /* GSPresentationScreen.swift */,
 				77795C6F1D09346100975383 /* GSConnectionScreen.swift */,
+				142D8CDD1D08E36F00945AF9 /* GSPresentationScreen.swift */,
+				14C43E861D0A3A97007A101B /* GSExtraScreen.swift */,
 				77795C6E1D092E8100975383 /* Bluetooth */,
 				14757C6E1D00B8F700290B89 /* Main.storyboard */,
 				14757C711D00B8F700290B89 /* Assets.xcassets */,
@@ -189,7 +192,7 @@
 				TargetAttributes = {
 					14757C661D00B8F700290B89 = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = W2EQ6NT7V9;
+						DevelopmentTeam = 6J3YFK75V8;
 					};
 					14757C811D00B9AC00290B89 = {
 						CreatedOnToolsVersion = 7.3;
@@ -241,6 +244,7 @@
 				14272DB81D077905002E18DA /* GSBluetoothBridge.swift in Sources */,
 				142D8CDE1D08E36F00945AF9 /* GSPresentationScreen.swift in Sources */,
 				77795C701D09346100975383 /* GSConnectionScreen.swift in Sources */,
+				14C43E871D0A3A97007A101B /* GSExtraScreen.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -370,7 +374,7 @@
 				INFOPLIST_FILE = GSRemote/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = net.mtvg.GSRemote2;
+				PRODUCT_BUNDLE_IDENTIFIER = net.mtvg.GSRemote;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -385,7 +389,7 @@
 				INFOPLIST_FILE = GSRemote/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = net.mtvg.GSRemote2;
+				PRODUCT_BUNDLE_IDENTIFIER = net.mtvg.GSRemote;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};

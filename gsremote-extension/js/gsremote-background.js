@@ -103,11 +103,18 @@ var gsr = {
 						setTimeout(function(){
 							chrome.windows.update(gsr.extraWindowId, {focused:true});
 						}, 0);
+
+						try {
+							gsr.nativeBridge.postMessage({action:'extra', label:extra.label, type:extra.type});
+						} catch (e) {}
 						
 
 					} else if (msg.action == 'presentation') {
 						chrome.windows.update(gsr.presentationWindowId, {focused:true});
 						chrome.tabs.update(gsr.extraTabId, {url:chrome.extension.getURL('html/blank.html')});
+						try {
+							gsr.nativeBridge.postMessage({action:'presentation'});
+						} catch (e) {}
 					} else {
 						chrome.tabs.sendMessage(gsr.presenterTabId, {fromNative: msg});
 					}

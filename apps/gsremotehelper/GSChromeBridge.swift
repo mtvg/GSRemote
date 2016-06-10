@@ -84,6 +84,13 @@ class GSChromeBridge: NSObject {
     }
     
     func receivedDataFromRemote(data:NSData, remote:RemoteDevice) {
+        let json = JSON(data:data)
+        if let action = json["action"].string {
+            if action == "disconnect" {
+                bluetoothCentral.unsubscribeDevice(remote)
+                bluetoothCentral.disconnectDevice(remote)
+            }
+        }
         sendDataToChrome(data)
     }
     

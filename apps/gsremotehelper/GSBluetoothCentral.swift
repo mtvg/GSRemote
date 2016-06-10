@@ -126,14 +126,22 @@ class GSBluetoothCentral : NSObject, CBCentralManagerDelegate, CBPeripheralDeleg
     
     func disconnectAll() {
         for device in connectedDevices {
-            manager.cancelPeripheralConnection(device.peripheral)
+            disconnectDevice(device)
         }
+    }
+    
+    func disconnectDevice(device:RemoteDevice) {
+        manager.cancelPeripheralConnection(device.peripheral)
     }
     
     func unsubscribeAll() {
         for device in connectedDevices {
-            device.peripheral.setNotifyValue(false, forCharacteristic: device.txchar)
+            unsubscribeDevice(device)
         }
+    }
+    
+    func unsubscribeDevice(device:RemoteDevice) {
+        device.peripheral.setNotifyValue(false, forCharacteristic: device.txchar)
     }
     
 }

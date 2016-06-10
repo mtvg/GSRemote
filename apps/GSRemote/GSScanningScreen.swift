@@ -11,9 +11,9 @@ import UIKit
 class GSScanningScreen: UITableViewController {
     
     var bluetoothScanner:GSBluetoothScanner!
-    var listOfPeripherals:[GSPeripheral]!
+    var listOfPeripherals:[GSScannedPeripheral]!
     
-    var selectedPeripheral:GSPeripheral?
+    var selectedPeripheral:GSScannedPeripheral?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,11 +25,12 @@ class GSScanningScreen: UITableViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        listOfPeripherals = [GSPeripheral]()
+        listOfPeripherals = [GSScannedPeripheral]()
         tableView.reloadData()
     }
     
     override func viewDidAppear(animated: Bool) {
+        navigationItem.prompt = "Scanning for presentations..."
         super.viewDidAppear(animated)
         bluetoothScanner.startScanning()
     }
@@ -40,7 +41,7 @@ class GSScanningScreen: UITableViewController {
         bluetoothScanner.stopScanning()
     }
     
-    func peripheralListUpdated(newlist:[GSPeripheral]) {
+    func peripheralListUpdated(newlist:[GSScannedPeripheral]) {
         listOfPeripherals = newlist
         tableView.reloadData()
         
@@ -67,7 +68,7 @@ class GSScanningScreen: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "Connection" {
             let viewcontroller = segue.destinationViewController as! GSConnectionScreen
-            viewcontroller.connectingPeripheral = selectedPeripheral
+            viewcontroller.scannedPeripheral = selectedPeripheral
         }
     }
 }
