@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="nVb-cL-tUm">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="nVb-cL-tUm">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Google Slides Remote Control-->
@@ -141,11 +142,82 @@
                                     </tableView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rfl-s7-Ph2" userLabel="Touch Zone">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="287"/>
+                                        <subviews>
+                                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0wA-aj-1i1" userLabel="Navigation Gestures">
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="287"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Previous slide" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="whq-pl-qvt">
+                                                        <rect key="frame" x="47" y="133" width="106" height="21"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <color key="textColor" white="0.84609374999999998" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slide 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pIN-cI-KDh">
+                                                        <rect key="frame" x="162" y="43" width="50" height="21"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <color key="textColor" white="0.84609374999999998" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Next slide" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nJi-Bk-rvw">
+                                                        <rect key="frame" x="245" y="133" width="76" height="21"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <color key="textColor" white="0.84609374999999998" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Navigation Mode" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="95b-eS-8IB">
+                                                        <rect key="frame" x="139" y="264" width="96" height="15"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <color key="textColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstItem="whq-pl-qvt" firstAttribute="baseline" secondItem="nJi-Bk-rvw" secondAttribute="baseline" id="1Za-gI-7hE"/>
+                                                    <constraint firstItem="pIN-cI-KDh" firstAttribute="top" secondItem="0wA-aj-1i1" secondAttribute="top" constant="43" id="2EV-dh-aDf"/>
+                                                    <constraint firstItem="pIN-cI-KDh" firstAttribute="centerX" secondItem="0wA-aj-1i1" secondAttribute="centerX" id="58g-bs-rQR"/>
+                                                    <constraint firstItem="whq-pl-qvt" firstAttribute="centerY" secondItem="0wA-aj-1i1" secondAttribute="centerY" id="KXo-MM-E27"/>
+                                                    <constraint firstItem="95b-eS-8IB" firstAttribute="bottom" secondItem="0wA-aj-1i1" secondAttribute="bottomMargin" id="PED-WR-z7z"/>
+                                                    <constraint firstItem="pIN-cI-KDh" firstAttribute="centerX" secondItem="95b-eS-8IB" secondAttribute="centerX" id="Rcc-T6-Ynw"/>
+                                                    <constraint firstItem="whq-pl-qvt" firstAttribute="leading" secondItem="0wA-aj-1i1" secondAttribute="leading" constant="47" id="tDd-AX-4go"/>
+                                                    <constraint firstItem="nJi-Bk-rvw" firstAttribute="leading" secondItem="whq-pl-qvt" secondAttribute="trailing" constant="92" id="yqG-Pu-iFi"/>
+                                                </constraints>
+                                            </view>
+                                            <view hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ohO-4s-vmb" userLabel="Laser Gestures">
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="287"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Laser Mode" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j2M-QH-vbl">
+                                                        <rect key="frame" x="154" y="264" width="67" height="15"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <color key="textColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstItem="j2M-QH-vbl" firstAttribute="bottom" secondItem="ohO-4s-vmb" secondAttribute="bottomMargin" id="52E-ec-EKB"/>
+                                                    <constraint firstItem="j2M-QH-vbl" firstAttribute="centerX" secondItem="ohO-4s-vmb" secondAttribute="centerX" id="ygz-Dv-dF6"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <gestureRecognizers/>
+                                        <constraints>
+                                            <constraint firstItem="ohO-4s-vmb" firstAttribute="top" secondItem="Rfl-s7-Ph2" secondAttribute="top" id="2Hg-ik-rMz"/>
+                                            <constraint firstAttribute="trailing" secondItem="ohO-4s-vmb" secondAttribute="trailing" id="3rk-WT-cCC"/>
+                                            <constraint firstAttribute="trailing" secondItem="0wA-aj-1i1" secondAttribute="trailing" id="3yY-xp-W5M"/>
+                                            <constraint firstItem="0wA-aj-1i1" firstAttribute="leading" secondItem="Rfl-s7-Ph2" secondAttribute="leading" id="CYK-Dd-CYq"/>
+                                            <constraint firstAttribute="bottom" secondItem="0wA-aj-1i1" secondAttribute="bottom" id="Nj1-lR-SUS"/>
+                                            <constraint firstItem="0wA-aj-1i1" firstAttribute="top" secondItem="Rfl-s7-Ph2" secondAttribute="top" id="mhl-vp-Ti3"/>
+                                            <constraint firstItem="ohO-4s-vmb" firstAttribute="leading" secondItem="Rfl-s7-Ph2" secondAttribute="leading" id="nfi-od-GSz"/>
+                                            <constraint firstAttribute="bottom" secondItem="ohO-4s-vmb" secondAttribute="bottom" id="oIo-fU-ccD"/>
+                                        </constraints>
                                         <connections>
                                             <outletCollection property="gestureRecognizers" destination="pxk-9w-NIU" appends="YES" id="wBC-C6-bUm"/>
                                             <outletCollection property="gestureRecognizers" destination="lbK-Nm-sbK" appends="YES" id="CxS-vR-pqR"/>
+                                            <outletCollection property="gestureRecognizers" destination="VP8-C1-AG9" appends="YES" id="2p7-en-has"/>
+                                            <outletCollection property="gestureRecognizers" destination="410-Lv-h1D" appends="YES" id="NHq-LT-6JU"/>
+                                            <outletCollection property="gestureRecognizers" destination="E1W-3U-zTU" appends="YES" id="5AM-GT-Gf3"/>
                                         </connections>
                                     </view>
                                 </subviews>
@@ -179,20 +251,42 @@
                     </navigationItem>
                     <connections>
                         <outlet property="extraTableView" destination="16f-x4-0xn" id="f8I-eX-0ot"/>
+                        <outlet property="labelViewGestureLaser" destination="ohO-4s-vmb" id="ypp-4p-a2t"/>
+                        <outlet property="labelViewGestureNavigation" destination="0wA-aj-1i1" id="9Li-5w-MXm"/>
+                        <outlet property="panGesture" destination="VP8-C1-AG9" id="Onp-eo-1Kz"/>
+                        <outlet property="swipeLeft" destination="pxk-9w-NIU" id="CNA-OK-uW0"/>
+                        <outlet property="swipeRight" destination="lbK-Nm-sbK" id="X3p-xs-PDd"/>
+                        <outlet property="swipeUp" destination="E1W-3U-zTU" id="Mxa-9S-6bQ"/>
+                        <outlet property="touchZone" destination="Rfl-s7-Ph2" id="lCe-HX-amN"/>
                         <segue destination="FcK-f2-79d" kind="show" identifier="Extra" id="6tp-1g-TZV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g9h-ab-mBJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <swipeGestureRecognizer direction="right" id="pxk-9w-NIU">
+                <swipeGestureRecognizer direction="right" id="pxk-9w-NIU" userLabel="Swipe Left Gesture Recognizer">
                     <connections>
                         <action selector="onSwipeRight:" destination="Np8-GF-fgK" id="Sku-db-0La"/>
                     </connections>
                 </swipeGestureRecognizer>
-                <swipeGestureRecognizer direction="left" id="lbK-Nm-sbK">
+                <swipeGestureRecognizer direction="left" id="lbK-Nm-sbK" userLabel="Swipe Right Gesture Recognizer">
                     <connections>
                         <action selector="onSwipeLeft:" destination="Np8-GF-fgK" id="RJ4-o2-hBU"/>
                     </connections>
                 </swipeGestureRecognizer>
+                <swipeGestureRecognizer direction="up" id="E1W-3U-zTU" userLabel="Swipe Up Gesture Recognizer">
+                    <connections>
+                        <action selector="onSwipeUp:" destination="Np8-GF-fgK" id="eFp-7y-NJg"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <panGestureRecognizer enabled="NO" minimumNumberOfTouches="1" maximumNumberOfTouches="1" id="VP8-C1-AG9">
+                    <connections>
+                        <action selector="onPan:" destination="Np8-GF-fgK" id="lU7-38-zIO"/>
+                    </connections>
+                </panGestureRecognizer>
+                <tapGestureRecognizer numberOfTapsRequired="2" id="410-Lv-h1D">
+                    <connections>
+                        <action selector="onDoubleTapped:" destination="Np8-GF-fgK" id="Wbq-ER-MIM"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1144.5" y="1163.5"/>
         </scene>

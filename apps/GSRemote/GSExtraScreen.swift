@@ -9,7 +9,7 @@
 import UIKit
 import CoreBluetooth
 
-class GSExtraScreen: UIViewController {
+class GSExtraScreen: UIViewController, VolumeHackDelegate {
     
     var bluetoothPeripheral:GSBluetoothPeripheral!
     var scannedPeripheral:GSScannedPeripheral!
@@ -24,6 +24,15 @@ class GSExtraScreen: UIViewController {
         
         bluetoothPeripheral.centralDataCallback = onData
         
+    }
+    
+    func onVolumeUp() {
+        bluetoothPeripheral.sendJSON(["action":"prev"])
+        bluetoothPeripheral.sendJSON(["action":"presentation"])
+    }
+    func onVolumeDown() {
+        bluetoothPeripheral.sendJSON(["action":"next"])
+        bluetoothPeripheral.sendJSON(["action":"presentation"])
     }
     
     func onData(data:NSData, central:CBCentral) {
@@ -41,6 +50,7 @@ class GSExtraScreen: UIViewController {
         super.viewWillAppear(animated)
         
         popActionReceived = false
+        AppDelegate.volumeHack.delegate = self
     }
     
     override func viewDidDisappear(animated: Bool) {

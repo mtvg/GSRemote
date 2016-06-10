@@ -90,6 +90,16 @@ class GSChromeBridge: NSObject {
                 bluetoothCentral.unsubscribeDevice(remote)
                 bluetoothCentral.disconnectDevice(remote)
             }
+            if action == "laseron" {
+                setCurrentMousePosition()
+            }
+        }
+        else if json.array?.count == 2 {
+            if let x = json[0].int, let y = json[1].int {
+                mousePosition.offset(dx: x, dy: y)
+                CGEventPost(.CGHIDEventTap, CGEventCreateMouseEvent(nil, .MouseMoved, mousePosition, CGMouseButton.Left))
+                return
+            }
         }
         sendDataToChrome(data)
     }
@@ -105,6 +115,12 @@ class GSChromeBridge: NSObject {
     
     //MARK: Utilities
     
+    var mousePosition = NSMakePoint(0, 0)
+    func setCurrentMousePosition() {
+        let ev = CGEventCreate(nil);
+        mousePosition = CGEventGetLocation(ev);
+    }
+    
     func delay(delay:Double, closure:()->()) {
         dispatch_after(
             dispatch_time(
@@ -114,4 +130,13 @@ class GSChromeBridge: NSObject {
             dispatch_queue_create("delayQueue", DISPATCH_QUEUE_CONCURRENT), closure)
     }
     
+}
+
+extension CGPoint {
+    
+    public mutating func offset(dx dx: Int, dy: Int) -> CGPoint {
+        x += CGFloat(dx)/20
+        y += CGFloat(dy)/20
+        return self
+    }
 }

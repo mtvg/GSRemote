@@ -27,6 +27,7 @@ class GSBluetoothPeripheral : NSObject, CBPeripheralManagerDelegate {
     
     var connectedCentral:CBCentral?
     var sendingQueueData = [NSData]()
+    var sendingData = [NSData]()
     var isSending = false
     
     init(withCBUUID uuid:CBUUID) {
@@ -39,8 +40,8 @@ class GSBluetoothPeripheral : NSObject, CBPeripheralManagerDelegate {
     
     func cancelConnection() {
         if isConnected {
-            isConnected = false
             sendJSON(["action":"disconnect"])
+            isConnected = false
         } else {
             cancelingConnection = true
             manager.stopAdvertising()
@@ -114,6 +115,10 @@ class GSBluetoothPeripheral : NSObject, CBPeripheralManagerDelegate {
     }
     
     func sendData(data:NSData) {
+        if !isConnected {
+            return
+        }
+        
         sendingQueueData.append(data)
         if !isSending {
             flushQueue()

@@ -11,7 +11,7 @@ import CoreBluetooth
 import MediaPlayer
 import AVFoundation
 
-class GSPresentationScreen: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class GSPresentationScreen: UIViewController, VolumeHackDelegate, UITableViewDelegate, UITableViewDataSource {
     
     var bluetoothPeripheral:GSBluetoothPeripheral!
     var scannedPeripheral:GSScannedPeripheral!
@@ -23,6 +23,16 @@ class GSPresentationScreen: UIViewController, UITableViewDelegate, UITableViewDa
     
     @IBOutlet weak var extraTableView: UITableView!
     
+    @IBOutlet var swipeLeft: UISwipeGestureRecognizer!
+    @IBOutlet var swipeRight: UISwipeGestureRecognizer!
+    @IBOutlet var swipeUp: UISwipeGestureRecognizer!
+    @IBOutlet var panGesture: UIPanGestureRecognizer!
+    @IBOutlet weak var labelViewGestureNavigation: UIView!
+    @IBOutlet weak var labelViewGestureLaser: UIView!
+    @IBOutlet weak var touchZone: UIView!
+    
+    var navigationGestureMode = true
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -32,7 +42,6 @@ class GSPresentationScreen: UIViewController, UITableViewDelegate, UITableViewDa
         bluetoothPeripheral.centralDisconnectionCallback = onDisconnected
         bluetoothPeripheral.centralDataCallback = onData
         
-        //setupVolume()
         extraTableView.delegate = self
         extraTableView.dataSource = self
         
@@ -46,40 +55,17 @@ class GSPresentationScreen: UIViewController, UITableViewDelegate, UITableViewDa
         super.viewDidAppear(animated)
         
         bluetoothPeripheral.centralDataCallback = onData
+        bluetoothPeripheral.sendJSON(["action":"ready"])
         navigationItem.title = scannedPeripheral.name
+        AppDelegate.volumeHack.delegate = self
         
-        /*
-        if previousExtraView != nil {
-            volumeView.slider?.removeTarget(previousExtraView!, action: #selector(sliderDidChange(_:)), forControlEvents: .ValueChanged)
-            volumeView.slider?.addTarget(self, action: #selector(sliderDidChange(_:)), forControlEvents: .ValueChanged)
-            previousExtraView = nil
-        }*/
+        UIApplication.sharedApplication().idleTimerDisabled = true
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         
         navigationItem.title = ""
-        
-        if isMovingFromParentViewController() || self.isBeingDismissed() {
-            
-            print("unlading GSPresentationScreen")
-            
-            /*
-            volumeView.removeFromSuperview()
-            if previousExtraView != nil {
-                volumeView.slider?.removeTarget(previousExtraView!, action: #selector(sliderDidChange(_:)), forControlEvents: .ValueChanged)
-                volumeView.slider?.addTarget(self, action: #selector(sliderDidChange(_:)), forControlEvents: .ValueChanged)
-                previousExtraView = nil
-            } else {
-                volumeView.slider?.removeTarget(self, action: #selector(sliderDidChange(_:)), forControlEvents: .ValueChanged)
-            }
-            do {
-                try AVAudioSession.sharedInstance().setActive(false)
-            } catch {
-                print("Unable to initialize AVAudioSession")
-            }*/
-        }
     }
     
     func updateSlideNumber() {
@@ -92,6 +78,34 @@ class GSPresentationScreen: UIViewController, UITableViewDelegate, UITableViewDa
     
     @IBAction func onSwipeLeft(sender: UISwipeGestureRecognizer) {
         bluetoothPeripheral.sendJSON(["action":"prev"])
+    }
+    @IBAction func onSwipeUp(sender: UISwipeGestureRecognizer) {
+        bluetoothPeripheral.sendJSON(["action":"goto", "slide":1])
+    }
+    
+    @IBAction func onDoubleTapped(sender: UITapGestureRecognizer) {
+        navigationGestureMode = !navigationGestureMode
+        
+        swipeLeft.enabled = navigationGestureMode
+        swipeUp.enabled = navigationGestureMode
+        swipeRight.enabled = navigationGestureMode
+        panGesture.enabled = !navigationGestureMode
+        labelViewGestureNavigation.hidden = !navigationGestureMode
+        labelViewGestureLaser.hidden = navigationGestureMode
+    }
+    
+    @IBAction func onPan(sender: UIPanGestureRecognizer) {
+        
+        if sender.state == UIGestureRecognizerState.Began {
+            bluetoothPeripheral.sendJSON(["action":"laseron"])
+        }
+        if sender.state == UIGestureRecognizerState.Ended {
+            bluetoothPeripheral.sendJSON(["action":"laseroff"])
+        }
+        if sender.state == UIGestureRecognizerState.Changed {
+            let velocity = sender.velocityInView(touchZone)
+            bluetoothPeripheral.sendJSON([Int(velocity.x), Int(velocity.y)])
+        }
     }
     
     //MARK: Table View
@@ -135,11 +149,6 @@ class GSPresentationScreen: UIViewController, UITableViewDelegate, UITableViewDa
             extra.bluetoothPeripheral = bluetoothPeripheral
             extra.scannedPeripheral = scannedPeripheral
             extra.selectedExtra = selectedExtra!
-            /*
-            previousExtraView = extra
-            volumeView.slider?.addTarget(previousExtraView!, action: #selector(sliderDidChange(_:)), forControlEvents: .ValueChanged)
-            volumeView.slider?.removeTarget(self, action: #selector(sliderDidChange(_:)), forControlEvents: .ValueChanged)
-            */
         }
     }
     
@@ -181,64 +190,7 @@ class GSPresentationScreen: UIViewController, UITableViewDelegate, UITableViewDa
         bluetoothPeripheral.cancelConnection()
     }
     
-    //MARK: Volume Control
-    
-    var originalVolume:Float = 0
-    var volumeView: MPVolumeView!
-    var ignoreNextVolume = true
-    func setupVolume() {
-        do {
-            try AVAudioSession.sharedInstance().setActive(true)
-        } catch {
-            print("Unable to initialize AVAudioSession")
-        }
-        
-        self.volumeView = MPVolumeView(frame: CGRectMake(0, -100, 100, 50))
-        UIApplication.sharedApplication().windows.first!.addSubview(self.volumeView!)
-        if let slider = self.volumeView.slider {
-            slider.addTarget(self, action: #selector(sliderDidChange(_:)), forControlEvents: .ValueChanged)
-        }
-    }
-    
-    @objc private func sliderDidChange(sender: UISlider) {
-        if AppDelegate.invalidateVolume {
-            originalVolume = sender.value
-            AppDelegate.invalidateVolume = false
-            return
-        }
-        
-        if ignoreNextVolume {
-            ignoreNextVolume = false
-            return
-        }
-        
-        if sender.value > originalVolume {
-            onVolumeUp()
-            ignoreNextVolume = true
-        } else if sender.value < originalVolume {
-            onVolumeDown()
-            ignoreNextVolume = true
-        } else if sender.value == 1.0 {
-            onVolumeUp()
-        } else if sender.value == 0.0 {
-            onVolumeDown()
-        }
-        sender.value = originalVolume
-    }
-    
 
-}
-
-private extension MPVolumeView
-{
-    var slider: UISlider? {
-        for view in self.subviews {
-            if let isSlider = view as? UISlider {
-                return isSlider
-            }
-        }
-        return nil
-    }
 }
 
 struct GSExtra {

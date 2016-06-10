@@ -33,6 +33,7 @@ class GSScanningScreen: UITableViewController {
         navigationItem.prompt = "Scanning for presentations..."
         super.viewDidAppear(animated)
         bluetoothScanner.startScanning()
+        UIApplication.sharedApplication().idleTimerDisabled = false
     }
     
     override func viewWillDisappear(animated: Bool) {

@@ -34,8 +34,8 @@ var gsr = {
 		addPresentationJS : function() {  
 			chrome.runtime.sendMessage({action: "initpresentation"});
 			chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+				var doc = window.top.document;
 				if (request.action == "openpresenter") {
-					var doc = window.top.document;
 					var pres = doc.getElementsByClassName("punch-viewer-qanda-icon")[0];
 					gsr.sendClick(doc, pres.parentNode.parentNode);
 
@@ -56,12 +56,12 @@ var gsr = {
 						nav.style.display = 'none';
 				}
 
-				if (request.action == "showlaser") {
+				if (request.action == "laseron") {
 					var laser = doc.getElementsByClassName("punch-viewer-on-laser-icon")[0].parentNode;
 					gsr.sendClick(doc, laser);
 				}
 
-				if (request.action == "hidelaser") {
+				if (request.action == "laseroff") {
 					var laser = doc.getElementsByClassName("punch-viewer-off-laser-icon")[0].parentNode;
 					gsr.sendClick(doc, laser);
 				}

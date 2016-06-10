@@ -115,6 +115,8 @@ var gsr = {
 						try {
 							gsr.nativeBridge.postMessage({action:'presentation'});
 						} catch (e) {}
+					} else if (msg.action == 'laseron' || msg.action == 'laseroff') {
+						chrome.tabs.sendMessage(gsr.presentationTabId, msg);
 					} else {
 						chrome.tabs.sendMessage(gsr.presenterTabId, {fromNative: msg});
 					}

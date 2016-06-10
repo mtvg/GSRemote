@@ -22,6 +22,7 @@
 		7748BC931D069F8200F6B9A5 /* GSBluetoothCentral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7748BC921D069F8200F6B9A5 /* GSBluetoothCentral.swift */; };
 		7748BC951D06A65500F6B9A5 /* GSBluetoothScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7748BC941D06A65500F6B9A5 /* GSBluetoothScanner.swift */; };
 		7748BC971D06ADEC00F6B9A5 /* GSBluetoothPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7748BC961D06ADEC00F6B9A5 /* GSBluetoothPeripheral.swift */; };
+		77695D0E1D0A5C4500F8E7B9 /* VolumeHack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77695D0D1D0A5C4500F8E7B9 /* VolumeHack.swift */; };
 		77795C701D09346100975383 /* GSConnectionScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77795C6F1D09346100975383 /* GSConnectionScreen.swift */; };
 		77F89C641D0539EA0044624D /* GSChromeBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F89C631D0539EA0044624D /* GSChromeBridge.swift */; };
 /* End PBXBuildFile section */
@@ -56,6 +57,7 @@
 		7748BC921D069F8200F6B9A5 /* GSBluetoothCentral.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GSBluetoothCentral.swift; sourceTree = "<group>"; };
 		7748BC941D06A65500F6B9A5 /* GSBluetoothScanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GSBluetoothScanner.swift; sourceTree = "<group>"; };
 		7748BC961D06ADEC00F6B9A5 /* GSBluetoothPeripheral.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GSBluetoothPeripheral.swift; sourceTree = "<group>"; };
+		77695D0D1D0A5C4500F8E7B9 /* VolumeHack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VolumeHack.swift; sourceTree = "<group>"; };
 		77795C6F1D09346100975383 /* GSConnectionScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GSConnectionScreen.swift; sourceTree = "<group>"; };
 		77F89C631D0539EA0044624D /* GSChromeBridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GSChromeBridge.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -105,6 +107,7 @@
 				77795C6F1D09346100975383 /* GSConnectionScreen.swift */,
 				142D8CDD1D08E36F00945AF9 /* GSPresentationScreen.swift */,
 				14C43E861D0A3A97007A101B /* GSExtraScreen.swift */,
+				77695D0D1D0A5C4500F8E7B9 /* VolumeHack.swift */,
 				77795C6E1D092E8100975383 /* Bluetooth */,
 				14757C6E1D00B8F700290B89 /* Main.storyboard */,
 				14757C711D00B8F700290B89 /* Assets.xcassets */,
@@ -192,7 +195,7 @@
 				TargetAttributes = {
 					14757C661D00B8F700290B89 = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = 6J3YFK75V8;
+						DevelopmentTeam = W2EQ6NT7V9;
 					};
 					14757C811D00B9AC00290B89 = {
 						CreatedOnToolsVersion = 7.3;
@@ -238,6 +241,7 @@
 			files = (
 				7748BC971D06ADEC00F6B9A5 /* GSBluetoothPeripheral.swift in Sources */,
 				14757C6B1D00B8F700290B89 /* AppDelegate.swift in Sources */,
+				77695D0E1D0A5C4500F8E7B9 /* VolumeHack.swift in Sources */,
 				14757C8B1D00B9E300290B89 /* SwiftyJSON.swift in Sources */,
 				142D8CDC1D08E14300945AF9 /* GSScanningScreen.swift in Sources */,
 				7748BC951D06A65500F6B9A5 /* GSBluetoothScanner.swift in Sources */,
@@ -374,7 +378,7 @@
 				INFOPLIST_FILE = GSRemote/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = net.mtvg.GSRemote;
+				PRODUCT_BUNDLE_IDENTIFIER = net.mtvg.GSRemote2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -389,7 +393,7 @@
 				INFOPLIST_FILE = GSRemote/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = net.mtvg.GSRemote;
+				PRODUCT_BUNDLE_IDENTIFIER = net.mtvg.GSRemote2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
