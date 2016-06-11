@@ -8,6 +8,7 @@ var gsr = {
 	nativeBridge: null,
 	inPresentation: false,
 	initNextPresenter: false,
+	currentExtra: null,
 	currentExtras: [],
 
 
@@ -95,6 +96,8 @@ var gsr = {
 						var extra = gsr.currentExtras[msg.extra];
 						if (!extra) return;
 
+						gsr.currentExtra = extra;
+
 						if (extra.type == 'youtube')
 							chrome.tabs.update(gsr.extraTabId, {url:'https://www.youtube.com/_forcedembed_/'+extra.link});
 						else if (extra.type == 'url')
@@ -110,6 +113,8 @@ var gsr = {
 						
 
 					} else if (msg.action == 'presentation') {
+						gsr.currentExtra = null;
+
 						chrome.windows.update(gsr.presentationWindowId, {focused:true});
 						chrome.tabs.update(gsr.extraTabId, {url:chrome.extension.getURL('html/blank.html')});
 						try {
@@ -127,6 +132,12 @@ var gsr = {
 								gsr.nativeBridge.postMessage({action:'windowpos', top:win.top, left:win.left});
 							} catch (e) {}
 						});
+					}
+
+					if (msg.action == 'ready' && gsr.currentExtra) {
+						try {
+							gsr.nativeBridge.postMessage({action:'extra', label:gsr.currentExtra.label, type:gsr.currentExtra.type});
+						} catch (e) {}									
 					}
 				});
 				bridge.onDisconnect.addListener(function() {

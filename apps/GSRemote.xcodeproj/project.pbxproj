@@ -18,6 +18,7 @@
 		14757C8B1D00B9E300290B89 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14757C8A1D00B9E300290B89 /* SwiftyJSON.swift */; };
 		14757C8C1D00B9E300290B89 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14757C8A1D00B9E300290B89 /* SwiftyJSON.swift */; };
 		14C43E871D0A3A97007A101B /* GSExtraScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C43E861D0A3A97007A101B /* GSExtraScreen.swift */; };
+		77392CF61D0BDCDF00EF57E9 /* MouseWheel.m in Sources */ = {isa = PBXBuildFile; fileRef = 77392CF51D0BDCDF00EF57E9 /* MouseWheel.m */; };
 		7748BC911D0699C900F6B9A5 /* GSBluetoothAdvertiser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7748BC901D0699C900F6B9A5 /* GSBluetoothAdvertiser.swift */; };
 		7748BC931D069F8200F6B9A5 /* GSBluetoothCentral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7748BC921D069F8200F6B9A5 /* GSBluetoothCentral.swift */; };
 		7748BC951D06A65500F6B9A5 /* GSBluetoothScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7748BC941D06A65500F6B9A5 /* GSBluetoothScanner.swift */; };
@@ -53,6 +54,9 @@
 		14757C841D00B9AC00290B89 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		14757C8A1D00B9E300290B89 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		14C43E861D0A3A97007A101B /* GSExtraScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GSExtraScreen.swift; sourceTree = "<group>"; };
+		77392CF31D0BDCDF00EF57E9 /* gsremotehelper-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "gsremotehelper-Bridging-Header.h"; sourceTree = "<group>"; };
+		77392CF41D0BDCDF00EF57E9 /* MouseWheel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MouseWheel.h; sourceTree = "<group>"; };
+		77392CF51D0BDCDF00EF57E9 /* MouseWheel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MouseWheel.m; sourceTree = "<group>"; };
 		7748BC901D0699C900F6B9A5 /* GSBluetoothAdvertiser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GSBluetoothAdvertiser.swift; sourceTree = "<group>"; };
 		7748BC921D069F8200F6B9A5 /* GSBluetoothCentral.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GSBluetoothCentral.swift; sourceTree = "<group>"; };
 		7748BC941D06A65500F6B9A5 /* GSBluetoothScanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GSBluetoothScanner.swift; sourceTree = "<group>"; };
@@ -124,6 +128,9 @@
 				77F89C631D0539EA0044624D /* GSChromeBridge.swift */,
 				7748BC901D0699C900F6B9A5 /* GSBluetoothAdvertiser.swift */,
 				7748BC921D069F8200F6B9A5 /* GSBluetoothCentral.swift */,
+				77392CF41D0BDCDF00EF57E9 /* MouseWheel.h */,
+				77392CF51D0BDCDF00EF57E9 /* MouseWheel.m */,
+				77392CF31D0BDCDF00EF57E9 /* gsremotehelper-Bridging-Header.h */,
 			);
 			path = gsremotehelper;
 			sourceTree = "<group>";
@@ -195,7 +202,7 @@
 				TargetAttributes = {
 					14757C661D00B8F700290B89 = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = 6J3YFK75V8;
+						DevelopmentTeam = W2EQ6NT7V9;
 					};
 					14757C811D00B9AC00290B89 = {
 						CreatedOnToolsVersion = 7.3;
@@ -261,6 +268,7 @@
 				7748BC911D0699C900F6B9A5 /* GSBluetoothAdvertiser.swift in Sources */,
 				14757C851D00B9AC00290B89 /* main.swift in Sources */,
 				14757C8C1D00B9E300290B89 /* SwiftyJSON.swift in Sources */,
+				77392CF61D0BDCDF00EF57E9 /* MouseWheel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -378,7 +386,7 @@
 				INFOPLIST_FILE = GSRemote/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = net.mtvg.GSRemote;
+				PRODUCT_BUNDLE_IDENTIFIER = net.mtvg.GSRemote2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -393,7 +401,7 @@
 				INFOPLIST_FILE = GSRemote/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = net.mtvg.GSRemote;
+				PRODUCT_BUNDLE_IDENTIFIER = net.mtvg.GSRemote2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -402,20 +410,27 @@
 		14757C871D00B9AC00290B89 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "-";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				SWIFT_OBJC_BRIDGING_HEADER = "gsremotehelper/gsremotehelper-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		14757C881D00B9AC00290B89 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "-";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				SWIFT_OBJC_BRIDGING_HEADER = "gsremotehelper/gsremotehelper-Bridging-Header.h";
 			};
 			name = Release;
 		};

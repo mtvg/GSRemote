@@ -11,7 +11,7 @@ import CoreBluetooth
 import MediaPlayer
 import AVFoundation
 
-class GSPresentationScreen: UIViewController, VolumeHackDelegate, UITableViewDelegate, UITableViewDataSource {
+class GSPresentationScreen: UIViewController, VolumeHackDelegate, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource {
     
     var bluetoothPeripheral:GSBluetoothPeripheral!
     var scannedPeripheral:GSScannedPeripheral!
@@ -23,6 +23,7 @@ class GSPresentationScreen: UIViewController, VolumeHackDelegate, UITableViewDel
     
     @IBOutlet weak var extraTableView: UITableView!
     
+    @IBOutlet var swipeDown: UISwipeGestureRecognizer!
     @IBOutlet var swipeLeft: UISwipeGestureRecognizer!
     @IBOutlet var swipeRight: UISwipeGestureRecognizer!
     @IBOutlet var swipeUp: UISwipeGestureRecognizer!
@@ -30,6 +31,8 @@ class GSPresentationScreen: UIViewController, VolumeHackDelegate, UITableViewDel
     @IBOutlet weak var labelViewGestureNavigation: UIView!
     @IBOutlet weak var labelViewGestureLaser: UIView!
     @IBOutlet weak var touchZone: UIView!
+    @IBOutlet weak var slidePickerContainer: UIView!
+    @IBOutlet weak var slidePicker: UIPickerView!
     
     var navigationGestureMode = true
     
@@ -45,8 +48,16 @@ class GSPresentationScreen: UIViewController, VolumeHackDelegate, UITableViewDel
         extraTableView.delegate = self
         extraTableView.dataSource = self
         
+        slidePicker.delegate = self
+        slidePicker.dataSource = self
+        
         updateSlideNumber()
         bluetoothPeripheral.sendJSON(["action":"ready"])
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        slidePickerContainer.hidden = true
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -71,19 +82,24 @@ class GSPresentationScreen: UIViewController, VolumeHackDelegate, UITableViewDel
     }
     
     @IBAction func onSwipeRight(sender: UISwipeGestureRecognizer) {
-        bluetoothPeripheral.sendJSON(["action":"next"])
+        bluetoothPeripheral.sendJSON(["action":"prev"])
     }
     
     @IBAction func onSwipeLeft(sender: UISwipeGestureRecognizer) {
-        bluetoothPeripheral.sendJSON(["action":"prev"])
+        bluetoothPeripheral.sendJSON(["action":"next"])
     }
     @IBAction func onSwipeUp(sender: UISwipeGestureRecognizer) {
         bluetoothPeripheral.sendJSON(["action":"goto", "slide":1])
+    }
+    @IBAction func onSwipeDown(sender: UISwipeGestureRecognizer) {
+        slidePicker.selectRow(Int(currentSlide)!-1, inComponent: 0, animated: false)
+        slidePickerContainer.hidden = false
     }
     
     @IBAction func onDoubleTapped(sender: UITapGestureRecognizer) {
         navigationGestureMode = !navigationGestureMode
         
+        swipeDown.enabled = navigationGestureMode
         swipeLeft.enabled = navigationGestureMode
         swipeUp.enabled = navigationGestureMode
         swipeRight.enabled = navigationGestureMode
@@ -122,8 +138,6 @@ class GSPresentationScreen: UIViewController, VolumeHackDelegate, UITableViewDel
         let cell:UITableViewCell = self.extraTableView.dequeueReusableCellWithIdentifier("ExtraCell")! as UITableViewCell
         
         cell.textLabel?.text = self.slideExtras[indexPath.row]
-        //cell.textLabel?.textColor = UIColor.whiteColor()
-        //cell.backgroundColor = UIColor.clearColor()
         
         return cell
     }
@@ -138,6 +152,29 @@ class GSPresentationScreen: UIViewController, VolumeHackDelegate, UITableViewDel
     func onVolumeDown() {
         bluetoothPeripheral.sendJSON(["action":"next"])
     }
+    
+    //MARK: Slide Picker
+    
+    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return scannedPeripheral.count
+    }
+    
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return "Slide "+(row+1).description+" of "+scannedPeripheral.count.description
+    }
+    
+    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        bluetoothPeripheral.sendJSON(["action":"goto", "slide":row+1])
+    }
+    
+    @IBAction func onSlideDone(sender: AnyObject) {
+        slidePickerContainer.hidden = true
+    }
+    
     
     //MARK: Extras
     

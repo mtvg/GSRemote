@@ -122,30 +122,41 @@ class GSChromeBridge: NSObject {
                 let mouseUp = CGEventCreateMouseEvent(nil, .LeftMouseUp, mousePosition, CGMouseButton.Left)
                 CGEventPost(.CGHIDEventTap, mouseUp)
             }
+            if action == "startscrolling" {
+                scrolling = true
+            }
+            if action == "stopscrolling" {
+                scrolling = false
+            }
         }
         else if json.array?.count == 2 {
             if let x = json[0].int, let y = json[1].int {
                 
-                mousePosition.offset(dx: x, dy: y)
-                
-                if mousePosition.x < screenFrame.origin.x {
-                    mousePosition.x = screenFrame.origin.x
-                }
-                if mousePosition.x > screenFrame.origin.x + screenFrame.size.width {
-                    mousePosition.x = screenFrame.origin.x + screenFrame.size.width - 1
-                }
-                if mousePosition.y < screenFrame.origin.y {
-                    mousePosition.y = screenFrame.origin.y
-                }
-                if mousePosition.y > screenFrame.origin.y + screenFrame.size.height {
-                    mousePosition.y = screenFrame.origin.y + screenFrame.size.height - 1
-                }
-                
-                if dragging {
-                    CGEventPost(.CGHIDEventTap, CGEventCreateMouseEvent(nil, .LeftMouseDragged, mousePosition, CGMouseButton.Left))
+                if scrolling {
+                    MouseWheel.scrollX(Int32(x), andY: Int32(y))
                 } else {
-                    CGEventPost(.CGHIDEventTap, CGEventCreateMouseEvent(nil, .MouseMoved, mousePosition, CGMouseButton.Left))
+                    mousePosition.offset(dx: x, dy: y)
+                    
+                    if mousePosition.x < screenFrame.origin.x {
+                        mousePosition.x = screenFrame.origin.x
+                    }
+                    if mousePosition.x > screenFrame.origin.x + screenFrame.size.width {
+                        mousePosition.x = screenFrame.origin.x + screenFrame.size.width - 1
+                    }
+                    if mousePosition.y < screenFrame.origin.y {
+                        mousePosition.y = screenFrame.origin.y
+                    }
+                    if mousePosition.y > screenFrame.origin.y + screenFrame.size.height {
+                        mousePosition.y = screenFrame.origin.y + screenFrame.size.height - 1
+                    }
+                    
+                    if dragging {
+                        CGEventPost(.CGHIDEventTap, CGEventCreateMouseEvent(nil, .LeftMouseDragged, mousePosition, CGMouseButton.Left))
+                    } else {
+                        CGEventPost(.CGHIDEventTap, CGEventCreateMouseEvent(nil, .MouseMoved, mousePosition, CGMouseButton.Left))
+                    }
                 }
+                
                 return
             }
         }
@@ -166,6 +177,7 @@ class GSChromeBridge: NSObject {
     var mousePosition = NSMakePoint(0, 0)
     var screenFrame = NSMakeRect(0, 0, 100, 100)
     var dragging = false
+    var scrolling = false
     func setCurrentMousePosition() {
         let ev = CGEventCreate(nil);
         mousePosition = CGEventGetLocation(ev);
