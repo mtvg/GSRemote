@@ -47,8 +47,6 @@ class GSPresentationScreen: UIViewController, VolumeHackDelegate, UITableViewDel
         
         updateSlideNumber()
         bluetoothPeripheral.sendJSON(["action":"ready"])
-        
-        print("loading GSPresentationScreen")
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -103,10 +101,10 @@ class GSPresentationScreen: UIViewController, VolumeHackDelegate, UITableViewDel
             bluetoothPeripheral.sendJSON(["action":"laseroff"])
         }
         if sender.state == UIGestureRecognizerState.Changed {
-            let pos = sender.locationInView(touchZone?.superview)
-            let w = touchZone.frame.width
-            let h = touchZone.frame.height
-            bluetoothPeripheral.sendJSON([Int(min(1, max(0, pos.x/w))*2000), Int(min(1, max(0, pos.y/h))*2000)], queue: "mouse")
+            var velocity = sender.velocityInView(touchZone)
+            velocity.x = velocity.x * max(1, abs(velocity.x)/400) / 2
+            velocity.y = velocity.y * max(1, abs(velocity.y)/400) / 2
+            bluetoothPeripheral.sendJSON([Int(velocity.x), Int(velocity.y)], queue: "mouse")
         }
     }
     

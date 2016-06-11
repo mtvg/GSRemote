@@ -94,8 +94,12 @@ class GSChromeBridge: NSObject {
                 bluetoothCentral.unsubscribeDevice(remote)
                 bluetoothCentral.disconnectDevice(remote)
             }
-            if action == "laseron" {
-                setGlobalMousePosition()
+            if action == "ready" {
+                let keydown = CGEventCreateKeyboardEvent (nil, 84, true)
+                let keyup = CGEventCreateKeyboardEvent (nil, 84, false)
+                CGEventPost(.CGHIDEventTap, keydown)
+                usleep(50_000)
+                CGEventPost(.CGHIDEventTap, keyup)
             }
             if action == "setmousepos" {
                 setCurrentMousePosition()
@@ -110,6 +114,7 @@ class GSChromeBridge: NSObject {
                 let mouseDown = CGEventCreateMouseEvent(nil, .LeftMouseDown, mousePosition, CGMouseButton.Left)
                 let mouseUp = CGEventCreateMouseEvent(nil, .LeftMouseUp, mousePosition, CGMouseButton.Left)
                 CGEventPost(.CGHIDEventTap, mouseDown)
+                usleep(50_000)
                 CGEventPost(.CGHIDEventTap, mouseUp)
             }
             if action == "mousestopdrag" {
@@ -120,24 +125,22 @@ class GSChromeBridge: NSObject {
         }
         else if json.array?.count == 2 {
             if let x = json[0].int, let y = json[1].int {
-                if mouseGlobalMode {
-                    mousePosition.x = CGFloat(x)/2000*screenFrame.size.width + screenFrame.origin.x
-                    mousePosition.y = CGFloat(y)/2000*screenFrame.size.height + screenFrame.origin.y
-                } else {
-                    mousePosition.offset(dx: x, dy: y)
-                    if mousePosition.x < screenFrame.origin.x {
-                        mousePosition.x = screenFrame.origin.x
-                    }
-                    if mousePosition.x > screenFrame.origin.x + screenFrame.size.width {
-                        mousePosition.x = screenFrame.origin.x + screenFrame.size.width - 1
-                    }
-                    if mousePosition.y < screenFrame.origin.y {
-                        mousePosition.y = screenFrame.origin.y
-                    }
-                    if mousePosition.y > screenFrame.origin.y + screenFrame.size.height {
-                        mousePosition.y = screenFrame.origin.y + screenFrame.size.height - 1
-                    }
+                
+                mousePosition.offset(dx: x, dy: y)
+                
+                if mousePosition.x < screenFrame.origin.x {
+                    mousePosition.x = screenFrame.origin.x
                 }
+                if mousePosition.x > screenFrame.origin.x + screenFrame.size.width {
+                    mousePosition.x = screenFrame.origin.x + screenFrame.size.width - 1
+                }
+                if mousePosition.y < screenFrame.origin.y {
+                    mousePosition.y = screenFrame.origin.y
+                }
+                if mousePosition.y > screenFrame.origin.y + screenFrame.size.height {
+                    mousePosition.y = screenFrame.origin.y + screenFrame.size.height - 1
+                }
+                
                 if dragging {
                     CGEventPost(.CGHIDEventTap, CGEventCreateMouseEvent(nil, .LeftMouseDragged, mousePosition, CGMouseButton.Left))
                 } else {
@@ -162,15 +165,10 @@ class GSChromeBridge: NSObject {
     
     var mousePosition = NSMakePoint(0, 0)
     var screenFrame = NSMakeRect(0, 0, 100, 100)
-    var mouseGlobalMode = false
     var dragging = false
     func setCurrentMousePosition() {
         let ev = CGEventCreate(nil);
         mousePosition = CGEventGetLocation(ev);
-        mouseGlobalMode = false
-    }
-    func setGlobalMousePosition() {
-        mouseGlobalMode = true
     }
     
     func setScreenBounderies(extraTop extraTop:Int, extraLeft:Int) {

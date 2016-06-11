@@ -77,7 +77,9 @@ class GSExtraScreen: UIViewController, VolumeHackDelegate {
             }
         }
         if sender.state == UIGestureRecognizerState.Changed {
-            let velocity = sender.velocityInView(touchZone)
+            var velocity = sender.velocityInView(touchZone)
+            velocity.x = velocity.x * max(1, abs(velocity.x)/400) / 2
+            velocity.y = velocity.y * max(1, abs(velocity.y)/400) / 2
             bluetoothPeripheral.sendJSON([Int(velocity.x), Int(velocity.y)], queue: "mouse")
         }
     }
