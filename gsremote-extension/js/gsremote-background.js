@@ -45,7 +45,12 @@ var gsr = {
 			else if (request.action == "initpresentation") {
 				if (gsr.initNextPresenter) {
 
-					chrome.windows.create({url:chrome.extension.getURL('html/blank.html'), focused:true, state:'fullscreen', type:'popup'}, function(newwindow) {
+					chrome.tabs.sendMessage(gsr.presentationTabId, {action: 'openpresenter'});
+					setTimeout(function(){
+						chrome.windows.update(gsr.presentationWindowId, {focused:true});
+					}, 500);
+
+					/*chrome.windows.create({url:chrome.extension.getURL('html/blank.html'), focused:true, state:'fullscreen', type:'popup'}, function(newwindow) {
 						gsr.extraWindowId = newwindow.id;
 						gsr.extraTabId = newwindow.tabs[0].id;
 
@@ -57,7 +62,7 @@ var gsr = {
 							chrome.tabs.sendMessage(gsr.presentationTabId, {action: 'openpresenter'});
 						}, 500);
 
-					});
+					});*/
 					
 				}
 			}
@@ -97,15 +102,25 @@ var gsr = {
 						if (!extra) return;
 
 						gsr.currentExtra = extra;
+						var extraLink = chrome.extension.getURL('html/blank.html');
 
 						if (extra.type == 'youtube')
-							chrome.tabs.update(gsr.extraTabId, {url:'https://www.youtube.com/_forcedembed_/'+extra.link});
+							extraLink = 'https://www.youtube.com/_forcedembed_/'+extra.link;
 						else if (extra.type == 'url')
-							chrome.tabs.update(gsr.extraTabId, {url:extra.link});
+							extraLink = extra.link;
 
-						setTimeout(function(){
-							chrome.windows.update(gsr.extraWindowId, {focused:true});
-						}, 0);
+						if (gsr.extraWindowId) {
+							chrome.tabs.update(gsr.extraTabId, {url:extraLink});
+							setTimeout(function(){
+								chrome.windows.update(gsr.extraWindowId, {focused:true});
+							}, 0);
+						} else {
+							chrome.windows.create({url:extraLink, focused:true, state:'fullscreen', type:'popup'}, function(newwindow) {
+								gsr.extraWindowId = newwindow.id;
+								gsr.extraTabId = newwindow.tabs[0].id;
+							});
+						}
+
 
 						try {
 							gsr.nativeBridge.postMessage({action:'extra', label:extra.label, type:extra.type});
@@ -127,7 +142,7 @@ var gsr = {
 					}
 
 					if (msg.action == 'reqpresdata') {
-						chrome.windows.get(gsr.extraWindowId, function(win){
+						chrome.windows.get(gsr.presentationWindowId, function(win){
 							try {
 								gsr.nativeBridge.postMessage({action:'windowpos', top:win.top, left:win.left});
 							} catch (e) {}
@@ -143,8 +158,12 @@ var gsr = {
 				bridge.onDisconnect.addListener(function() {
 					console.log("Native bridge disconnected");
 					chrome.tabs.remove(gsr.presenterTabId, gsr.catchError);
-					chrome.windows.remove(gsr.extraWindowId, gsr.catchError);
+					if (gsr.extraWindowId)
+						chrome.windows.remove(gsr.extraWindowId, gsr.catchError);
 					chrome.windows.remove(gsr.presentationWindowId, gsr.catchError);
+					gsr.extraWindowId = null;
+					gsr.extraTabId = null;
+					gsr.currentExtra = null;
 					setTimeout(function(){gsr.inPresentation = false;}, 1000);
 				});
 
@@ -171,8 +190,12 @@ var gsr = {
 				try {
 					gsr.nativeBridge.postMessage({action:'killbridge'});
 				} catch (e) {}
-				chrome.windows.remove(gsr.extraWindowId, gsr.catchError);
+				if (gsr.extraWindowId)
+					chrome.windows.remove(gsr.extraWindowId, gsr.catchError);
 				chrome.windows.remove(gsr.presentationWindowId, gsr.catchError);
+				gsr.extraWindowId = null;
+				gsr.extraTabId = null;
+				gsr.currentExtra = null;
 				setTimeout(function(){gsr.inPresentation = false;}, 1000);
 			}
 		});

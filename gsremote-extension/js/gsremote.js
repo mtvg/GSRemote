@@ -65,6 +65,10 @@ var gsr = {
 					var laser = doc.getElementsByClassName("punch-viewer-off-laser-icon")[0].parentNode;
 					gsr.sendClick(doc, laser);
 				}
+
+				if (request.action == "getpresentationurl" && window.top.document.location.href.indexOf('/present')>0) {
+					chrome.runtime.sendMessage({action: "presentationurl", presenturl:window.top.document.location.href});
+				}		
 			});
 		},
 		
