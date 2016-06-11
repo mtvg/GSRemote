@@ -120,6 +120,14 @@ var gsr = {
 					} else {
 						chrome.tabs.sendMessage(gsr.presenterTabId, {fromNative: msg});
 					}
+
+					if (msg.action == 'reqpresdata') {
+						chrome.windows.get(gsr.extraWindowId, function(win){
+							try {
+								gsr.nativeBridge.postMessage({action:'windowpos', top:win.top, left:win.left});
+							} catch (e) {}
+						});
+					}
 				});
 				bridge.onDisconnect.addListener(function() {
 					console.log("Native bridge disconnected");

@@ -17,6 +17,11 @@ class GSExtraScreen: UIViewController, VolumeHackDelegate {
     
     var popActionReceived = false
     
+    var tapTimeout:NSTimer?
+    var dragging =  false
+    
+    @IBOutlet weak var touchZone: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -43,6 +48,37 @@ class GSExtraScreen: UIViewController, VolumeHackDelegate {
                 popActionReceived = true
                 navigationController?.popViewControllerAnimated(true)
             }
+        }
+    }
+    
+    @IBAction func onTap(sender: UITapGestureRecognizer) {
+        tapTimeout?.invalidate()
+        tapTimeout = NSTimer.scheduledTimerWithTimeInterval(0.3, target: self, selector: #selector(tapTimeoutCallback), userInfo: nil, repeats: false)
+    }
+    
+    func tapTimeoutCallback() {
+        bluetoothPeripheral.sendJSON(["action":"mouseclick"])
+    }
+    
+    @IBAction func onPan(sender: UIPanGestureRecognizer) {
+        
+        if sender.state == UIGestureRecognizerState.Began {
+            bluetoothPeripheral.sendJSON(["action":"setmousepos"])
+            if tapTimeout?.valid == true {
+                tapTimeout?.invalidate()
+                dragging = true
+                bluetoothPeripheral.sendJSON(["action":"mousestartdrag"])
+            }
+        }
+        if sender.state == UIGestureRecognizerState.Ended {
+            if dragging {
+                bluetoothPeripheral.sendJSON(["action":"mousestopdrag"])
+                dragging = false
+            }
+        }
+        if sender.state == UIGestureRecognizerState.Changed {
+            let velocity = sender.velocityInView(touchZone)
+            bluetoothPeripheral.sendJSON([Int(velocity.x), Int(velocity.y)], queue: "mouse")
         }
     }
     

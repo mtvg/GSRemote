@@ -103,8 +103,10 @@ class GSPresentationScreen: UIViewController, VolumeHackDelegate, UITableViewDel
             bluetoothPeripheral.sendJSON(["action":"laseroff"])
         }
         if sender.state == UIGestureRecognizerState.Changed {
-            let velocity = sender.velocityInView(touchZone)
-            bluetoothPeripheral.sendJSON([Int(velocity.x), Int(velocity.y)])
+            let pos = sender.locationInView(touchZone?.superview)
+            let w = touchZone.frame.width
+            let h = touchZone.frame.height
+            bluetoothPeripheral.sendJSON([Int(min(1, max(0, pos.x/w))*2000), Int(min(1, max(0, pos.y/h))*2000)], queue: "mouse")
         }
     }
     

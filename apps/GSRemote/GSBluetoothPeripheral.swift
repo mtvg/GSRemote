@@ -26,7 +26,7 @@ class GSBluetoothPeripheral : NSObject, CBPeripheralManagerDelegate {
     var cancelingConnection = false
     
     var connectedCentral:CBCentral?
-    var sendingQueueData = [NSData]()
+    var sendingQueueData = [GSQueuedData]()
     var sendingData = [NSData]()
     var isSending = false
     
@@ -109,17 +109,19 @@ class GSBluetoothPeripheral : NSObject, CBPeripheralManagerDelegate {
         }
     }
     
-    func sendJSON(json:JSON) {
+    func sendJSON(json:JSON, queue:String? = nil) {
         let data = try! json.rawData()
-        sendData(data)
+        sendData(data, queue: queue)
     }
     
-    func sendData(data:NSData) {
+    func sendData(data:NSData, queue:String? = nil) {
         if !isConnected {
             return
         }
-        
-        sendingQueueData.append(data)
+        if queue != nil && sendingQueueData.last?.queue == queue {
+            sendingQueueData.popLast()
+        }
+        sendingQueueData.append(GSQueuedData(data: data, queue: queue))
         if !isSending {
             flushQueue()
         }
@@ -130,7 +132,7 @@ class GSBluetoothPeripheral : NSObject, CBPeripheralManagerDelegate {
         while sendingQueueData.count > 0 {
             let data = sendingQueueData[0]
             
-            if !manager.updateValue(data, forCharacteristic: charWrite, onSubscribedCentrals: nil) {
+            if !manager.updateValue(data.data, forCharacteristic: charWrite, onSubscribedCentrals: nil) {
                 return
             }
             sendingQueueData.removeAtIndex(0)
@@ -143,4 +145,9 @@ class GSBluetoothPeripheral : NSObject, CBPeripheralManagerDelegate {
             flushQueue()
         }
     }
+}
+
+struct GSQueuedData {
+    let data:NSData
+    let queue:String?
 }

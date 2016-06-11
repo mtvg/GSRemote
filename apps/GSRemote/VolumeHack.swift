@@ -14,7 +14,7 @@ class VolumeHack: NSObject {
     
     weak var delegate:VolumeHackDelegate?
     
-    var invalidateVolume = true
+    private var invalidateVolume = true
     private var originalVolume:Float = 0
     private var volumeView: MPVolumeView!
     private var ignoreNextVolume = true
@@ -35,6 +35,15 @@ class VolumeHack: NSObject {
         UIApplication.sharedApplication().windows.first!.addSubview(volumeView!)
         if let slider = volumeView.slider {
             slider.addTarget(self, action: #selector(sliderDidChange(_:)), forControlEvents: .ValueChanged)
+        }
+    }
+    
+    func recapture() {
+        invalidateVolume = true
+        do {
+            try AVAudioSession.sharedInstance().setActive(true)
+        } catch {
+            print("Unable to initialize AVAudioSession")
         }
     }
     
