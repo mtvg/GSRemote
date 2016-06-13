@@ -33,7 +33,7 @@ class GSBluetoothCentral : NSObject, CBCentralManagerDelegate, CBPeripheralDeleg
     
     func centralManagerDidUpdateState(central: CBCentralManager) {
         if central.state == CBCentralManagerState.PoweredOn {
-            manager.scanForPeripheralsWithServices([serviceCBUUID], options: nil)
+            manager.scanForPeripheralsWithServices([serviceCBUUID], options: [CBCentralManagerScanOptionAllowDuplicatesKey:true])
         }
     }
     
