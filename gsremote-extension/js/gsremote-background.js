@@ -34,9 +34,6 @@ var gsr = {
 
 		chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 
-			if (request.player)
-				console.log(request.player);
-
 			if (request.action == "presentationurl") {
 				gsr.initNextPresenter = true;
 				chrome.windows.create({url:request.presenturl, focused:true, state:'fullscreen', type:'popup'}, function(newwindow) {
@@ -98,13 +95,13 @@ var gsr = {
 							extra.link = 'file://'+gsr.homeDirectory+extra.link.substr(1);
 						}
 
-						if (extra.type == 'youtube')
+						if (extra.type == 'Y')
 							extraLink = 'https://www.youtube.com/_forcedembed_/?youtube='+extra.link;
-						if (extra.type == 'video')
+						if (extra.type == 'V')
 							extraLink = chrome.extension.getURL('html/video.html')+'?url='+extra.link;
-						if (extra.type == 'vimeo')
+						if (extra.type == 'O')
 							extraLink = 'https://www.youtube.com/_forcedembed_/?vimeo='+extra.link;
-						else if (extra.type == 'url')
+						else if (extra.type == 'U')
 							extraLink = extra.link;
 
 						if (gsr.extraWindowId) {
@@ -153,6 +150,10 @@ var gsr = {
 						try {
 							gsr.nativeBridge.postMessage({action:'extra', label:gsr.currentExtra.label, type:gsr.currentExtra.type});
 						} catch (e) {}									
+					}
+
+					if (msg.player) {
+						chrome.tabs.sendMessage(gsr.extraTabId, msg.player);
 					}
 				});
 				bridge.onDisconnect.addListener(function() {

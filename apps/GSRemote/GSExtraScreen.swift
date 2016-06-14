@@ -23,14 +23,54 @@ class GSExtraScreen: UIViewController, VolumeHackDelegate {
     
     @IBOutlet weak var touchZone: UIView!
     
+    @IBOutlet weak var playbackView: UIView!
+    @IBOutlet weak var playheadSlider: UISlider!
+    @IBOutlet weak var videoPositionLabel: UILabel!
+    @IBOutlet weak var videoDurationLabel: UILabel!
+    var videoDuration:Float = 0
+    var videoPosition:Float = 0
+    var seeking = false
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         navigationItem.title = selectedExtra.label
+        if ![.Video,.Vimeo,.Youtube].contains(selectedExtra.type) {
+            playbackView.hidden = true
+        }
         
         bluetoothPeripheral.centralDataCallback = onData
         
     }
+    
+    //MARK: Video playback
+    
+    
+    @IBAction func onToggleMute(sender: UIButton) {
+        bluetoothPeripheral.sendJSON(["player":["cmd":"toggleMute"]])
+    }
+    
+    @IBAction func onTogglePlay(sender: UIButton) {
+        bluetoothPeripheral.sendJSON(["player":["cmd":"togglePlay"]])
+    }
+    
+    @IBAction func onSliderSeek(sender: UISlider) {
+        let seekTo = Int(sender.value*videoDuration)
+        videoPositionLabel.text = timeFormatted(seekTo)
+    }
+    
+    @IBAction func onSliderStart(sender: UISlider) {
+        seeking = true
+    }
+    
+    @IBAction func onSliderEnd(sender: UISlider) {
+        seeking = false
+        let seekTo = Int(sender.value*videoDuration)
+        bluetoothPeripheral.sendJSON(["player":["cmd":"seek", "arg":seekTo]])
+    }
+    
+    //MARK: Volume Buttons
     
     func onVolumeUp() {
         bluetoothPeripheral.sendJSON(["action":"prev"])
@@ -41,6 +81,8 @@ class GSExtraScreen: UIViewController, VolumeHackDelegate {
         bluetoothPeripheral.sendJSON(["action":"presentation"])
     }
     
+    //MARK: Bluetooth
+    
     func onData(data:NSData, central:CBCentral) {
         let json = JSON(data: data)
         
@@ -50,7 +92,29 @@ class GSExtraScreen: UIViewController, VolumeHackDelegate {
                 navigationController?.popViewControllerAnimated(true)
             }
         }
+        
+        if json["player"] != nil {
+            if let dur = json["player"]["dur"].float, let pos = json["player"]["pos"].float {
+                videoDuration = dur
+                videoPosition = pos
+                videoDurationLabel.text = timeFormatted(Int(videoDuration))
+                if !seeking {
+                    videoPositionLabel.text = timeFormatted(Int(videoPosition))
+                    playheadSlider.value = videoPosition/videoDuration
+                }
+            }
+            
+            /*if let status = json["player"]["status"].string {
+                
+            }
+            
+            if let muted = json["player"]["muted"].bool {
+                
+            }*/
+        }
     }
+    
+    //MARK: Virtual Mouse
     
     @IBAction func onTap(sender: UITapGestureRecognizer) {
         tapTimeout?.invalidate()
@@ -99,6 +163,20 @@ class GSExtraScreen: UIViewController, VolumeHackDelegate {
                 bluetoothPeripheral.sendJSON(["action":"mousestopdrag"])
                 dragging = false
             }
+        }
+        
+    }
+    
+    //MARK: Miscs
+    
+    func timeFormatted(totalSeconds: Int) -> String {
+        let seconds: Int = totalSeconds % 60
+        let minutes: Int = (totalSeconds / 60) % 60
+        let hours: Int = totalSeconds / 3600
+        if hours > 0 {
+            return String(format: "%02d:%02d:%02d", hours, minutes, seconds)
+        } else {
+            return String(format: "%02d:%02d", minutes, seconds)
         }
         
     }

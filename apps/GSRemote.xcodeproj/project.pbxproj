@@ -202,7 +202,7 @@
 				TargetAttributes = {
 					14757C661D00B8F700290B89 = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = 6J3YFK75V8;
+						DevelopmentTeam = W2EQ6NT7V9;
 					};
 					14757C811D00B9AC00290B89 = {
 						CreatedOnToolsVersion = 7.3;
@@ -386,7 +386,7 @@
 				INFOPLIST_FILE = GSRemote/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = net.mtvg.GSRemote;
+				PRODUCT_BUNDLE_IDENTIFIER = net.mtvg.GSRemote2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -401,7 +401,7 @@
 				INFOPLIST_FILE = GSRemote/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = net.mtvg.GSRemote;
+				PRODUCT_BUNDLE_IDENTIFIER = net.mtvg.GSRemote2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};

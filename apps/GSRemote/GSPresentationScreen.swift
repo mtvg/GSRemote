@@ -19,7 +19,7 @@ class GSPresentationScreen: UIViewController, VolumeHackDelegate, UITableViewDel
     
     var previousExtraView:GSExtraScreen?
     var currentSlide:String = ""
-    var slideExtras:[String] = []
+    var slideExtras:[GSExtra] = []
     
     @IBOutlet weak var extraTableView: UITableView!
     
@@ -137,7 +137,21 @@ class GSPresentationScreen: UIViewController, VolumeHackDelegate, UITableViewDel
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell:UITableViewCell = self.extraTableView.dequeueReusableCellWithIdentifier("ExtraCell")! as UITableViewCell
         
-        cell.textLabel?.text = self.slideExtras[indexPath.row]
+        cell.textLabel?.text = self.slideExtras[indexPath.row].label
+        let type = self.slideExtras[indexPath.row].type
+        if type == .Youtube {
+            cell.imageView?.image = UIImage(named: "youtube")
+        }
+        if type == .Video {
+            cell.imageView?.image = UIImage(named: "video")
+        }
+        if type == .Vimeo {
+            cell.imageView?.image = UIImage(named: "vimeo")
+        }
+        if type == .URL {
+            cell.imageView?.image = UIImage(named: "chrome")
+        }
+        
         
         return cell
     }
@@ -203,7 +217,12 @@ class GSPresentationScreen: UIViewController, VolumeHackDelegate, UITableViewDel
             slideExtras = []
             for extraJson in extras {
                 if let extra = extraJson.string {
-                    slideExtras.append(extra)
+                    let extraType = GSExtraType(rawValue: String(extra[extra.startIndex]))
+                    let extraLabel = extra.substringFromIndex(extra.startIndex.advancedBy(1))
+                    if extraType != nil {
+                        slideExtras.append(GSExtra(label: extraLabel, type: extraType!))
+                    }
+                    
                 }
             }
             
@@ -211,7 +230,7 @@ class GSPresentationScreen: UIViewController, VolumeHackDelegate, UITableViewDel
         }
         
         if let action = json["action"].string {
-            if action == "extra", let label = json["label"].string, let type = json["type"].string {
+            if action == "extra", let label = json["label"].string, let typeid = json["type"].string, let type = GSExtraType(rawValue: typeid) {
                 selectedExtra = GSExtra(label: label, type: type)
                 performSegueWithIdentifier("Extra", sender: self)
             }
@@ -232,5 +251,11 @@ class GSPresentationScreen: UIViewController, VolumeHackDelegate, UITableViewDel
 
 struct GSExtra {
     let label:String
-    let type:String
+    let type:GSExtraType
 }
+
+enum GSExtraType:String {
+    case Youtube="Y", Vimeo="O", Video="V", URL="U"
+}
+
+

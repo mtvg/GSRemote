@@ -49,7 +49,7 @@ setInterval(function(){
 	if (duration != player.media.duration || currentTime != player.media.currentTime) {
 		duration = player.media.duration;
 		currentTime = player.media.currentTime;
-		dispatch({duration:duration, currentTime:currentTime});
+		dispatch({dur:duration, pos:currentTime});
 	}
 }, 1000);
 
@@ -83,7 +83,7 @@ player.media.addEventListener('ready', function(e){
 });
 
 function execCommand(cmd, arg) {
-	if (cmd == "play" || cmd == "pause" || cmd == "restart") {
+	if (cmd == "play" || cmd == "pause" || cmd == "restart" || cmd == "togglePlay" || cmd == "toggleMute") {
 		player[cmd]();
 	}
 	if (cmd == "rewind" || cmd == "forward" || cmd == "seek") {
@@ -97,7 +97,7 @@ function dispatch(event) {
 
 if (document.location.href.indexOf('www.youtube.com') == -1) {
 	document.addEventListener('PlayerEvents', function(e) {
-		chrome.runtime.sendMessage({player: e.detail});
+		chrome.runtime.sendMessage({toNative:{player: e.detail}});
 	});	
 	chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 		if (request.cmd)

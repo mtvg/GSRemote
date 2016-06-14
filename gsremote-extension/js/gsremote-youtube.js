@@ -37,7 +37,7 @@ var gs = {
 			});	
 
 			document.addEventListener('PlayerEvents', function(e) {
-				chrome.runtime.sendMessage({player: e.detail});
+				chrome.runtime.sendMessage({toNative:{player: e.detail}});
 			});
 
 			chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {

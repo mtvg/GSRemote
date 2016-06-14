@@ -115,13 +115,14 @@ var gsr = {
 				var getNotes = function() {
 					var extras = [];
 					var extraLabels = [];
+					var extraTypeId = {youtube:'Y',vimeo:'O',video:'V',url:'U'};
 
 					var re = /\[(youtube|vimeo|video|url):([^:]+):([^\]]+)\]/g;
 					var input = notes.textContent;
 					var match;
 					while ((match = re.exec(input)) != null) {
-						extras.push({type:match[1], label:match[2], link:match[3]});
-						extraLabels.push(match[2]);
+						extras.push({type:extraTypeId[match[1]], label:match[2], link:match[3]});
+						extraLabels.push(extraTypeId[match[1]]+match[2]);
 					}
 
 					chrome.runtime.sendMessage({extras: extras});
