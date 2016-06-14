@@ -6,6 +6,7 @@ var gsr = {
 	extraTabId: null,
 	extraWindowId: null,
 	nativeBridge: null,
+	homeDirectory: "",
 	inPresentation: false,
 	initNextPresenter: false,
 	currentExtra: null,
@@ -33,6 +34,9 @@ var gsr = {
 
 		chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 
+			if (request.player)
+				console.log(request.player);
+
 			if (request.action == "presentationurl") {
 				gsr.initNextPresenter = true;
 				chrome.windows.create({url:request.presenturl, focused:true, state:'fullscreen', type:'popup'}, function(newwindow) {
@@ -49,20 +53,6 @@ var gsr = {
 					setTimeout(function(){
 						chrome.windows.update(gsr.presentationWindowId, {focused:true});
 					}, 500);
-
-					/*chrome.windows.create({url:chrome.extension.getURL('html/blank.html'), focused:true, state:'fullscreen', type:'popup'}, function(newwindow) {
-						gsr.extraWindowId = newwindow.id;
-						gsr.extraTabId = newwindow.tabs[0].id;
-
-						setTimeout(function(){
-							chrome.windows.update(gsr.presentationWindowId, {focused:true});
-						}, 1500);
-
-						setTimeout(function(){
-							chrome.tabs.sendMessage(gsr.presentationTabId, {action: 'openpresenter'});
-						}, 500);
-
-					});*/
 					
 				}
 			}
@@ -104,8 +94,16 @@ var gsr = {
 						gsr.currentExtra = extra;
 						var extraLink = chrome.extension.getURL('html/blank.html');
 
+						if (extra.link.substr(0, 2)=='~/') {
+							extra.link = 'file://'+gsr.homeDirectory+extra.link.substr(1);
+						}
+
 						if (extra.type == 'youtube')
-							extraLink = 'https://www.youtube.com/_forcedembed_/'+extra.link;
+							extraLink = 'https://www.youtube.com/_forcedembed_/?youtube='+extra.link;
+						if (extra.type == 'video')
+							extraLink = chrome.extension.getURL('html/video.html')+'?url='+extra.link;
+						if (extra.type == 'vimeo')
+							extraLink = 'https://www.youtube.com/_forcedembed_/?vimeo='+extra.link;
 						else if (extra.type == 'url')
 							extraLink = extra.link;
 
@@ -142,6 +140,8 @@ var gsr = {
 					}
 
 					if (msg.action == 'reqpresdata') {
+						if (msg.home)
+							gsr.homeDirectory = msg.home;
 						chrome.windows.get(gsr.presentationWindowId, function(win){
 							try {
 								gsr.nativeBridge.postMessage({action:'windowpos', top:win.top, left:win.left});

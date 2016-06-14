@@ -17,7 +17,8 @@
 	"declarativeContent", "nativeMessaging",   
 	"https://docs.google.com/presentation/*",  
     "https://docs.google.com/*/presentation/*",  
-    "https://www.youtube.com/_forcedembed_/*"
+    "https://www.youtube.com/_forcedembed_/*",
+    "file:///*"
   ],
   "icons": {
     "16": "img/icon-16.png",
@@ -25,7 +26,9 @@
     "128": "img/icon-128.png"
   },
   "web_accessible_resources": [
-    "js/gsremote-youtube-injection.js"
+    "js/plyr.js",
+    "js/plyr-player.js",
+    "html/video.html"
   ],
   "content_scripts": [
     {

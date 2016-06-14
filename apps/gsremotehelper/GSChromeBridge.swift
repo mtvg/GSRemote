@@ -26,7 +26,7 @@ class GSChromeBridge: NSObject {
     }
     
     func requestPresentationData() {
-        sendJsonToChrome(["action":"reqpresdata"])
+        sendJsonToChrome(["action":"reqpresdata", "home":NSHomeDirectory()])
     }
     
     //MARK: I/O Bridge

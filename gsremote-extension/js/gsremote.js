@@ -47,9 +47,9 @@ var gsr = {
 					window.addEventListener("keyup", onKeyUp, true);
 
 
-					var script = document.createElement('style');
-					script.textContent = "* {cursor: none;}";
-					(document.head||document.documentElement).appendChild(script);
+					var style = document.createElement('style');
+					style.textContent = "* {cursor: none;}";
+					(document.head||document.documentElement).appendChild(style);
 
 					var nav = doc.getElementsByClassName("punch-viewer-nav-floating")[0];
 					if (nav)
@@ -116,7 +116,7 @@ var gsr = {
 					var extras = [];
 					var extraLabels = [];
 
-					var re = /\[(youtube|url):([^:]+):([^\]]+)\]/g;
+					var re = /\[(youtube|vimeo|video|url):([^:]+):([^\]]+)\]/g;
 					var input = notes.textContent;
 					var match;
 					while ((match = re.exec(input)) != null) {
