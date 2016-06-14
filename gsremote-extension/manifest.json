@@ -1,6 +1,6 @@
 {
   "name": "Google Slides Remote Control",
-  "version": "0.1",
+  "version": "0.2",
   "manifest_version": 2,
   "description": "Control Google Slides over Bluetooth with your iPhone",
   "page_action": {

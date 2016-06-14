@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10116"/>
+    </dependencies>
+    <scenes>
+        <!--Application-->
+        <scene sceneID="JPo-4y-FX3">
+            <objects>
+                <application id="hnw-xV-0zn" sceneMemberID="viewController">
+                    <menu key="mainMenu" title="Main Menu" systemMenu="main" id="AYu-sK-qS6">
+                        <items>
+                            <menuItem title="GSRemoteMac" id="1Xt-HY-uBw">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="GSRemoteMac" systemMenu="apple" id="uQy-DD-JDr">
+                                    <items>
+                                        <menuItem title="About GSRemoteMac" id="5kV-Vb-QxS">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="orderFrontStandardAboutPanel:" target="Ady-hI-5gd" id="Exp-CZ-Vem"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="VOq-y0-SEH"/>
+                                        <menuItem title="Hide GSRemoteMac" keyEquivalent="h" id="Olw-nP-bQN">
+                                            <connections>
+                                                <action selector="hide:" target="Ady-hI-5gd" id="PnN-Uc-m68"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Hide Others" keyEquivalent="h" id="Vdr-fp-XzO">
+                                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                            <connections>
+                                                <action selector="hideOtherApplications:" target="Ady-hI-5gd" id="VT4-aY-XCT"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Show All" id="Kd2-mp-pUS">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="unhideAllApplications:" target="Ady-hI-5gd" id="Dhg-Le-xox"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="kCx-OE-vgT"/>
+                                        <menuItem title="Quit GSRemoteMac" keyEquivalent="q" id="4sb-4s-VLi">
+                                            <connections>
+                                                <action selector="terminate:" target="Ady-hI-5gd" id="Te7-pn-YzF"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
+                            <menuItem title="Window" id="aUF-d1-5bR">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Window" systemMenu="window" id="Td7-aD-5lo">
+                                    <items>
+                                        <menuItem title="Minimize" keyEquivalent="m" id="OY7-WF-poV">
+                                            <connections>
+                                                <action selector="performMiniaturize:" target="Ady-hI-5gd" id="VwT-WD-YPe"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Zoom" id="R4o-n2-Eq4">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="performZoom:" target="Ady-hI-5gd" id="DIl-cC-cCs"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="eu3-7i-yIM"/>
+                                        <menuItem title="Bring All to Front" id="LE2-aR-0XJ">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="arrangeInFront:" target="Ady-hI-5gd" id="DRN-fu-gQh"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
+                            <menuItem title="Help" id="wpr-3q-Mcd">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                            </menuItem>
+                        </items>
+                    </menu>
+                    <connections>
+                        <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
+                    </connections>
+                </application>
+                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="GSRemote" customModuleProvider="target"/>
+                <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="75" y="0.0"/>
+        </scene>
+        <!--Window Controller-->
+        <scene sceneID="R2V-B0-nI4">
+            <objects>
+                <windowController showSeguePresentationStyle="single" id="B8D-0N-5wS" sceneMemberID="viewController">
+                    <window key="window" title="Good Slides Remote - Installer" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" oneShot="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
+                        <rect key="contentRect" x="609" y="417" width="480" height="270"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+                        <value key="minSize" type="size" width="480" height="270"/>
+                        <value key="maxSize" type="size" width="480" height="270"/>
+                    </window>
+                    <connections>
+                        <segue destination="XfG-lQ-9wD" kind="relationship" relationship="window.shadowedContentViewController" id="cq2-FE-JQM"/>
+                    </connections>
+                </windowController>
+                <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="75" y="250"/>
+        </scene>
+        <!--Good Slides Remote - Installer-->
+        <scene sceneID="hIz-AP-VOD">
+            <objects>
+                <viewController title="Good Slides Remote - Installer" id="XfG-lQ-9wD" customClass="ViewController" customModule="GSRemote" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" wantsLayer="YES" id="m2S-Jp-Qdl">
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fpR-H6-jZw">
+                                <rect key="frame" x="45" y="45" width="180" height="180"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="180" id="DLc-Ww-xJs"/>
+                                    <constraint firstAttribute="height" constant="180" id="aa1-4O-Ihr"/>
+                                </constraints>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="iTunesArtwork" id="Pbg-Cb-424"/>
+                            </imageView>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="Lvm-G8-d8a">
+                                <rect key="frame" x="263" y="161" width="179" height="24"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Status" id="WZO-il-u38">
+                                    <font key="font" metaFont="system" size="20"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Roe-CQ-slf">
+                                <rect key="frame" x="263" y="85" width="179" height="68"/>
+                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" id="TPT-fI-8kZ">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="Ds9-Wo-PuT" userLabel="Warning View">
+                                <rect key="frame" x="14" y="216" width="453" height="64"/>
+                                <subviews>
+                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aNh-4r-jlH">
+                                        <rect key="frame" x="20" y="20" width="24" height="24"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="24" id="lcO-zV-MT4"/>
+                                        </constraints>
+                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSCaution" id="KJF-x7-M6A"/>
+                                    </imageView>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dTR-dH-NEV">
+                                        <rect key="frame" x="50" y="24" width="353" height="17"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Move this app to your Applications folder and re launch it." id="AoC-Cn-5Zu">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="s30-eD-RUW">
+                                        <rect key="frame" x="409" y="20" width="24" height="24"/>
+                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSCaution" id="WZf-Ji-UOl"/>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="aNh-4r-jlH" firstAttribute="top" secondItem="s30-eD-RUW" secondAttribute="top" id="ENH-WD-0iD"/>
+                                    <constraint firstAttribute="bottom" secondItem="aNh-4r-jlH" secondAttribute="bottom" constant="20" symbolic="YES" id="G2L-lA-Iqg"/>
+                                    <constraint firstItem="dTR-dH-NEV" firstAttribute="leading" secondItem="aNh-4r-jlH" secondAttribute="trailing" constant="8" symbolic="YES" id="KkG-Hg-ziT"/>
+                                    <constraint firstItem="aNh-4r-jlH" firstAttribute="centerY" secondItem="dTR-dH-NEV" secondAttribute="centerY" id="RUL-Xd-jwH"/>
+                                    <constraint firstItem="s30-eD-RUW" firstAttribute="leading" secondItem="dTR-dH-NEV" secondAttribute="trailing" constant="8" symbolic="YES" id="WdF-jk-f00"/>
+                                    <constraint firstItem="dTR-dH-NEV" firstAttribute="centerX" secondItem="Ds9-Wo-PuT" secondAttribute="centerX" id="hEU-vX-Sq3"/>
+                                    <constraint firstItem="aNh-4r-jlH" firstAttribute="leading" secondItem="Ds9-Wo-PuT" secondAttribute="leading" constant="20" symbolic="YES" id="iJM-1h-jzH"/>
+                                    <constraint firstItem="aNh-4r-jlH" firstAttribute="bottom" secondItem="s30-eD-RUW" secondAttribute="bottom" id="k9l-3g-dTA"/>
+                                    <constraint firstAttribute="trailing" secondItem="s30-eD-RUW" secondAttribute="trailing" constant="20" symbolic="YES" id="kqX-Pb-mbB"/>
+                                    <constraint firstItem="aNh-4r-jlH" firstAttribute="top" secondItem="Ds9-Wo-PuT" secondAttribute="top" constant="20" symbolic="YES" id="sG1-UM-Why"/>
+                                </constraints>
+                            </customView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="Ds9-Wo-PuT" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="1H7-Vq-VpH"/>
+                            <constraint firstItem="Lvm-G8-d8a" firstAttribute="leading" secondItem="fpR-H6-jZw" secondAttribute="trailing" constant="40" id="3nP-uH-wU1"/>
+                            <constraint firstItem="fpR-H6-jZw" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="45" id="DuS-hb-q8L"/>
+                            <constraint firstItem="fpR-H6-jZw" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="45" id="YoK-tg-MmJ"/>
+                            <constraint firstItem="Roe-CQ-slf" firstAttribute="top" secondItem="Lvm-G8-d8a" secondAttribute="bottom" constant="8" symbolic="YES" id="ZRr-WD-uS4"/>
+                            <constraint firstItem="Roe-CQ-slf" firstAttribute="leading" secondItem="Lvm-G8-d8a" secondAttribute="leading" id="a8i-MZ-64z"/>
+                            <constraint firstAttribute="bottom" secondItem="fpR-H6-jZw" secondAttribute="bottom" constant="45" id="dhh-2H-zZt"/>
+                            <constraint firstItem="Lvm-G8-d8a" firstAttribute="top" secondItem="fpR-H6-jZw" secondAttribute="top" constant="40" id="efg-Yy-xYZ"/>
+                            <constraint firstItem="Lvm-G8-d8a" firstAttribute="top" secondItem="Ds9-Wo-PuT" secondAttribute="bottom" constant="31" id="mTS-ib-5Bn"/>
+                            <constraint firstItem="Roe-CQ-slf" firstAttribute="trailing" secondItem="Lvm-G8-d8a" secondAttribute="trailing" id="p1E-wN-jPg"/>
+                            <constraint firstAttribute="trailing" secondItem="Lvm-G8-d8a" secondAttribute="trailing" constant="40" id="pIB-KS-sx1"/>
+                            <constraint firstItem="Roe-CQ-slf" firstAttribute="bottom" secondItem="fpR-H6-jZw" secondAttribute="bottom" constant="-40" id="wpd-y3-QVf"/>
+                            <constraint firstItem="Ds9-Wo-PuT" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="-10" id="yHV-ji-sQV"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="statusLabel" destination="Roe-CQ-slf" id="L7b-yq-NMo"/>
+                        <outlet property="warningView" destination="Ds9-Wo-PuT" id="QMk-ei-Fof"/>
+                    </connections>
+                </viewController>
+                <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="75" y="655"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="NSCaution" width="32" height="32"/>
+        <image name="iTunesArtwork" width="512" height="512"/>
+    </resources>
+</document>

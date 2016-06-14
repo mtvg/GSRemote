@@ -4,7 +4,12 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>GSRemote.xcscheme</key>
+		<key>GSRemote-Mac.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
+		<key>GSRemote-iOS.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
@@ -23,6 +28,11 @@
 			<true/>
 		</dict>
 		<key>14757C811D00B9AC00290B89</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>14A671EA1D107DF100C86B5C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
