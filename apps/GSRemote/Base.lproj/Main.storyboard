@@ -364,10 +364,6 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="573"/>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <gestureRecognizers/>
-                                        <connections>
-                                            <outletCollection property="gestureRecognizers" destination="uyt-xe-BcH" appends="YES" id="p6e-au-3MM"/>
-                                            <outletCollection property="gestureRecognizers" destination="QiG-UC-zIK" appends="YES" id="0fJ-qS-r0q"/>
-                                        </connections>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BNx-KC-qd5" userLabel="Playback">
                                         <rect key="frame" x="0.0" y="443" width="375" height="130"/>
@@ -463,16 +459,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9C7-1G-9h7" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="uyt-xe-BcH">
-                    <connections>
-                        <action selector="onTap:" destination="FcK-f2-79d" id="FAk-3q-Wkg"/>
-                    </connections>
-                </tapGestureRecognizer>
-                <panGestureRecognizer minimumNumberOfTouches="1" id="QiG-UC-zIK">
-                    <connections>
-                        <action selector="onPan:" destination="FcK-f2-79d" id="oTt-T6-b7L"/>
-                    </connections>
-                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1632.5" y="1163.5"/>
         </scene>

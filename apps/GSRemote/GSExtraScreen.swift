@@ -17,10 +17,6 @@ class GSExtraScreen: UIViewController, VolumeHackDelegate {
     
     var popActionReceived = false
     
-    var tapTimeout:NSTimer?
-    var dragging =  false
-    var scrolling =  false
-    
     @IBOutlet weak var touchZone: UIView!
     
     @IBOutlet weak var playbackView: UIView!
@@ -41,6 +37,8 @@ class GSExtraScreen: UIViewController, VolumeHackDelegate {
         }
         
         bluetoothPeripheral.centralDataCallback = onData
+        
+        setupGestures()
         
     }
     
@@ -116,55 +114,93 @@ class GSExtraScreen: UIViewController, VolumeHackDelegate {
     
     //MARK: Virtual Mouse
     
-    @IBAction func onTap(sender: UITapGestureRecognizer) {
-        tapTimeout?.invalidate()
-        tapTimeout = NSTimer.scheduledTimerWithTimeInterval(0.3, target: self, selector: #selector(tapTimeoutCallback), userInfo: nil, repeats: false)
+    var originPoint:CGPoint!
+    var originDate:NSDate!
+    
+    func setupGestures() {
+        let dragRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(onDragGesture))
+        dragRecognizer.numberOfTapsRequired = 2
+        dragRecognizer.minimumPressDuration = 0.05
+        
+        let scrollRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(onScrollGesture))
+        scrollRecognizer.numberOfTapsRequired = 1
+        scrollRecognizer.minimumPressDuration = 0.05
+        scrollRecognizer.requireGestureRecognizerToFail(dragRecognizer)
+        
+        let panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(onPanGesture))
+        panRecognizer.requireGestureRecognizerToFail(scrollRecognizer)
+        
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(onTapGesture))
+        tapRecognizer.requireGestureRecognizerToFail(panRecognizer)
+        tapRecognizer.requireGestureRecognizerToFail(scrollRecognizer)
+        tapRecognizer.requireGestureRecognizerToFail(dragRecognizer)
+        
+        touchZone.addGestureRecognizer(dragRecognizer)
+        touchZone.addGestureRecognizer(scrollRecognizer)
+        touchZone.addGestureRecognizer(panRecognizer)
+        touchZone.addGestureRecognizer(tapRecognizer)
     }
     
-    func tapTimeoutCallback() {
+    func onDragGesture(sender:UILongPressGestureRecognizer) {
+        if sender.state == UIGestureRecognizerState.Began {
+            setMouseMove(sender)
+            bluetoothPeripheral.sendJSON(["action":"mousestartdrag"])
+        }
+        if sender.state == UIGestureRecognizerState.Changed {
+            sendMouseMove(sender, scrolling: false)
+        }
+        if sender.state == UIGestureRecognizerState.Ended {
+            bluetoothPeripheral.sendJSON(["action":"mousestopdrag"])
+        }
+        
+    }
+    func onScrollGesture(sender:UILongPressGestureRecognizer) {
+        if sender.state == UIGestureRecognizerState.Began {
+            setMouseMove(sender)
+            bluetoothPeripheral.sendJSON(["action":"startscrolling"])
+        }
+        if sender.state == UIGestureRecognizerState.Changed {
+            sendMouseMove(sender, scrolling: true)
+        }
+        if sender.state == UIGestureRecognizerState.Ended {
+            bluetoothPeripheral.sendJSON(["action":"stopscrolling"])
+        }
+    }
+    
+    func onPanGesture(sender:UIPanGestureRecognizer) {
+        if sender.state == UIGestureRecognizerState.Began {
+            setMouseMove(sender)
+            bluetoothPeripheral.sendJSON(["action":"setmousepos"])
+        }
+        if sender.state == UIGestureRecognizerState.Changed {
+            sendMouseMove(sender, scrolling: false)
+        }
+    }
+    
+    func onTapGesture(sender:UITapGestureRecognizer) {
         bluetoothPeripheral.sendJSON(["action":"mouseclick"])
     }
     
-    @IBAction func onPan(sender: UIPanGestureRecognizer) {
+    func setMouseMove(sender:UIGestureRecognizer) {
+        originPoint = sender.locationInView(touchZone)
+        originDate = NSDate()
+    }
+    
+    func sendMouseMove(sender:UIGestureRecognizer, scrolling:Bool) {
+        let p = sender.locationInView(touchZone)
+        let now = NSDate()
+        let timediff = CGFloat(now.timeIntervalSinceDate(originDate))
+        var velocity = CGPoint(x: (p.x-originPoint.x)/timediff, y: (p.y-originPoint.y)/timediff)
+        originPoint = p
+        originDate = now
         
-        if sender.state == UIGestureRecognizerState.Began {
-            let touches = sender.numberOfTouches()
-            if touches == 1 {
-                bluetoothPeripheral.sendJSON(["action":"setmousepos"])
-                if tapTimeout?.valid == true {
-                    tapTimeout?.invalidate()
-                    dragging = true
-                    bluetoothPeripheral.sendJSON(["action":"mousestartdrag"])
-                }
-            }
-            if touches == 2 {
-                bluetoothPeripheral.sendJSON(["action":"startscrolling"])
-                scrolling = true
-            }
+        velocity.x = velocity.x * max(1, abs(velocity.x)/400) / 2
+        velocity.y = velocity.y * max(1, abs(velocity.y)/400) / 2
+        if scrolling {
+            velocity.x = velocity.x / 2
+            velocity.y = velocity.y / 2
         }
-        
-        if sender.state == UIGestureRecognizerState.Changed {
-            var velocity = sender.velocityInView(touchZone)
-            velocity.x = velocity.x * max(1, abs(velocity.x)/400) / 2
-            velocity.y = velocity.y * max(1, abs(velocity.y)/400) / 2
-            if scrolling {
-                velocity.x = velocity.x / 2
-                velocity.y = velocity.y / 2
-            }
-            bluetoothPeripheral.sendJSON([Int(velocity.x), Int(velocity.y)], queue: "mouse")
-        }
-        
-        if sender.state == UIGestureRecognizerState.Ended {
-            if scrolling {
-                bluetoothPeripheral.sendJSON(["action":"stopscrolling"])
-                scrolling = false
-            }
-            if dragging {
-                bluetoothPeripheral.sendJSON(["action":"mousestopdrag"])
-                dragging = false
-            }
-        }
-        
+        bluetoothPeripheral.sendJSON([Int(velocity.x), Int(velocity.y)], queue: "mouse")
     }
     
     //MARK: Miscs
