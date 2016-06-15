@@ -29,6 +29,18 @@ var gsr = {
 					chrome.runtime.sendMessage({action: "presentationurl", presenturl:window.top.document.location.href.split('/edit').join('/present')});
 				}				
 			});
+
+			var titlebar = window.top.document.getElementsByClassName("docs-titlebar-buttons")[0];
+			var presentbutton = window.top.document.getElementById("punch-start-presentation-left");
+			if (titlebar && presentbutton) {
+				var btn = document.createElement('js-button');
+				btn.innerHTML = '<div role="button" class="goog-inline-block jfk-button jfk-button-standard jfk-button-collapse-right docs-titlebar-button" style="-webkit-user-select: none;margin-right: 9px;" id="gsremote-button"><span class="goog-inline-block punch-start-presentation-icon">&nbsp;</span>GSRemote</div>';
+				btn = btn.firstChild;
+				btn.addEventListener('click', function(e){
+					chrome.runtime.sendMessage({action: "presentationurl", presenturl:window.top.document.location.href.split('/edit').join('/present')});
+				});
+				titlebar.insertBefore(btn, presentbutton);
+			}
 		},
 		
 		addPresentationJS : function() {  
