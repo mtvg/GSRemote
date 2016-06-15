@@ -14,11 +14,24 @@ class ViewController: NSViewController {
     let bundle = NSBundle.mainBundle()
     let chromeExtensionId = "bejldbalomejcoebpmifodlkokjckbbo"
     
+    let nativeMessagingHosts = NSHomeDirectory()+"/Library/Application Support/Google/Chrome/NativeMessagingHosts/"
+    let nativeMessagingHost = NSHomeDirectory()+"/Library/Application Support/Google/Chrome/NativeMessagingHosts/net.mtvg.gsremotehelper.json"
+    let extensionDeploys = NSHomeDirectory()+"/Library/Application Support/Google/Chrome/External Extensions/"
+    let extensionDeploy:String
+    
     @IBOutlet weak var statusLabel: NSTextField!
     @IBOutlet weak var warningView: NSView!
+    @IBOutlet weak var uninstallButton: NSButton!
+    
+    required init?(coder: NSCoder) {
+        extensionDeploy = extensionDeploys+chromeExtensionId+".json"
+        super.init(coder: coder)
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        uninstallButton.focusRingType = .None
         
         createNativeHostFile()
         let currentFolder = bundle.bundlePath
@@ -29,9 +42,15 @@ class ViewController: NSViewController {
         }
     }
     
+    @IBAction func onUninstall(sender: AnyObject) {
+        _ = try? fm.removeItemAtPath(nativeMessagingHost)
+        _ = try? fm.removeItemAtPath(extensionDeploy)
+        statusLabel.stringValue = "Chrome Extension Uninstalled.\nMove this app to the Trash, or relaunch to install again."
+    }
+    
     func createNativeHostFile() {
         
-        let nativeMessagingHosts = NSHomeDirectory()+"/Library/Application Support/Google/Chrome/NativeMessagingHosts/"
+        
         if !fm.fileExistsAtPath(nativeMessagingHosts) {
             do {
                 try fm.createDirectoryAtPath(nativeMessagingHosts, withIntermediateDirectories: false, attributes: nil)
@@ -48,14 +67,14 @@ class ViewController: NSViewController {
             "path": bundle.pathForResource("gsremotehelper", ofType: nil)!,
             "type": "stdio"]
         
-        let nativeMessagingHost = nativeMessagingHosts+"net.mtvg.gsremotehelper.json"
+        
         if !fm.createFileAtPath(nativeMessagingHost, contents: try! nativeMessagingHostJson.rawData(), attributes: nil) {
             statusLabel.stringValue = "Could not write Google Chrome Extension file."
             return
         }
         
         
-        let extensionDeploys = NSHomeDirectory()+"/Library/Application Support/Google/Chrome/External Extensions/"
+        
         if !fm.fileExistsAtPath(extensionDeploys) {
             do {
                 try fm.createDirectoryAtPath(extensionDeploys, withIntermediateDirectories: false, attributes: nil)
@@ -68,7 +87,7 @@ class ViewController: NSViewController {
         
         let extensionDeployJson:JSON = ["external_update_url":"https://clients2.google.com/service/update2/crx"]
         
-        let extensionDeploy = extensionDeploys+chromeExtensionId+".json"
+        
         if !fm.createFileAtPath(extensionDeploy, contents: try! extensionDeployJson.rawData(), attributes: nil) {
             statusLabel.stringValue = "Could not write Google Chrome Extension file."
             return

@@ -174,11 +174,23 @@
                                     <constraint firstItem="aNh-4r-jlH" firstAttribute="top" secondItem="Ds9-Wo-PuT" secondAttribute="top" constant="20" symbolic="YES" id="sG1-UM-Why"/>
                                 </constraints>
                             </customView>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="VHZ-Ur-vE9">
+                                <rect key="frame" x="306" y="38" width="93" height="32"/>
+                                <buttonCell key="cell" type="push" title="Uninstall" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="aMh-ul-ENk">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="onUninstall:" target="XfG-lQ-9wD" id="1mh-ea-LA8"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstItem="Ds9-Wo-PuT" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="1H7-Vq-VpH"/>
+                            <constraint firstItem="VHZ-Ur-vE9" firstAttribute="bottom" secondItem="fpR-H6-jZw" secondAttribute="bottom" id="2v2-mO-Etv"/>
                             <constraint firstItem="Lvm-G8-d8a" firstAttribute="leading" secondItem="fpR-H6-jZw" secondAttribute="trailing" constant="40" id="3nP-uH-wU1"/>
                             <constraint firstItem="fpR-H6-jZw" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="45" id="DuS-hb-q8L"/>
+                            <constraint firstItem="VHZ-Ur-vE9" firstAttribute="centerX" secondItem="Lvm-G8-d8a" secondAttribute="centerX" id="HCy-xT-xPg"/>
                             <constraint firstItem="fpR-H6-jZw" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="45" id="YoK-tg-MmJ"/>
                             <constraint firstItem="Roe-CQ-slf" firstAttribute="top" secondItem="Lvm-G8-d8a" secondAttribute="bottom" constant="8" symbolic="YES" id="ZRr-WD-uS4"/>
                             <constraint firstItem="Roe-CQ-slf" firstAttribute="leading" secondItem="Lvm-G8-d8a" secondAttribute="leading" id="a8i-MZ-64z"/>
@@ -193,6 +205,7 @@
                     </view>
                     <connections>
                         <outlet property="statusLabel" destination="Roe-CQ-slf" id="L7b-yq-NMo"/>
+                        <outlet property="uninstallButton" destination="VHZ-Ur-vE9" id="WYz-eV-zAh"/>
                         <outlet property="warningView" destination="Ds9-Wo-PuT" id="QMk-ei-Fof"/>
                     </connections>
                 </viewController>
