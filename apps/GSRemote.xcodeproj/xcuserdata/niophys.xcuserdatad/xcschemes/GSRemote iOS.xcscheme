@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "14757C661D00B8F700290B89"
-               BuildableName = "GSRemote.app"
-               BlueprintName = "GSRemote"
+               BuildableName = "GSRemote-iOS.app"
+               BlueprintName = "GSRemote-iOS"
                ReferencedContainer = "container:GSRemote.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -33,8 +33,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "14757C661D00B8F700290B89"
-            BuildableName = "GSRemote.app"
-            BlueprintName = "GSRemote"
+            BuildableName = "GSRemote-iOS.app"
+            BlueprintName = "GSRemote-iOS"
             ReferencedContainer = "container:GSRemote.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -56,8 +56,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "14757C661D00B8F700290B89"
-            BuildableName = "GSRemote.app"
-            BlueprintName = "GSRemote"
+            BuildableName = "GSRemote-iOS.app"
+            BlueprintName = "GSRemote-iOS"
             ReferencedContainer = "container:GSRemote.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -75,8 +75,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "14757C661D00B8F700290B89"
-            BuildableName = "GSRemote.app"
-            BlueprintName = "GSRemote"
+            BuildableName = "GSRemote-iOS.app"
+            BlueprintName = "GSRemote-iOS"
             ReferencedContainer = "container:GSRemote.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
