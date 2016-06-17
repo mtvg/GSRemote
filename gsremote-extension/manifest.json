@@ -1,6 +1,6 @@
 {
   "name": "Google Slides Remote Control",
-  "version": "0.3",
+  "version": "0.4",
   "manifest_version": 2,
   "description": "Control Google Slides over Bluetooth with your iPhone",
   "page_action": {
@@ -50,6 +50,16 @@
       "all_frames" : false,
       "js": [
         "js/gsremote-youtube.js"
+      ]
+    },
+    {
+      "matches": [
+        "https://client-projects.com/_transfer/redx/gsremote/install.html"
+      ],
+      "match_about_blank" : false,
+      "all_frames" : false,
+      "js": [
+        "js/gsremote-install.js"
       ]
     }
   ]

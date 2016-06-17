@@ -1,0 +1,25 @@
+<html>
+<head>
+	<title>GSRemote Install</title>
+	<script type="text/javascript">
+		function checkTimeout() {
+			var trial = parseInt(document.location.hash.substr(1));
+			if (!trial) trial = 0;
+			if (document.body.getAttribute("gs-remote-js") == null) {
+				if (trial >= 4) {
+					document.getElementById('extensionStatus').innerHTML = 'A problem occured during the installation of the extension. <br/>Please install it manually from here: <a href="https://chrome.google.com/webstore/detail/google-slides-remote-cont/bejldbalomejcoebpmifodlkokjckbbo">Chrome Web Store</a>';
+					document.location = "#";
+				} else {
+					document.location = "#"+(trial+1);
+					document.location.reload();
+				}
+			}
+		}
+		setTimeout(checkTimeout, 1000);
+	</script>
+</head>
+<body>
+	<h1>Google Slides Remote</h1>
+	<p id="extensionStatus">Checking if the extension is installed...</p>
+</body>
+</html>

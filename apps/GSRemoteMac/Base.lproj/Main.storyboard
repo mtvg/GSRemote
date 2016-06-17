@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10116"/>
     </dependencies>
     <scenes>
         <!--Application-->
@@ -15,14 +15,14 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="GSRemoteMac" systemMenu="apple" id="uQy-DD-JDr">
                                     <items>
-                                        <menuItem title="About GSRemoteMac" id="5kV-Vb-QxS">
+                                        <menuItem title="About" id="5kV-Vb-QxS">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="orderFrontStandardAboutPanel:" target="Ady-hI-5gd" id="Exp-CZ-Vem"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="VOq-y0-SEH"/>
-                                        <menuItem title="Hide GSRemoteMac" keyEquivalent="h" id="Olw-nP-bQN">
+                                        <menuItem title="Hide" keyEquivalent="h" id="Olw-nP-bQN">
                                             <connections>
                                                 <action selector="hide:" target="Ady-hI-5gd" id="PnN-Uc-m68"/>
                                             </connections>
@@ -40,7 +40,7 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="kCx-OE-vgT"/>
-                                        <menuItem title="Quit GSRemoteMac" keyEquivalent="q" id="4sb-4s-VLi">
+                                        <menuItem title="Quit" keyEquivalent="q" id="4sb-4s-VLi">
                                             <connections>
                                                 <action selector="terminate:" target="Ady-hI-5gd" id="Te7-pn-YzF"/>
                                             </connections>
@@ -57,10 +57,9 @@
                                                 <action selector="performMiniaturize:" target="Ady-hI-5gd" id="VwT-WD-YPe"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Zoom" id="R4o-n2-Eq4">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        <menuItem title="Close" keyEquivalent="w" id="fYp-vG-b8f" userLabel="Close">
                                             <connections>
-                                                <action selector="performZoom:" target="Ady-hI-5gd" id="DIl-cC-cCs"/>
+                                                <action selector="performClose:" target="Ady-hI-5gd" id="vGT-zS-a2G"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="eu3-7i-yIM"/>
@@ -82,7 +81,7 @@
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
                     </connections>
                 </application>
-                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="GSRemote" customModuleProvider="target"/>
+                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="GSRemote_Installer" customModuleProvider="target"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="75" y="0.0"/>
@@ -93,10 +92,10 @@
                 <windowController showSeguePresentationStyle="single" id="B8D-0N-5wS" sceneMemberID="viewController">
                     <window key="window" title="Good Slides Remote - Installer" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" oneShot="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
-                        <rect key="contentRect" x="609" y="417" width="480" height="270"/>
+                        <rect key="contentRect" x="609" y="417" width="600" height="270"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
-                        <value key="minSize" type="size" width="480" height="270"/>
-                        <value key="maxSize" type="size" width="480" height="270"/>
+                        <value key="minSize" type="size" width="600" height="270"/>
+                        <value key="maxSize" type="size" width="600" height="270"/>
                     </window>
                     <connections>
                         <segue destination="XfG-lQ-9wD" kind="relationship" relationship="window.shadowedContentViewController" id="cq2-FE-JQM"/>
@@ -109,9 +108,9 @@
         <!--Good Slides Remote - Installer-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
-                <viewController title="Good Slides Remote - Installer" id="XfG-lQ-9wD" customClass="InstallerViewController" customModule="GSRemote" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Good Slides Remote - Installer" id="XfG-lQ-9wD" customClass="InstallerViewController" customModule="GSRemote_Installer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fpR-H6-jZw">
@@ -123,90 +122,92 @@
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="iTunesArtwork" id="Pbg-Cb-424"/>
                             </imageView>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="Lvm-G8-d8a">
-                                <rect key="frame" x="263" y="161" width="179" height="24"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Status" id="WZO-il-u38">
+                                <rect key="frame" x="263" y="201" width="299" height="24"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Welcome" id="WZO-il-u38">
                                     <font key="font" metaFont="system" size="20"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Roe-CQ-slf">
-                                <rect key="frame" x="263" y="85" width="179" height="68"/>
+                                <rect key="frame" x="263" y="93" width="299" height="85"/>
                                 <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" id="TPT-fI-8kZ">
                                     <font key="font" metaFont="system"/>
+                                    <string key="title">This application will install a Native Google Chrome extension on your system.
+
+You will be asked to quit Chrome during the installation.</string>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="Ds9-Wo-PuT" userLabel="Warning View">
-                                <rect key="frame" x="14" y="216" width="453" height="64"/>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="0u6-Vh-v3g">
+                                <rect key="frame" x="312" y="45" width="200" height="21"/>
                                 <subviews>
-                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aNh-4r-jlH">
-                                        <rect key="frame" x="20" y="20" width="24" height="24"/>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="VHZ-Ur-vE9">
+                                        <rect key="frame" x="-6" y="-7" width="102" height="32"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="24" id="lcO-zV-MT4"/>
+                                            <constraint firstAttribute="width" constant="90" id="QHw-iz-qye"/>
                                         </constraints>
-                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSCaution" id="KJF-x7-M6A"/>
-                                    </imageView>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dTR-dH-NEV">
-                                        <rect key="frame" x="50" y="24" width="353" height="17"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Move this app to your Applications folder and re launch it." id="AoC-Cn-5Zu">
+                                        <buttonCell key="cell" type="push" title="Install" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="aMh-ul-ENk">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
-                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                    </textField>
-                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="s30-eD-RUW">
-                                        <rect key="frame" x="409" y="20" width="24" height="24"/>
-                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSCaution" id="WZf-Ji-UOl"/>
-                                    </imageView>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="onInstall:" target="XfG-lQ-9wD" id="Txh-Ew-YVD"/>
+                                        </connections>
+                                    </button>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="PAH-e7-PCf">
+                                        <rect key="frame" x="104" y="-7" width="102" height="32"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="90" id="Smq-n6-lDA"/>
+                                        </constraints>
+                                        <buttonCell key="cell" type="push" title="Uninstall" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="slh-nS-2w0">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="onUninstall:" target="XfG-lQ-9wD" id="UV8-UI-de9"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="aNh-4r-jlH" firstAttribute="top" secondItem="s30-eD-RUW" secondAttribute="top" id="ENH-WD-0iD"/>
-                                    <constraint firstAttribute="bottom" secondItem="aNh-4r-jlH" secondAttribute="bottom" constant="20" symbolic="YES" id="G2L-lA-Iqg"/>
-                                    <constraint firstItem="dTR-dH-NEV" firstAttribute="leading" secondItem="aNh-4r-jlH" secondAttribute="trailing" constant="8" symbolic="YES" id="KkG-Hg-ziT"/>
-                                    <constraint firstItem="aNh-4r-jlH" firstAttribute="centerY" secondItem="dTR-dH-NEV" secondAttribute="centerY" id="RUL-Xd-jwH"/>
-                                    <constraint firstItem="s30-eD-RUW" firstAttribute="leading" secondItem="dTR-dH-NEV" secondAttribute="trailing" constant="8" symbolic="YES" id="WdF-jk-f00"/>
-                                    <constraint firstItem="dTR-dH-NEV" firstAttribute="centerX" secondItem="Ds9-Wo-PuT" secondAttribute="centerX" id="hEU-vX-Sq3"/>
-                                    <constraint firstItem="aNh-4r-jlH" firstAttribute="leading" secondItem="Ds9-Wo-PuT" secondAttribute="leading" constant="20" symbolic="YES" id="iJM-1h-jzH"/>
-                                    <constraint firstItem="aNh-4r-jlH" firstAttribute="bottom" secondItem="s30-eD-RUW" secondAttribute="bottom" id="k9l-3g-dTA"/>
-                                    <constraint firstAttribute="trailing" secondItem="s30-eD-RUW" secondAttribute="trailing" constant="20" symbolic="YES" id="kqX-Pb-mbB"/>
-                                    <constraint firstItem="aNh-4r-jlH" firstAttribute="top" secondItem="Ds9-Wo-PuT" secondAttribute="top" constant="20" symbolic="YES" id="sG1-UM-Why"/>
+                                    <constraint firstItem="PAH-e7-PCf" firstAttribute="top" secondItem="0u6-Vh-v3g" secondAttribute="top" id="5ZO-N0-Qun"/>
+                                    <constraint firstAttribute="trailing" secondItem="PAH-e7-PCf" secondAttribute="trailing" id="6kG-AL-Wmk"/>
+                                    <constraint firstItem="VHZ-Ur-vE9" firstAttribute="leading" secondItem="0u6-Vh-v3g" secondAttribute="leading" id="Eyc-iz-Ilh"/>
+                                    <constraint firstItem="VHZ-Ur-vE9" firstAttribute="top" secondItem="0u6-Vh-v3g" secondAttribute="top" id="QIY-kQ-xGd"/>
+                                    <constraint firstAttribute="bottom" secondItem="PAH-e7-PCf" secondAttribute="bottom" id="Y7D-6G-DsI"/>
+                                    <constraint firstAttribute="width" constant="200" id="aDg-dh-gHq"/>
+                                    <constraint firstAttribute="bottom" secondItem="VHZ-Ur-vE9" secondAttribute="bottom" id="v3H-wH-Qtk"/>
+                                    <constraint firstAttribute="height" constant="21" id="xPr-tb-NHQ"/>
                                 </constraints>
                             </customView>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="VHZ-Ur-vE9">
-                                <rect key="frame" x="306" y="38" width="93" height="32"/>
-                                <buttonCell key="cell" type="push" title="Uninstall" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="aMh-ul-ENk">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="onUninstall:" target="XfG-lQ-9wD" id="1mh-ea-LA8"/>
-                                </connections>
-                            </button>
+                            <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="gxZ-8H-9gg">
+                                <rect key="frame" x="404" y="175" width="16" height="16"/>
+                            </progressIndicator>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="Ds9-Wo-PuT" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="1H7-Vq-VpH"/>
-                            <constraint firstItem="VHZ-Ur-vE9" firstAttribute="bottom" secondItem="fpR-H6-jZw" secondAttribute="bottom" id="2v2-mO-Etv"/>
                             <constraint firstItem="Lvm-G8-d8a" firstAttribute="leading" secondItem="fpR-H6-jZw" secondAttribute="trailing" constant="40" id="3nP-uH-wU1"/>
+                            <constraint firstItem="Roe-CQ-slf" firstAttribute="centerY" secondItem="m2S-Jp-Qdl" secondAttribute="centerY" id="93C-1P-SSq"/>
+                            <constraint firstItem="0u6-Vh-v3g" firstAttribute="bottom" secondItem="fpR-H6-jZw" secondAttribute="bottom" id="9oy-Jp-Dbh"/>
                             <constraint firstItem="fpR-H6-jZw" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="45" id="DuS-hb-q8L"/>
-                            <constraint firstItem="VHZ-Ur-vE9" firstAttribute="centerX" secondItem="Lvm-G8-d8a" secondAttribute="centerX" id="HCy-xT-xPg"/>
+                            <constraint firstItem="gxZ-8H-9gg" firstAttribute="top" secondItem="Lvm-G8-d8a" secondAttribute="bottom" constant="10" id="R4n-lY-ygE"/>
                             <constraint firstItem="fpR-H6-jZw" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="45" id="YoK-tg-MmJ"/>
-                            <constraint firstItem="Roe-CQ-slf" firstAttribute="top" secondItem="Lvm-G8-d8a" secondAttribute="bottom" constant="8" symbolic="YES" id="ZRr-WD-uS4"/>
                             <constraint firstItem="Roe-CQ-slf" firstAttribute="leading" secondItem="Lvm-G8-d8a" secondAttribute="leading" id="a8i-MZ-64z"/>
                             <constraint firstAttribute="bottom" secondItem="fpR-H6-jZw" secondAttribute="bottom" constant="45" id="dhh-2H-zZt"/>
-                            <constraint firstItem="Lvm-G8-d8a" firstAttribute="top" secondItem="fpR-H6-jZw" secondAttribute="top" constant="40" id="efg-Yy-xYZ"/>
-                            <constraint firstItem="Lvm-G8-d8a" firstAttribute="top" secondItem="Ds9-Wo-PuT" secondAttribute="bottom" constant="31" id="mTS-ib-5Bn"/>
+                            <constraint firstItem="Lvm-G8-d8a" firstAttribute="top" secondItem="fpR-H6-jZw" secondAttribute="top" id="efg-Yy-xYZ"/>
+                            <constraint firstItem="gxZ-8H-9gg" firstAttribute="centerX" secondItem="Lvm-G8-d8a" secondAttribute="centerX" id="fqt-KZ-LVC"/>
+                            <constraint firstItem="0u6-Vh-v3g" firstAttribute="centerX" secondItem="Roe-CQ-slf" secondAttribute="centerX" id="m1B-Q4-b0l"/>
                             <constraint firstItem="Roe-CQ-slf" firstAttribute="trailing" secondItem="Lvm-G8-d8a" secondAttribute="trailing" id="p1E-wN-jPg"/>
                             <constraint firstAttribute="trailing" secondItem="Lvm-G8-d8a" secondAttribute="trailing" constant="40" id="pIB-KS-sx1"/>
-                            <constraint firstItem="Roe-CQ-slf" firstAttribute="bottom" secondItem="fpR-H6-jZw" secondAttribute="bottom" constant="-40" id="wpd-y3-QVf"/>
-                            <constraint firstItem="Ds9-Wo-PuT" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="-10" id="yHV-ji-sQV"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="statusLabel" destination="Roe-CQ-slf" id="L7b-yq-NMo"/>
-                        <outlet property="uninstallButton" destination="VHZ-Ur-vE9" id="WYz-eV-zAh"/>
-                        <outlet property="warningView" destination="Ds9-Wo-PuT" id="QMk-ei-Fof"/>
+                        <outlet property="buttonView" destination="0u6-Vh-v3g" id="kT7-yr-qdF"/>
+                        <outlet property="descriptionTextField" destination="Roe-CQ-slf" id="MDk-lc-kIF"/>
+                        <outlet property="installButton" destination="VHZ-Ur-vE9" id="rC9-1z-gAZ"/>
+                        <outlet property="statusLabel" destination="Lvm-G8-d8a" id="Kls-2W-YhF"/>
+                        <outlet property="uninstallButton" destination="PAH-e7-PCf" id="kNJ-Ti-ur5"/>
+                        <outlet property="waitingIndicator" destination="gxZ-8H-9gg" id="941-Fc-ba1"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -215,7 +216,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="NSCaution" width="32" height="32"/>
         <image name="iTunesArtwork" width="512" height="512"/>
     </resources>
 </document>

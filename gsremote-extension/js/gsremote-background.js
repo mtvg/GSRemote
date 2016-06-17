@@ -60,6 +60,10 @@ var gsr = {
 				}
 			}
 
+			else if (request.action == "opensettings") {
+				chrome.tabs.create({url:'chrome://extensions/?id=bejldbalomejcoebpmifodlkokjckbbo'});
+			}
+
 			else if (request.action == "init" && gsr.initNextPresenter) {
 
 				gsr.initNextPresenter = false;

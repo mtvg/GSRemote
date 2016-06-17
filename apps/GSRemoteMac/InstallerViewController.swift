@@ -15,9 +15,11 @@ class InstallerViewController: NSViewController {
     let workspace = NSWorkspace.sharedWorkspace()
     
     let chromeExtensionId = "bejldbalomejcoebpmifodlkokjckbbo"
-    let chromeExtensionNativeId = "net.mtvg.gsremotehelper"
+    let chromeNativeExtensionId = "net.mtvg.gsremotehelper"
+    let chromeNativeExtensionDescription = "Google Slides Remote Helper"
     let chromeNativeExtensionFilename = "gsremotehelper"
     let chromeBundleId = "com.google.Chrome"
+    let installedURL = NSURL(string: "https://client-projects.com/_transfer/redx/gsremote/install.html#")!
     
     static let chromeFolder = NSHomeDirectory()+"/Library/Application Support/Google/Chrome"
     let chromeLocalStateFile = chromeFolder+"/Local State"
@@ -31,11 +33,15 @@ class InstallerViewController: NSViewController {
     var killChromeTimer:NSTimer?
     
     @IBOutlet weak var statusLabel: NSTextField!
+    @IBOutlet weak var descriptionTextField: NSTextField!
     @IBOutlet weak var warningView: NSView!
     @IBOutlet weak var uninstallButton: NSButton!
+    @IBOutlet weak var installButton: NSButton!
+    @IBOutlet weak var buttonView: NSView!
+    @IBOutlet weak var waitingIndicator: NSProgressIndicator!
     
     required init?(coder: NSCoder) {
-        chromeNativeMessagingFile = chromeNativeMessagingFolder+"/"+chromeExtensionNativeId+".json"
+        chromeNativeMessagingFile = chromeNativeMessagingFolder+"/"+chromeNativeExtensionId+".json"
         chromeNativeExtensionFile = chromeNativeMessagingFolder+"/"+chromeNativeExtensionFilename
         chromeExternalExtensionFile = chromeExternalExtensionsFolder+"/"+chromeExtensionId+".json"
         
@@ -47,30 +53,17 @@ class InstallerViewController: NSViewController {
         
         if !isNibInit {
             
+            view.window?.makeKeyAndOrderFront(self)
+            installButton.focusRingType = .None
+            uninstallButton.focusRingType = .None
+            
             if !chromeIsInstalled() {
-                print("Google Chrome is not installed")
+                statusLabel.stringValue = "Chrome Not Installed"
+                descriptionTextField.stringValue = "Please install Google Chrome before installing this extension."
+                installButton.enabled = false
+                uninstallButton.enabled = false
                 return
             }
-            
-            do {
-                try test2()
-                try test1()
-            } catch InstallerError.ChromeNotFound {
-                print("ChromeNotFound")
-            } catch {
-                
-                print("other error")
-            }
-            
-            /*uninstallButton.focusRingType = .None
-            
-            if checkChromeIsRunning() {
-                killChromeTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(writeFilesOnChromeExit), userInfo: nil, repeats: true)
-            }
-            //checkExtensionStatus()
-            //createNativeHostFile()
-            //verifyApplicationLocation()
-            */
             
             isNibInit = true
         }
@@ -83,102 +76,140 @@ class InstallerViewController: NSViewController {
         return false
     }
     
-    func test1() throws {
-        throw InstallerError.ChromeNotFound
-    }
-    
-    func test2() throws {
-        throw InstallerError.OtherError
-    }
-    
-    
-    @IBAction func onUninstall(sender: AnyObject) {
-       /* _ = try? fm.removeItemAtPath(chromeNativeMessagingFile)
-        _ = try? fm.removeItemAtPath(chromeExternalExtensionFile)
-        _ = try? fm.removeItemAtPath(chromeNativeExtensionFile)
-        
-        statusLabel.stringValue = "Chrome Extension Uninstalled.\nMove this app to the Trash, or relaunch to install again."*/
-    }
-    
-    /*
-    func writeFilesOnChromeExit() {
-        if !checkChromeIsRunning() {
-            killChromeTimer?.invalidate()
-            print("Chrome is dead")
-            createNativeHostFile()
-            workspace.openURLs([NSURL(string: "http://ff0000.com")!], withAppBundleIdentifier: "com.google.Chrome", options: .Default, additionalEventParamDescriptor: nil, launchIdentifiers: nil)
-        }
-    }
-    
-    func checkChromeIsRunning()->Bool {
+    func chromeIsRunning()->Bool {
         let apps = NSWorkspace.sharedWorkspace().runningApplications
-        if apps.contains({$0.bundleIdentifier == "com.google.Chrome"}) {
+        if apps.contains({$0.bundleIdentifier == chromeBundleId}) {
             return true
         }
         return false
     }
     
-    func checkExtensionStatus() {
-        if getExtentionPath() == nil {
-            print("extension not found")
-        }
-    }
-    
-    func getExtentionPath()->String? {
-        if fm.fileExistsAtPath(chromeLocalState), let data = NSData(contentsOfFile: chromeLocalState) {
-            let json = JSON(data: data)
-            if let lastProfile = json["profile"]["last_used"].string {
-                let profileExtension = NSHomeDirectory()+"/Library/Application Support/Google/Chrome/"+lastProfile+"/Extensions/"+chromeExtensionId
-                if fm.fileExistsAtPath(profileExtension) {
-                    return profileExtension
-                }
-            }
-        }
-        return nil
-    }
-    
-    func verifyApplicationLocation() {
-        let currentFolder = bundle.bundlePath
-        if currentFolder.rangeOfString("/Applications")?.startIndex.distanceTo(currentFolder.startIndex) === 0 {
-            warningView.hidden = true
+    @IBAction func onInstall(sender: AnyObject) {
+        
+        installButton.enabled = false
+        uninstallButton.enabled = false
+        
+        statusLabel.stringValue = "Installing"
+        
+        if chromeIsRunning() {
+            waitingIndicator.startAnimation(self)
+            descriptionTextField.stringValue = "Quit Google Chrome now, it will automatically relaunch when the installation is complete."
+            killChromeTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(installExtension), userInfo: nil, repeats: true)
         } else {
-            warningView.hidden = false
+            installExtension()
+        }
+        
+    }
+    
+    func installExtension() {
+        if chromeIsRunning() {
+            return
+        }
+        
+        killChromeTimer?.invalidate()
+        waitingIndicator.stopAnimation(self)
+        descriptionTextField.stringValue = "Now installing the extension..."
+        
+        do {
+            try fm.removeItemAtPath(chromeNativeMessagingFile)
+            try fm.removeItemAtPath(chromeExternalExtensionFile)
+            try fm.removeItemAtPath(chromeNativeExtensionFile)
+        } catch {
+            
+        }
+        
+        if !createNativeHostFile() {
+            statusLabel.stringValue = "Error"
+        } else {
+            workspace.openURLs([installedURL], withAppBundleIdentifier: chromeBundleId, options: .Default, additionalEventParamDescriptor: nil, launchIdentifiers: nil)
+            NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(terminateInstaller), userInfo: nil, repeats: false)
+        }
+        
+    }
+    
+    func terminateInstaller() {
+        NSApplication.sharedApplication().terminate(self)
+    }
+    
+    @IBAction func onUninstall(sender: AnyObject) {
+        
+        installButton.enabled = false
+        uninstallButton.enabled = false
+        
+        statusLabel.stringValue = "Uninstalling"
+        
+        if chromeIsRunning() {
+            waitingIndicator.startAnimation(self)
+            descriptionTextField.stringValue = "Quit Google Chrome now to delete the extension files."
+            killChromeTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(uninstallExtension), userInfo: nil, repeats: true)
+        } else {
+            uninstallExtension()
         }
     }
     
-    func createNativeHostFile() {
+    func uninstallExtension() {
+        if chromeIsRunning() {
+            return
+        }
+        
+        killChromeTimer?.invalidate()
+        waitingIndicator.stopAnimation(self)
+        descriptionTextField.stringValue = "Now uninstalling the extension..."
+        
+        do {
+            try fm.removeItemAtPath(chromeNativeMessagingFile)
+            try fm.removeItemAtPath(chromeExternalExtensionFile)
+            try fm.removeItemAtPath(chromeNativeExtensionFile)
+        } catch {
+            statusLabel.stringValue = "Error"
+            descriptionTextField.stringValue = "An error occured while deleting the extension files. The extension might have already been uninstalled."
+            return
+        }
+        
+        statusLabel.stringValue = "Uninstalled"
+        descriptionTextField.stringValue = "The extension files have been removed. If the extension is still visible in Chrome, you can manually remove it from Chrome."
+        
+    }
+    
+    func createNativeHostFile() -> Bool {
         
         
-        if !fm.fileExistsAtPath(nativeMessagingHosts) {
+        if !fm.fileExistsAtPath(chromeNativeMessagingFolder) {
             do {
-                try fm.createDirectoryAtPath(nativeMessagingHosts, withIntermediateDirectories: false, attributes: nil)
+                try fm.createDirectoryAtPath(chromeNativeMessagingFolder, withIntermediateDirectories: false, attributes: nil)
             } catch {
-                statusLabel.stringValue = "Could not locate your Google Chrome personal folder."
-                return
+                descriptionTextField.stringValue = "Could not locate your Google Chrome personal folder."
+                return false
             }
+        }
+        
+        do {
+            try fm.copyItemAtPath(bundle.pathForResource(chromeNativeExtensionFilename, ofType: nil)!, toPath: chromeNativeExtensionFile)
+        } catch {
+            descriptionTextField.stringValue = "Could not write Native Extension file."
+            return false
         }
         
         let nativeMessagingHostJson:JSON = [
             "allowed_origins":["chrome-extension://"+chromeExtensionId+"/"],
-            "description": "Google Slides Remote Helper",
-            "name": "net.mtvg.gsremotehelper",
-            "path": bundle.pathForResource("gsremotehelper", ofType: nil)!,
+            "description": chromeNativeExtensionDescription,
+            "name": chromeNativeExtensionId,
+            "path": chromeNativeExtensionFile,
             "type": "stdio"]
         
-        
-        if !fm.createFileAtPath(nativeMessagingHost, contents: try! nativeMessagingHostJson.rawData(), attributes: nil) {
-            statusLabel.stringValue = "Could not write Google Chrome Extension file."
-            return
+        if !fm.createFileAtPath(chromeNativeMessagingFile, contents: try! nativeMessagingHostJson.rawData(), attributes: nil) {
+            descriptionTextField.stringValue = "Could not write Native Extension file."
+            return false
         }
         
         
         
-        if !fm.fileExistsAtPath(extensionDeploys) {
+        if !fm.fileExistsAtPath(chromeExternalExtensionsFolder) {
             do {
-                try fm.createDirectoryAtPath(extensionDeploys, withIntermediateDirectories: false, attributes: nil)
+                try fm.createDirectoryAtPath(chromeExternalExtensionsFolder, withIntermediateDirectories: false, attributes: nil)
             } catch {
-                statusLabel.stringValue = "Could not locate your Google Chrome personal folder."
-                return
+                descriptionTextField.stringValue = "Could not locate your Google Chrome personal folder."
+                return false
             }
         }
         
@@ -186,19 +217,16 @@ class InstallerViewController: NSViewController {
         let extensionDeployJson:JSON = ["external_update_url":"https://clients2.google.com/service/update2/crx"]
         
         
-        if !fm.createFileAtPath(extensionDeploy, contents: try! extensionDeployJson.rawData(), attributes: nil) {
-            statusLabel.stringValue = "Could not write Google Chrome Extension file."
-            return
+        if !fm.createFileAtPath(chromeExternalExtensionFile, contents: try! extensionDeployJson.rawData(), attributes: nil) {
+            descriptionTextField.stringValue = "Could not write Google Chrome Extension file."
+            return false
         }
         
-        statusLabel.stringValue = "Google Chrome Extension has been installed.\nPlease restart Google Chrome now."
+        return true
         
     }
-    */
+ 
     
 }
 
-enum InstallerError:ErrorType {
-    case ChromeNotFound, OtherError
-}
 
