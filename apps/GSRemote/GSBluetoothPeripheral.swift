@@ -106,7 +106,7 @@ class GSBluetoothPeripheral : NSObject, CBPeripheralManagerDelegate {
                 peripheral.respondToRequest(req, withResult: CBATTError.Success)
                 
                 if let callback = centralDataCallback {
-                    if data.isEqualToData(NSData(bytes: [Int(0x00), Int(0x00)], length: 2)) {
+                    if data.isEqualToData(NSData(bytes: [Int(0x00), Int(0xFF)], length: 2)) {
                         disconnectionInitiated = true
                     } else {
                         callback(data, req.central)

@@ -37,7 +37,9 @@ class GSConnectionScreen: UIViewController {
         
         bluetoothPeripheral = GSBluetoothPeripheral(withCBUUID: CBUUID(string: scannedPeripheral.uuid))
         bluetoothPeripheral.centralConnectionCallback = onPresentationConnected
+        
         activityIndicator.startAnimating()
+        statusLabel.text = "Establishing connection..."
     }
     
     override func viewDidDisappear(animated: Bool) {

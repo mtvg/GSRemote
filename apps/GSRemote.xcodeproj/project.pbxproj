@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		14272DB81D077905002E18DA /* GSBluetoothBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14272DB71D077905002E18DA /* GSBluetoothBridge.swift */; };
 		142D8CDC1D08E14300945AF9 /* GSScanningScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142D8CDB1D08E14300945AF9 /* GSScanningScreen.swift */; };
 		142D8CDE1D08E36F00945AF9 /* GSPresentationScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142D8CDD1D08E36F00945AF9 /* GSPresentationScreen.swift */; };
 		14757C6B1D00B8F700290B89 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14757C6A1D00B8F700290B89 /* AppDelegate.swift */; };
@@ -58,7 +57,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		14272DB71D077905002E18DA /* GSBluetoothBridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GSBluetoothBridge.swift; sourceTree = "<group>"; };
 		142D8CDB1D08E14300945AF9 /* GSScanningScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GSScanningScreen.swift; sourceTree = "<group>"; };
 		142D8CDD1D08E36F00945AF9 /* GSPresentationScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GSPresentationScreen.swift; sourceTree = "<group>"; };
 		14757C671D00B8F700290B89 /* GSRemote-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GSRemote-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -195,7 +193,6 @@
 			children = (
 				7748BC941D06A65500F6B9A5 /* GSBluetoothScanner.swift */,
 				7748BC961D06ADEC00F6B9A5 /* GSBluetoothPeripheral.swift */,
-				14272DB71D077905002E18DA /* GSBluetoothBridge.swift */,
 			);
 			name = Bluetooth;
 			sourceTree = "<group>";
@@ -332,7 +329,6 @@
 				14757C8B1D00B9E300290B89 /* SwiftyJSON.swift in Sources */,
 				142D8CDC1D08E14300945AF9 /* GSScanningScreen.swift in Sources */,
 				7748BC951D06A65500F6B9A5 /* GSBluetoothScanner.swift in Sources */,
-				14272DB81D077905002E18DA /* GSBluetoothBridge.swift in Sources */,
 				142D8CDE1D08E36F00945AF9 /* GSPresentationScreen.swift in Sources */,
 				77795C701D09346100975383 /* GSConnectionScreen.swift in Sources */,
 				14C43E871D0A3A97007A101B /* GSExtraScreen.swift in Sources */,
@@ -487,7 +483,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: RED Interactive Agency LLC";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = GSRemote/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -501,7 +498,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: RED Interactive Agency LLC";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = GSRemote/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -515,10 +513,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "-";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "94fa8cef-9960-4fd4-bf52-94dd9b89fd74";
 				SDKROOT = macosx;
 				SWIFT_OBJC_BRIDGING_HEADER = "gsremotehelper/gsremotehelper-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -529,10 +527,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "-";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "94fa8cef-9960-4fd4-bf52-94dd9b89fd74";
 				SDKROOT = macosx;
 				SWIFT_OBJC_BRIDGING_HEADER = "gsremotehelper/gsremotehelper-Bridging-Header.h";
 			};
@@ -542,6 +540,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = GSRemoteMac/Info.plist;
@@ -558,6 +557,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = GSRemoteMac/Info.plist;

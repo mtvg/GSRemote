@@ -51,8 +51,11 @@ class GSChromeBridge: NSObject {
                 }
             case "killbridge":
                 bluetoothAdvertiser.stopAdvertising()
-                bluetoothCentral.unsubscribeAll()
-                delay(0.2) {
+                sendDataToRemote(NSData(bytes: [Int(0x00), Int(0xFF)], length: 2))
+                delay(1) {
+                    self.bluetoothCentral.unsubscribeAll()
+                }
+                delay(1.2) {
                     exit(EXIT_SUCCESS)
                 }
             default:
