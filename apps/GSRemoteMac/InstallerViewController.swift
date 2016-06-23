@@ -53,7 +53,8 @@ class InstallerViewController: NSViewController {
         
         if !isNibInit {
             
-            view.window?.makeKeyAndOrderFront(self)
+            NSApplication.sharedApplication().activateIgnoringOtherApps(true)
+            
             installButton.focusRingType = .None
             uninstallButton.focusRingType = .None
             
