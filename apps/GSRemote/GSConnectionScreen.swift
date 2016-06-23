@@ -23,9 +23,6 @@ class GSConnectionScreen: UIViewController {
         navigationItem.hidesBackButton = true
         navigationItem.title = scannedPeripheral.name
         navigationItem.prompt = scannedPeripheral.host
-
-        bluetoothPeripheral = GSBluetoothPeripheral(withCBUUID: CBUUID(string: scannedPeripheral.uuid))
-        bluetoothPeripheral.centralConnectionCallback = onPresentationConnected
     }
     
     func onPresentationConnected(central:CBCentral) {
@@ -37,6 +34,9 @@ class GSConnectionScreen: UIViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        
+        bluetoothPeripheral = GSBluetoothPeripheral(withCBUUID: CBUUID(string: scannedPeripheral.uuid))
+        bluetoothPeripheral.centralConnectionCallback = onPresentationConnected
         activityIndicator.startAnimating()
     }
     

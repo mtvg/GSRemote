@@ -237,8 +237,12 @@ class GSPresentationScreen: UIViewController, VolumeHackDelegate, UITableViewDel
         }
     }
     
-    func onDisconnected(central:CBCentral) {
-        navigationController?.popToViewController((navigationController?.viewControllers[0])!, animated: true)
+    func onDisconnected(central:CBCentral, unexpected:Bool) {
+        if unexpected {
+            navigationController?.popToViewController((navigationController?.viewControllers[1])!, animated: true)
+        } else {
+            navigationController?.popToViewController((navigationController?.viewControllers[0])!, animated: true)
+        }
     }
     
     

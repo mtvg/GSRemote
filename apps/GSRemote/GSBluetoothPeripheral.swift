@@ -20,10 +20,11 @@ class GSBluetoothPeripheral : NSObject, CBPeripheralManagerDelegate {
     var charWrite:CBMutableCharacteristic!
     
     var centralConnectionCallback:((CBCentral)->())?
-    var centralDisconnectionCallback:((CBCentral)->())?
+    var centralDisconnectionCallback:((central: CBCentral, unexpected: Bool)->())?
     var centralDataCallback:((NSData,CBCentral)->())?
     var isConnected = false
     var cancelingConnection = false
+    var disconnectionInitiated = false
     
     var connectedCentral:CBCentral?
     var sendingQueueData = [GSQueuedData]()
@@ -39,6 +40,7 @@ class GSBluetoothPeripheral : NSObject, CBPeripheralManagerDelegate {
     }
     
     func cancelConnection() {
+        disconnectionInitiated = true
         if isConnected {
             sendJSON(["action":"disconnect"])
             isConnected = false
@@ -85,9 +87,10 @@ class GSBluetoothPeripheral : NSObject, CBPeripheralManagerDelegate {
         connectedCentral = nil
         isConnected = false
         if let callback = centralDisconnectionCallback {
-            callback(central)
+            callback(central: central, unexpected: !disconnectionInitiated)
         }
         
+        disconnectionInitiated = false
         manager.delegate = nil
         manager = nil
     }
@@ -103,7 +106,12 @@ class GSBluetoothPeripheral : NSObject, CBPeripheralManagerDelegate {
                 peripheral.respondToRequest(req, withResult: CBATTError.Success)
                 
                 if let callback = centralDataCallback {
-                    callback(data, req.central)
+                    if data.isEqualToData(NSData(bytes: [Int(0x00), Int(0x00)], length: 2)) {
+                        disconnectionInitiated = true
+                    } else {
+                        callback(data, req.central)
+                    }
+                    
                 }
             }
         }
