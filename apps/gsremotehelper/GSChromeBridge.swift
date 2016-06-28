@@ -9,14 +9,18 @@
 import Foundation
 import AppKit
 import CoreBluetooth
+import MultipeerConnectivity
 
-class GSChromeBridge: NSObject {
+class GSChromeBridge: NSObject, MCSessionDelegate {
     
     var presentationName = ""
     var presentationSlideCount = "0"
     let hostname = NSHost.currentHost().localizedName
     var bluetoothAdvertiser:GSBluetoothAdvertiser!
     var bluetoothCentral:GSBluetoothCentral!
+    
+    var multipeerSession:MCSession!
+    var mpeerid:MCPeerID!
     
     let stdout = NSFileHandle.fileHandleWithStandardOutput()
     
@@ -88,6 +92,10 @@ class GSChromeBridge: NSObject {
         bluetoothAdvertiser = GSBluetoothAdvertiser(uuid: sessionUUID, withJSON: ["name":presentationName, "host":hostname!, "count":presentationSlideCount, "uuid":sessionUUID])
         bluetoothCentral = GSBluetoothCentral(withCBUUID: sessionUUID)
         bluetoothCentral.deviceDataCallback = receivedDataFromRemote
+        
+        mpeerid = MCPeerID(displayName: presentationName)
+        multipeerSession = MCSession(peer: mpeerid)
+        multipeerSession.delegate = self
     }
     
     func receivedDataFromRemote(data:NSData, remote:RemoteDevice) {
@@ -98,8 +106,10 @@ class GSChromeBridge: NSObject {
                 bluetoothCentral.disconnectDevice(remote)
             }
             if action == "ready" {
-                let keydown = CGEventCreateKeyboardEvent (nil, 84, true)
-                let keyup = CGEventCreateKeyboardEvent (nil, 84, false)
+                let keydown = CGEventCreateKeyboardEvent (nil, 0x41, true)
+                let keyup = CGEventCreateKeyboardEvent (nil, 0x41, false)
+                CGEventSetFlags(keydown, CGEventFlags.MaskControl)
+                CGEventSetFlags(keyup, CGEventFlags.MaskControl)
                 CGEventPost(.CGHIDEventTap, keydown)
                 usleep(50_000)
                 CGEventPost(.CGHIDEventTap, keyup)
@@ -163,7 +173,91 @@ class GSChromeBridge: NSObject {
                 return
             }
         }
+        else if let multipeer = json["peerdata"].string {
+            
+            if json["s"].int == 0 {
+                peerstr = ""
+            }
+            
+            peerstr = peerstr+multipeer
+            
+            if let slice = json["s"].int, let total = json["t"].int where slice == total {
+                    
+                let peerdata = NSKeyedArchiver.archivedDataWithRootObject(self.mpeerid)
+                let slices = peerdata.base64EncodedStringWithOptions([]).split(70)
+                for i in 0..<slices.count {
+                    self.sendJsonToRemote(["peerdata":slices[i],"s":i+1,"t":slices.count])
+                }
+            }
+
+            return
+        }
+        else if let multipeer = json["condata"].string {
+            
+            
+            if json["s"].int == 0 {
+                constr = ""
+            }
+            
+            constr = constr+multipeer
+            
+            if let slice = json["s"].int, let total = json["t"].int where slice == total {
+                if  let data = NSData(base64EncodedString: peerstr, options: []),
+                    let peerid = NSKeyedUnarchiver.unarchiveObjectWithData(data) as? MCPeerID,
+                    let remotecondata = NSData(base64EncodedString: constr, options: []) {
+                    
+                    multipeerSession.nearbyConnectionDataForPeer(peerid, withCompletionHandler: { (data, error) in
+                        print("ConnectionDataForPeer received")
+                        
+                        
+                        
+                        
+                        let condata = data.base64EncodedStringWithOptions([])
+                        let slicesd = condata.split(70)
+                        for i in 0..<slicesd.count {
+                            self.sendJsonToRemote(["condata":slicesd[i],"s":i+1,"t":slicesd.count])
+                        }
+                        
+                        
+                        
+                        self.multipeerSession.connectPeer(peerid, withNearbyConnectionData: remotecondata)
+                        print("connecting now")
+                        print(peerid)
+                        print(remotecondata)
+                        
+                    })
+                }
+            }
+            
+            return
+        }
+        
         sendDataToChrome(data)
+    }
+    
+    var peerstr = ""
+    var constr = ""
+    
+    func session(session: MCSession, didReceiveData data: NSData, fromPeer peerID: MCPeerID) {
+        print("didReceiveData")
+    }
+    
+    func session(session: MCSession, peer peerID: MCPeerID, didChangeState state: MCSessionState) {
+        
+        print("didChangeState")
+        print(state.rawValue)
+    }
+    func session(session: MCSession, didReceiveStream stream: NSInputStream, withName streamName: String, fromPeer peerID: MCPeerID) {
+        
+        print("didReceiveStream")
+    }
+    func session(session: MCSession, didStartReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, withProgress progress: NSProgress) {
+        
+        print("didStartReceivingResourceWithName")
+    }
+    func session(session: MCSession, didFinishReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, atURL localURL: NSURL, withError error: NSError?) {
+        
+        print("didFinishReceivingResourceWithName")
     }
     
     func sendJsonToRemote(json:JSON) {

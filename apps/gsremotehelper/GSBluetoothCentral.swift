@@ -117,12 +117,33 @@ class GSBluetoothCentral : NSObject, CBCentralManagerDelegate, CBPeripheralDeleg
         }
     }
     
+    func peripheral(peripheral: CBPeripheral, didWriteValueForCharacteristic characteristic: CBCharacteristic, error: NSError?) {
+        print("didWriteValueForCharacteristic")
+        sendingData = false
+        flushData()
+    }
+    
     func sendData(data:NSData) {
         
-        for device in connectedDevices {
-            device.peripheral.writeValue(data, forCharacteristic: device.rxchar, type: CBCharacteristicWriteType.WithoutResponse)
-        }
+        sendingQueue.append(data)
+        flushData()
     }
+    
+    func flushData() {
+        if sendingData || sendingQueue.count == 0 {
+            return
+        }
+        
+        sendingData = true
+        let data = sendingQueue.removeFirst()
+        for device in connectedDevices {
+            device.peripheral.writeValue(data, forCharacteristic: device.rxchar, type: CBCharacteristicWriteType.WithResponse)
+        }
+        
+    }
+    
+    var sendingData = false
+    var sendingQueue = [NSData]()
     
     func disconnectAll() {
         for device in connectedDevices {

@@ -12,6 +12,8 @@ let stdin = NSFileHandle.fileHandleWithStandardInput()
 
 
 let bridge = GSChromeBridge()
+bridge.presentationName = "Test"
+bridge.setupBluetooth()
 
 stdinLoop: while true {
     

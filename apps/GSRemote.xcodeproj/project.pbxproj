@@ -23,6 +23,18 @@
 		14A671FF1D10A48500C86B5C /* gsremotehelper in Resources */ = {isa = PBXBuildFile; fileRef = 14757C821D00B9AC00290B89 /* gsremotehelper */; };
 		14A672011D10BB5800C86B5C /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14A672001D10BB5800C86B5C /* CoreBluetooth.framework */; };
 		14C43E871D0A3A97007A101B /* GSExtraScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C43E861D0A3A97007A101B /* GSExtraScreen.swift */; };
+		7709D65D1D2213220060BBC6 /* GSBluetoothPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7748BC961D06ADEC00F6B9A5 /* GSBluetoothPeripheral.swift */; };
+		7709D65E1D2213220060BBC6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14757C6A1D00B8F700290B89 /* AppDelegate.swift */; };
+		7709D65F1D2213220060BBC6 /* VolumeHack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77695D0D1D0A5C4500F8E7B9 /* VolumeHack.swift */; };
+		7709D6601D2213220060BBC6 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14757C8A1D00B9E300290B89 /* SwiftyJSON.swift */; };
+		7709D6611D2213220060BBC6 /* GSScanningScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142D8CDB1D08E14300945AF9 /* GSScanningScreen.swift */; };
+		7709D6621D2213220060BBC6 /* GSBluetoothScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7748BC941D06A65500F6B9A5 /* GSBluetoothScanner.swift */; };
+		7709D6631D2213220060BBC6 /* GSPresentationScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142D8CDD1D08E36F00945AF9 /* GSPresentationScreen.swift */; };
+		7709D6641D2213220060BBC6 /* GSConnectionScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77795C6F1D09346100975383 /* GSConnectionScreen.swift */; };
+		7709D6651D2213220060BBC6 /* GSExtraScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C43E861D0A3A97007A101B /* GSExtraScreen.swift */; };
+		7709D6681D2213220060BBC6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14757C731D00B8F700290B89 /* LaunchScreen.storyboard */; };
+		7709D6691D2213220060BBC6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14757C711D00B8F700290B89 /* Assets.xcassets */; };
+		7709D66A1D2213220060BBC6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14757C6E1D00B8F700290B89 /* Main.storyboard */; };
 		7738DED91D127AE2006F57DF /* InstallerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7738DED71D127A1B006F57DF /* InstallerViewController.swift */; };
 		77392CF61D0BDCDF00EF57E9 /* MouseWheel.m in Sources */ = {isa = PBXBuildFile; fileRef = 77392CF51D0BDCDF00EF57E9 /* MouseWheel.m */; };
 		7748BC911D0699C900F6B9A5 /* GSBluetoothAdvertiser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7748BC901D0699C900F6B9A5 /* GSBluetoothAdvertiser.swift */; };
@@ -30,6 +42,10 @@
 		7748BC951D06A65500F6B9A5 /* GSBluetoothScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7748BC941D06A65500F6B9A5 /* GSBluetoothScanner.swift */; };
 		7748BC971D06ADEC00F6B9A5 /* GSBluetoothPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7748BC961D06ADEC00F6B9A5 /* GSBluetoothPeripheral.swift */; };
 		77695D0E1D0A5C4500F8E7B9 /* VolumeHack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77695D0D1D0A5C4500F8E7B9 /* VolumeHack.swift */; };
+		77727FAA1D223E480030E64F /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77727FA91D223E480030E64F /* StringExtensions.swift */; };
+		77727FAB1D223E480030E64F /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77727FA91D223E480030E64F /* StringExtensions.swift */; };
+		77727FAC1D223E480030E64F /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77727FA91D223E480030E64F /* StringExtensions.swift */; };
+		77727FAD1D223E480030E64F /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77727FA91D223E480030E64F /* StringExtensions.swift */; };
 		77795C701D09346100975383 /* GSConnectionScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77795C6F1D09346100975383 /* GSConnectionScreen.swift */; };
 		77F89C641D0539EA0044624D /* GSChromeBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F89C631D0539EA0044624D /* GSChromeBridge.swift */; };
 /* End PBXBuildFile section */
@@ -75,6 +91,7 @@
 		14A671F61D107DF100C86B5C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		14A672001D10BB5800C86B5C /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/System/Library/Frameworks/CoreBluetooth.framework; sourceTree = DEVELOPER_DIR; };
 		14C43E861D0A3A97007A101B /* GSExtraScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GSExtraScreen.swift; sourceTree = "<group>"; };
+		7709D66E1D2213220060BBC6 /* GSRemote-iOSExport.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GSRemote-iOSExport.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7738DED71D127A1B006F57DF /* InstallerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstallerViewController.swift; sourceTree = "<group>"; };
 		77392CF31D0BDCDF00EF57E9 /* gsremotehelper-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "gsremotehelper-Bridging-Header.h"; sourceTree = "<group>"; };
 		77392CF41D0BDCDF00EF57E9 /* MouseWheel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MouseWheel.h; sourceTree = "<group>"; };
@@ -84,6 +101,7 @@
 		7748BC941D06A65500F6B9A5 /* GSBluetoothScanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GSBluetoothScanner.swift; sourceTree = "<group>"; };
 		7748BC961D06ADEC00F6B9A5 /* GSBluetoothPeripheral.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GSBluetoothPeripheral.swift; sourceTree = "<group>"; };
 		77695D0D1D0A5C4500F8E7B9 /* VolumeHack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VolumeHack.swift; sourceTree = "<group>"; };
+		77727FA91D223E480030E64F /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		77795C6F1D09346100975383 /* GSConnectionScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GSConnectionScreen.swift; sourceTree = "<group>"; };
 		77F89C631D0539EA0044624D /* GSChromeBridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GSChromeBridge.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -111,6 +129,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7709D6661D2213220060BBC6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -131,6 +156,7 @@
 				14757C671D00B8F700290B89 /* GSRemote-iOS.app */,
 				14757C821D00B9AC00290B89 /* gsremotehelper */,
 				14A671EB1D107DF100C86B5C /* GSRemote Installer.app */,
+				7709D66E1D2213220060BBC6 /* GSRemote-iOSExport.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -172,6 +198,7 @@
 			children = (
 				14A672001D10BB5800C86B5C /* CoreBluetooth.framework */,
 				14757C8A1D00B9E300290B89 /* SwiftyJSON.swift */,
+				77727FA91D223E480030E64F /* StringExtensions.swift */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -252,6 +279,23 @@
 			productReference = 14A671EB1D107DF100C86B5C /* GSRemote Installer.app */;
 			productType = "com.apple.product-type.application";
 		};
+		7709D65B1D2213220060BBC6 /* GSRemote-iOSExport */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7709D66B1D2213220060BBC6 /* Build configuration list for PBXNativeTarget "GSRemote-iOSExport" */;
+			buildPhases = (
+				7709D65C1D2213220060BBC6 /* Sources */,
+				7709D6661D2213220060BBC6 /* Frameworks */,
+				7709D6671D2213220060BBC6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "GSRemote-iOSExport";
+			productName = GSRemote;
+			productReference = 7709D66E1D2213220060BBC6 /* GSRemote-iOSExport.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -291,6 +335,7 @@
 				14757C661D00B8F700290B89 /* GSRemote-iOS */,
 				14757C811D00B9AC00290B89 /* gsremotehelper */,
 				14A671EA1D107DF100C86B5C /* GSRemote Installer */,
+				7709D65B1D2213220060BBC6 /* GSRemote-iOSExport */,
 			);
 		};
 /* End PBXProject section */
@@ -316,6 +361,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7709D6671D2213220060BBC6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7709D6681D2213220060BBC6 /* LaunchScreen.storyboard in Resources */,
+				7709D6691D2213220060BBC6 /* Assets.xcassets in Resources */,
+				7709D66A1D2213220060BBC6 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -325,6 +380,7 @@
 			files = (
 				7748BC971D06ADEC00F6B9A5 /* GSBluetoothPeripheral.swift in Sources */,
 				14757C6B1D00B8F700290B89 /* AppDelegate.swift in Sources */,
+				77727FAA1D223E480030E64F /* StringExtensions.swift in Sources */,
 				77695D0E1D0A5C4500F8E7B9 /* VolumeHack.swift in Sources */,
 				14757C8B1D00B9E300290B89 /* SwiftyJSON.swift in Sources */,
 				142D8CDC1D08E14300945AF9 /* GSScanningScreen.swift in Sources */,
@@ -342,6 +398,7 @@
 				77F89C641D0539EA0044624D /* GSChromeBridge.swift in Sources */,
 				7748BC931D069F8200F6B9A5 /* GSBluetoothCentral.swift in Sources */,
 				7748BC911D0699C900F6B9A5 /* GSBluetoothAdvertiser.swift in Sources */,
+				77727FAB1D223E480030E64F /* StringExtensions.swift in Sources */,
 				14757C851D00B9AC00290B89 /* main.swift in Sources */,
 				14757C8C1D00B9E300290B89 /* SwiftyJSON.swift in Sources */,
 				77392CF61D0BDCDF00EF57E9 /* MouseWheel.m in Sources */,
@@ -352,9 +409,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				77727FAC1D223E480030E64F /* StringExtensions.swift in Sources */,
 				14A671FA1D10858D00C86B5C /* SwiftyJSON.swift in Sources */,
 				7738DED91D127AE2006F57DF /* InstallerViewController.swift in Sources */,
 				14A671EE1D107DF100C86B5C /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7709D65C1D2213220060BBC6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7709D65D1D2213220060BBC6 /* GSBluetoothPeripheral.swift in Sources */,
+				7709D65E1D2213220060BBC6 /* AppDelegate.swift in Sources */,
+				77727FAD1D223E480030E64F /* StringExtensions.swift in Sources */,
+				7709D65F1D2213220060BBC6 /* VolumeHack.swift in Sources */,
+				7709D6601D2213220060BBC6 /* SwiftyJSON.swift in Sources */,
+				7709D6611D2213220060BBC6 /* GSScanningScreen.swift in Sources */,
+				7709D6621D2213220060BBC6 /* GSBluetoothScanner.swift in Sources */,
+				7709D6631D2213220060BBC6 /* GSPresentationScreen.swift in Sources */,
+				7709D6641D2213220060BBC6 /* GSConnectionScreen.swift in Sources */,
+				7709D6651D2213220060BBC6 /* GSExtraScreen.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -490,7 +565,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "net.mtvg.internal.GSRemote-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "06294a5d-5de1-48e3-b079-b5357ba611d1";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -505,7 +580,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "net.mtvg.internal.GSRemote-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "06294a5d-5de1-48e3-b079-b5357ba611d1";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
@@ -515,7 +590,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "-";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_OBJC_BRIDGING_HEADER = "gsremotehelper/gsremotehelper-Bridging-Header.h";
@@ -529,7 +604,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "-";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_OBJC_BRIDGING_HEADER = "gsremotehelper/gsremotehelper-Bridging-Header.h";
@@ -545,7 +620,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = GSRemoteMac/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = "net.mtvg.internal.GSRemote-Mac";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "05af9694-0bb6-4ed5-b0a2-5bd8e8df8ef5";
@@ -562,11 +637,41 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = GSRemoteMac/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = "net.mtvg.internal.GSRemote-Mac";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "05af9694-0bb6-4ed5-b0a2-5bd8e8df8ef5";
 				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		7709D66C1D2213220060BBC6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = "GSRemote-iOS copy-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "net.mtvg.internal.GSRemote-iOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "06294a5d-5de1-48e3-b079-b5357ba611d1";
+			};
+			name = Debug;
+		};
+		7709D66D1D2213220060BBC6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = "GSRemote-iOS copy-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "net.mtvg.internal.GSRemote-iOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "06294a5d-5de1-48e3-b079-b5357ba611d1";
 			};
 			name = Release;
 		};
@@ -605,6 +710,15 @@
 			buildConfigurations = (
 				14A671F81D107DF100C86B5C /* Debug */,
 				14A671F91D107DF100C86B5C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7709D66B1D2213220060BBC6 /* Build configuration list for PBXNativeTarget "GSRemote-iOSExport" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7709D66C1D2213220060BBC6 /* Debug */,
+				7709D66D1D2213220060BBC6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
