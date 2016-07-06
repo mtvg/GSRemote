@@ -101,6 +101,7 @@ class GSBluetoothCentral : NSObject, CBCentralManagerDelegate, CBPeripheralDeleg
                 deviceDataCallback!(data, device)
             }
         }
+        
     }
     
     func centralManager(central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: NSError?) {

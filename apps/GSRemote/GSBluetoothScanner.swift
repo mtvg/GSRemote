@@ -134,9 +134,11 @@ class GSBluetoothScanner: NSObject, CBCentralManagerDelegate, CBPeripheralDelega
     
     func peripheral(peripheral: CBPeripheral, didUpdateValueForCharacteristic characteristic: CBCharacteristic, error: NSError?) {
         if characteristic.UUID == GSREMOTE_ADVDATA && characteristic.value != nil && isScanning {
+            print("characteristic's value is \(characteristic.value!.length) bytes long")
+            print(error)
             let j = JSON(data: characteristic.value!)
             if let name = j["name"].string, let host = j["host"].string, let count = j["count"].string, let uuid = j["uuid"].string {
-                let p = GSScannedPeripheral(name: name, host: host, count: Int(count)!, uuid: uuid, peripheral: peripheral, pid: discoveredPeripheralsID[peripheral]!, lastSeen: NSDate())
+                let p = GSScannedPeripheral(name: name, host: host, count: 10, uuid: uuid, peripheral: peripheral, pid: discoveredPeripheralsID[peripheral]!, lastSeen: NSDate())
                 availablePeripherals.append(p)
                 //print(p.name+" added")
                 if peripheralUpdateCallback != nil {

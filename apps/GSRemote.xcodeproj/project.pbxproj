@@ -46,7 +46,18 @@
 		77727FAB1D223E480030E64F /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77727FA91D223E480030E64F /* StringExtensions.swift */; };
 		77727FAC1D223E480030E64F /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77727FA91D223E480030E64F /* StringExtensions.swift */; };
 		77727FAD1D223E480030E64F /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77727FA91D223E480030E64F /* StringExtensions.swift */; };
+		77727FB01D2644B30030E64F /* SCBluetoothAdvertiser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77727FAF1D2644B30030E64F /* SCBluetoothAdvertiser.swift */; };
+		77727FB11D2647630030E64F /* SCBluetoothAdvertiser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77727FAF1D2644B30030E64F /* SCBluetoothAdvertiser.swift */; };
 		77795C701D09346100975383 /* GSConnectionScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77795C6F1D09346100975383 /* GSConnectionScreen.swift */; };
+		7795C4231D28E03C00F3359F /* SCBluetoothCentral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7795C4221D28E03C00F3359F /* SCBluetoothCentral.swift */; };
+		7795C4251D28E61C00F3359F /* SCRemoteFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7795C4241D28E61C00F3359F /* SCRemoteFile.swift */; };
+		7795C4261D28E69000F3359F /* SCRemoteFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7795C4241D28E61C00F3359F /* SCRemoteFile.swift */; };
+		7795C4281D28E6BF00F3359F /* SCPeer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7795C4271D28E6BF00F3359F /* SCPeer.swift */; };
+		7795C4291D28E6D000F3359F /* SCPeer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7795C4271D28E6BF00F3359F /* SCPeer.swift */; };
+		77BE9CA81D28C34200DC1F02 /* SCCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BE9CA71D28C34200DC1F02 /* SCCommon.swift */; };
+		77BE9CA91D28C41400DC1F02 /* SCCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BE9CA71D28C34200DC1F02 /* SCCommon.swift */; };
+		77E6C3B31D2CC6B2009D7CC5 /* SCBluetoothCentralDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E6C3B21D2CC6B2009D7CC5 /* SCBluetoothCentralDelegate.swift */; };
+		77E6C3B41D2CC6B2009D7CC5 /* SCBluetoothCentralDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E6C3B21D2CC6B2009D7CC5 /* SCBluetoothCentralDelegate.swift */; };
 		77F89C641D0539EA0044624D /* GSChromeBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F89C631D0539EA0044624D /* GSChromeBridge.swift */; };
 /* End PBXBuildFile section */
 
@@ -102,7 +113,13 @@
 		7748BC961D06ADEC00F6B9A5 /* GSBluetoothPeripheral.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GSBluetoothPeripheral.swift; sourceTree = "<group>"; };
 		77695D0D1D0A5C4500F8E7B9 /* VolumeHack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VolumeHack.swift; sourceTree = "<group>"; };
 		77727FA91D223E480030E64F /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
+		77727FAF1D2644B30030E64F /* SCBluetoothAdvertiser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SCBluetoothAdvertiser.swift; path = StarConnectivity/SCBluetoothAdvertiser.swift; sourceTree = "<group>"; };
 		77795C6F1D09346100975383 /* GSConnectionScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GSConnectionScreen.swift; sourceTree = "<group>"; };
+		7795C4221D28E03C00F3359F /* SCBluetoothCentral.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SCBluetoothCentral.swift; path = StarConnectivity/SCBluetoothCentral.swift; sourceTree = "<group>"; };
+		7795C4241D28E61C00F3359F /* SCRemoteFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SCRemoteFile.swift; path = StarConnectivity/SCRemoteFile.swift; sourceTree = "<group>"; };
+		7795C4271D28E6BF00F3359F /* SCPeer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SCPeer.swift; path = StarConnectivity/SCPeer.swift; sourceTree = "<group>"; };
+		77BE9CA71D28C34200DC1F02 /* SCCommon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SCCommon.swift; path = StarConnectivity/SCCommon.swift; sourceTree = "<group>"; };
+		77E6C3B21D2CC6B2009D7CC5 /* SCBluetoothCentralDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SCBluetoothCentralDelegate.swift; path = StarConnectivity/SCBluetoothCentralDelegate.swift; sourceTree = "<group>"; };
 		77F89C631D0539EA0044624D /* GSChromeBridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GSChromeBridge.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -196,6 +213,7 @@
 		14757C891D00B9D700290B89 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				77727FAE1D2644680030E64F /* StarConnectivity */,
 				14A672001D10BB5800C86B5C /* CoreBluetooth.framework */,
 				14757C8A1D00B9E300290B89 /* SwiftyJSON.swift */,
 				77727FA91D223E480030E64F /* StringExtensions.swift */,
@@ -213,6 +231,19 @@
 				14A671F61D107DF100C86B5C /* Info.plist */,
 			);
 			path = GSRemoteMac;
+			sourceTree = "<group>";
+		};
+		77727FAE1D2644680030E64F /* StarConnectivity */ = {
+			isa = PBXGroup;
+			children = (
+				77BE9CA71D28C34200DC1F02 /* SCCommon.swift */,
+				77727FAF1D2644B30030E64F /* SCBluetoothAdvertiser.swift */,
+				7795C4221D28E03C00F3359F /* SCBluetoothCentral.swift */,
+				77E6C3B21D2CC6B2009D7CC5 /* SCBluetoothCentralDelegate.swift */,
+				7795C4271D28E6BF00F3359F /* SCPeer.swift */,
+				7795C4241D28E61C00F3359F /* SCRemoteFile.swift */,
+			);
+			name = StarConnectivity;
 			sourceTree = "<group>";
 		};
 		77795C6E1D092E8100975383 /* Bluetooth */ = {
@@ -379,11 +410,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				7748BC971D06ADEC00F6B9A5 /* GSBluetoothPeripheral.swift in Sources */,
+				77727FB01D2644B30030E64F /* SCBluetoothAdvertiser.swift in Sources */,
 				14757C6B1D00B8F700290B89 /* AppDelegate.swift in Sources */,
+				7795C4251D28E61C00F3359F /* SCRemoteFile.swift in Sources */,
 				77727FAA1D223E480030E64F /* StringExtensions.swift in Sources */,
+				77BE9CA81D28C34200DC1F02 /* SCCommon.swift in Sources */,
+				77E6C3B31D2CC6B2009D7CC5 /* SCBluetoothCentralDelegate.swift in Sources */,
 				77695D0E1D0A5C4500F8E7B9 /* VolumeHack.swift in Sources */,
 				14757C8B1D00B9E300290B89 /* SwiftyJSON.swift in Sources */,
 				142D8CDC1D08E14300945AF9 /* GSScanningScreen.swift in Sources */,
+				7795C4281D28E6BF00F3359F /* SCPeer.swift in Sources */,
+				7795C4231D28E03C00F3359F /* SCBluetoothCentral.swift in Sources */,
 				7748BC951D06A65500F6B9A5 /* GSBluetoothScanner.swift in Sources */,
 				142D8CDE1D08E36F00945AF9 /* GSPresentationScreen.swift in Sources */,
 				77795C701D09346100975383 /* GSConnectionScreen.swift in Sources */,
@@ -396,8 +433,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				77F89C641D0539EA0044624D /* GSChromeBridge.swift in Sources */,
+				7795C4261D28E69000F3359F /* SCRemoteFile.swift in Sources */,
+				7795C4291D28E6D000F3359F /* SCPeer.swift in Sources */,
 				7748BC931D069F8200F6B9A5 /* GSBluetoothCentral.swift in Sources */,
 				7748BC911D0699C900F6B9A5 /* GSBluetoothAdvertiser.swift in Sources */,
+				77727FB11D2647630030E64F /* SCBluetoothAdvertiser.swift in Sources */,
+				77E6C3B41D2CC6B2009D7CC5 /* SCBluetoothCentralDelegate.swift in Sources */,
+				77BE9CA91D28C41400DC1F02 /* SCCommon.swift in Sources */,
 				77727FAB1D223E480030E64F /* StringExtensions.swift in Sources */,
 				14757C851D00B9AC00290B89 /* main.swift in Sources */,
 				14757C8C1D00B9E300290B89 /* SwiftyJSON.swift in Sources */,

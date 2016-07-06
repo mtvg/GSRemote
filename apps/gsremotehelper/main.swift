@@ -7,7 +7,9 @@
 //
 
 import Foundation
+import CoreBluetooth
 
+/*
 let stdin = NSFileHandle.fileHandleWithStandardInput()
 
 
@@ -35,3 +37,16 @@ stdinLoop: while true {
     
 }
 
+
+
+*/
+
+let service = SCUUID(string: "0799eb34-73a7-48c0-8839-615cdf1b495b")
+let myPeer = SCPeer()
+let adv = SCBluetoothAdvertiser(peer:myPeer, serviceUUID: service, discoveryInfo: nil)
+adv?.startAdvertising()
+
+
+stdinLoop: while true {
+    
+}

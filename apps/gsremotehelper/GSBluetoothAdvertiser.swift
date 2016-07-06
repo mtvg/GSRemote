@@ -33,13 +33,13 @@ class GSBluetoothAdvertiser : NSObject, CBPeripheralManagerDelegate {
             let service = CBMutableService(type: GSREMOTE_DEVSERVICE, primary: true)
             
             let data = try! advertisedJSON.rawData()
+            print("characteristic's value is \(data.length) bytes long")
             
             let advdata = CBMutableCharacteristic(type: GSREMOTE_ADVDATA, properties: CBCharacteristicProperties.Read, value: data, permissions: CBAttributePermissions.Readable)
             
             service.characteristics = [advdata]
             
             manager.addService(service)
-            
         }
     }
     
