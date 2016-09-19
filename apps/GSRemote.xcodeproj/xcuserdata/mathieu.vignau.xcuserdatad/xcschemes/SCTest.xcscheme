@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "14757C661D00B8F700290B89"
-               BuildableName = "GSRemote-iOS.app"
-               BlueprintName = "GSRemote-iOS"
+               BlueprintIdentifier = "776AC9971D84F5A1007F8CD8"
+               BuildableName = "SCTest.app"
+               BlueprintName = "SCTest"
                ReferencedContainer = "container:GSRemote.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -32,9 +32,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "14757C661D00B8F700290B89"
-            BuildableName = "GSRemote-iOS.app"
-            BlueprintName = "GSRemote-iOS"
+            BlueprintIdentifier = "776AC9971D84F5A1007F8CD8"
+            BuildableName = "SCTest.app"
+            BlueprintName = "SCTest"
             ReferencedContainer = "container:GSRemote.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -55,9 +55,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "14757C661D00B8F700290B89"
-            BuildableName = "GSRemote-iOS.app"
-            BlueprintName = "GSRemote-iOS"
+            BlueprintIdentifier = "776AC9971D84F5A1007F8CD8"
+            BuildableName = "SCTest.app"
+            BlueprintName = "SCTest"
             ReferencedContainer = "container:GSRemote.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -74,9 +74,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "14757C661D00B8F700290B89"
-            BuildableName = "GSRemote-iOS.app"
-            BlueprintName = "GSRemote-iOS"
+            BlueprintIdentifier = "776AC9971D84F5A1007F8CD8"
+            BuildableName = "SCTest.app"
+            BlueprintName = "SCTest"
             ReferencedContainer = "container:GSRemote.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

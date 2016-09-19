@@ -1,19 +1,21 @@
 //
-//  SCBluetoothAdvertiser.swift
+//  SCBluetoothPeripheral.swift
 //  GSRemote
 //
-//  Created by Niophys on 6/30/16.
+//  Created by Niophys on 9/10/16.
 //  Copyright © 2016 MTVG. All rights reserved.
 //
 
 import Foundation
 import CoreBluetooth
 
-public class SCBluetoothAdvertiser : NSObject {
+public class SCBluetoothPeripheral : NSObject {
     
-    public let serviceUUID:SCUUID
+    public weak var delegate:SCBluetoothPeripheralDelegate?
+    public let centralPeer:SCPeer
     public let peer:SCPeer
     
+    private let serviceUUID:CBUUID
     private let advData:[String:AnyObject]
     private let cbPeripheralManager:CBPeripheralManager
     private var cbPeripheralManagerDelegate:PeripheralManagerDelegate!
@@ -21,20 +23,20 @@ public class SCBluetoothAdvertiser : NSObject {
     private var advertisingRequested = false
     private var servicesInitialised = false
     
-    init(centralPeer peer:SCPeer, serviceUUID uuid: SCUUID) {
-        self.serviceUUID = uuid
+    init(peripheralPeer peer:SCPeer, toCentralPeer centralPeer:SCPeer) {
+        self.centralPeer = centralPeer
         self.peer = peer
         
-        // generating unique name for this advertising session, so Browser can distinguish multiple sessions from same device
-        var time = NSDate().timeIntervalSince1970
-        let timedata = String(NSData(bytes: &time, length: sizeof(NSTimeInterval)).base64EncodedStringWithOptions([]).characters.dropLast())
+        serviceUUID = CBUUID(NSUUID: centralPeer.identifier)
         
-        advData = [CBAdvertisementDataLocalNameKey : "SC#"+timedata, CBAdvertisementDataServiceUUIDsKey : [serviceUUID]]
-        cbPeripheralManager = CBPeripheralManager(delegate: nil, queue: dispatch_queue_create("starConnectivity_bluetoothAdvertiserQueue", DISPATCH_QUEUE_CONCURRENT))
+        advData = [CBAdvertisementDataServiceUUIDsKey : [serviceUUID]]
+        cbPeripheralManager = CBPeripheralManager(delegate: nil, queue: dispatch_queue_create("starConnectivity_bluetoothPeripheralQueue", DISPATCH_QUEUE_CONCURRENT))
         
         super.init()
         cbPeripheralManagerDelegate = PeripheralManagerDelegate(outer: self)
         cbPeripheralManager.delegate = cbPeripheralManagerDelegate
+        
+        startAdvertising()
     }
     
     public func startAdvertising() {
@@ -46,6 +48,7 @@ public class SCBluetoothAdvertiser : NSObject {
                 servicesInitialised = true
             }
             cbPeripheralManager.startAdvertising(advData)
+            print("Now advertising on channel \(serviceUUID) with info \(peer.discoveryData)")
         }
     }
     
@@ -57,16 +60,18 @@ public class SCBluetoothAdvertiser : NSObject {
     private func initService() {
         let service = CBMutableService(type: serviceUUID, primary: true)
         let infochar = CBMutableCharacteristic(type: SCCommon.DISCOVERYINFO_CHARACTERISTIC_UUID, properties: CBCharacteristicProperties.Read, value: peer.discoveryData, permissions: CBAttributePermissions.Readable)
-        service.characteristics = [infochar]
+        let txchar = CBMutableCharacteristic(type: SCCommon.TX_CHARACTERISTIC_UUID, properties: CBCharacteristicProperties.Notify, value: nil, permissions: CBAttributePermissions.Readable)
+        let rxchar = CBMutableCharacteristic(type: SCCommon.RX_CHARACTERISTIC_UUID, properties: [CBCharacteristicProperties.Write, CBCharacteristicProperties.WriteWithoutResponse], value: nil, permissions: CBAttributePermissions.Writeable)
+        service.characteristics = [infochar, txchar, rxchar]
         cbPeripheralManager.addService(service)
     }
     
     private class PeripheralManagerDelegate: NSObject, CBPeripheralManagerDelegate {
         
-        private weak var outer: SCBluetoothAdvertiser!
+        private weak var outer: SCBluetoothPeripheral!
         private var oldPeripheralState:Int?
         
-        init(outer: SCBluetoothAdvertiser) {
+        init(outer: SCBluetoothPeripheral) {
             self.outer = outer
             super.init()
         }
@@ -82,6 +87,20 @@ public class SCBluetoothAdvertiser : NSObject {
                 outer.startAdvertising()
             }
         }
+        
+        private var count = 0
+        
+        @objc private func peripheralManager(peripheral: CBPeripheralManager, didReceiveWriteRequests requests: [CBATTRequest]) {
+            
+            for req in requests {
+                if let data = req.value {
+                    peripheral.respondToRequest(req, withResult: CBATTError.Success)
+                    
+                    count = count + data.length
+                }
+            }
+            
+            print("received \(count) bytes total")
+        }
     }
-
 }

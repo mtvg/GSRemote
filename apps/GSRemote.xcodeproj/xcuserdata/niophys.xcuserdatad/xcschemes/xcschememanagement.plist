@@ -19,6 +19,11 @@
 			<key>orderHint</key>
 			<integer>3</integer>
 		</dict>
+		<key>SCTest.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>4</integer>
+		</dict>
 		<key>gsremotehelper.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -43,6 +48,16 @@
 			<true/>
 		</dict>
 		<key>7709D65B1D2213220060BBC6</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>776AC9811D84F587007F8CD8</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>776AC9971D84F5A1007F8CD8</key>
 		<dict>
 			<key>primary</key>
 			<true/>

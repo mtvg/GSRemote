@@ -92,6 +92,7 @@ var gsr = {
 				var nextSlide = doc.getElementsByClassName("punch-viewer-speakernotes-page-next")[0];
 				var prevSlide = doc.getElementsByClassName("punch-viewer-speakernotes-page-previous")[0];
 				var notes = doc.getElementsByClassName("punch-viewer-speakernotes-text-body")[0];
+				var svgContainer = doc.getElementsByClassName("punch-viewer-speakernotes-page-container")[0];
 
 				var slidelist;
 				setTimeout(function(){
@@ -115,6 +116,14 @@ var gsr = {
 					chrome.runtime.sendMessage({toNative: obj});
 				}
 
+				var getSVG = function() {
+					var curSVG = svgContainer.children[0].children[1];
+					var style = curSVG.style;
+					curSVG.style = "";
+					chrome.runtime.sendMessage({convertSVG: curSVG.outerHTML});
+					curSVG.style = style;
+				}
+
 				var getPage = function() {
 					var obj = {};
 
@@ -122,6 +131,8 @@ var gsr = {
 					obj.currentPage = pagenums[0];
 					
 					chrome.runtime.sendMessage({toNative: obj});
+
+					getSVG();
 				}
 
 				var getNotes = function() {

@@ -3,6 +3,7 @@ var gsr = {
 	presentationWindowId: null,
 	presentationTabId: null,
 	presenterTabId: null,
+	presenterWindowId: null,
 	extraTabId: null,
 	extraWindowId: null,
 	nativeBridge: null,
@@ -75,6 +76,7 @@ var gsr = {
 
 				gsr.inPresentation = true;
 				gsr.presenterTabId = sender.tab.id;
+				gsr.presenterWindowId = sender.tab.windowId;
 
 				console.log('Presenter tab opened');
 
@@ -185,6 +187,12 @@ var gsr = {
 				try {
 					gsr.nativeBridge.postMessage(request.toNative);
 				} catch (e) {}
+			} 
+
+			else if (request.convertSVG) {
+				try {
+					gsr.nativeBridge.postMessage({action:'svg', svg:request.convertSVG});
+				} catch (e) {}	
 			} 
 
 		});
