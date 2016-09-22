@@ -35,12 +35,18 @@ stdinLoop: while true {
     
     pointerPosition = 0
     while pointerPosition < data.length {
-        if sectionComplete && data.length-pointerPosition >= 4 { //TODO: Handle case where Uint32 section size is not complete 
-            data.getBytes(&sectionlength, range: NSMakeRange(pointerPosition, 4))
-            pointerPosition += 4
+        if sectionComplete {
+            if sectionBuffer.length < 4 {
+                let range = NSMakeRange(pointerPosition, min(4-sectionBuffer.length, data.length-pointerPosition))
+                sectionBuffer.appendData(data.subdataWithRange(range))
+                pointerPosition += range.length
+            }
             
-            sectionBuffer.length = 0
-            sectionComplete = false
+            if sectionBuffer.length == 4 {
+                sectionBuffer.getBytes(&sectionlength, length: 4)
+                sectionBuffer.length = 0
+                sectionComplete = false
+            }
         }
         
         if !sectionComplete {
@@ -51,6 +57,7 @@ stdinLoop: while true {
             if sectionBuffer.length == Int(sectionlength) {
                 sectionComplete = true
                 bridge.receivedDataFromChrome(sectionBuffer)
+                sectionBuffer.length = 0
             }
         }
     }
