@@ -8,16 +8,6 @@
 
 import Foundation
 
-class Test : SCBluetoothCentralDelegate {
-    func central(central: SCBluetoothCentral, didConnectPeripheral peripheral: SCPeer) {
-        print("Connected to peripheral with info \(peripheral.discoveryData)")
-    }
-    func central(central: SCBluetoothCentral, didDisconnectPeripheral peripheral: SCPeer) {
-        print("Disconnected from peripheral")
-    }
-}
-
-
 let stdin = NSFileHandle.fileHandleWithStandardInput()
 
 /*
@@ -69,21 +59,30 @@ stdinLoop: while true {
 let service = SCUUID(string: "0799eb34-73a7-48c0-8839-615cdf1b495b")
 let myPeer = SCPeer(id: NSUUID(UUIDString: "0799eb34-73a7-48c0-8839-615cdf1b495b")!)
 
+class MyCentralDelegate : SCBluetoothCentralDelegate {
+    func central(central: SCBluetoothCentral, didConnectPeripheral peripheral: SCPeer) {
+        print("Connected to peripheral with info \(peripheral.discoveryData)")
+    }
+    func central(central: SCBluetoothCentral, didDisconnectPeripheral peripheral: SCPeer) {
+        print("Disconnected from peripheral")
+    }
+    func central(central: SCBluetoothCentral, didReceivedData data: NSData, onPriorityQueue priorityQueue: UInt8, fromPeripheral peripheral: SCPeer) {
+        print("Received and sending back \(data.length) bytes on queue \(priorityQueue)")
+        central.sendData(data, onPriorityQueue: priorityQueue)
+    }
+}
+
+
 //let adv = SCBluetoothAdvertiser(centralPeer:myPeer, serviceUUID: service)
 //adv.startAdvertising()
 
 let central = SCBluetoothCentral(centralPeer: myPeer)
-let del = Test()
+let del = MyCentralDelegate()
 central.delegate = del
-
 
 stdinLoop: while true {
     
     if stdin.availableData.length > 0 {
-        central.sendData(NSMutableData(length: 200)!, onPriorityQueue: 8)
-        central.sendData(NSMutableData(length: 12)!, onPriorityQueue: 10)
+        
     }
-    
 }
-
-

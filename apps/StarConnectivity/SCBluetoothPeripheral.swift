@@ -19,9 +19,16 @@ public class SCBluetoothPeripheral : NSObject {
     private let advData:[String:AnyObject]
     private let cbPeripheralManager:CBPeripheralManager
     private var cbPeripheralManagerDelegate:PeripheralManagerDelegate!
+    private var txchar:CBMutableCharacteristic?
+    private var rxchar:CBMutableCharacteristic?
+    private var infochar:CBMutableCharacteristic?
     
     private var advertisingRequested = false
     private var servicesInitialised = false
+    
+    private let transmission = SCDataTransmission()
+    private var isWriting = false
+    private var lastPacketDidNotTransmit = false
     
     init(peripheralPeer peer:SCPeer, toCentralPeer centralPeer:SCPeer) {
         self.centralPeer = centralPeer
@@ -37,6 +44,15 @@ public class SCBluetoothPeripheral : NSObject {
         cbPeripheralManager.delegate = cbPeripheralManagerDelegate
         
         startAdvertising()
+    }
+    
+    private func initService() {
+        let service = CBMutableService(type: serviceUUID, primary: true)
+        infochar = CBMutableCharacteristic(type: SCCommon.DISCOVERYINFO_CHARACTERISTIC_UUID, properties: CBCharacteristicProperties.Read, value: peer.discoveryData, permissions: CBAttributePermissions.Readable)
+        txchar = CBMutableCharacteristic(type: SCCommon.TX_CHARACTERISTIC_UUID, properties: CBCharacteristicProperties.Notify, value: nil, permissions: CBAttributePermissions.Readable)
+        rxchar = CBMutableCharacteristic(type: SCCommon.RX_CHARACTERISTIC_UUID, properties: [CBCharacteristicProperties.Write, CBCharacteristicProperties.WriteWithoutResponse], value: nil, permissions: CBAttributePermissions.Writeable)
+        service.characteristics = [infochar!, txchar!, rxchar!]
+        cbPeripheralManager.addService(service)
     }
     
     public func startAdvertising() {
@@ -57,13 +73,38 @@ public class SCBluetoothPeripheral : NSObject {
         cbPeripheralManager.stopAdvertising()
     }
     
-    private func initService() {
-        let service = CBMutableService(type: serviceUUID, primary: true)
-        let infochar = CBMutableCharacteristic(type: SCCommon.DISCOVERYINFO_CHARACTERISTIC_UUID, properties: CBCharacteristicProperties.Read, value: peer.discoveryData, permissions: CBAttributePermissions.Readable)
-        let txchar = CBMutableCharacteristic(type: SCCommon.TX_CHARACTERISTIC_UUID, properties: CBCharacteristicProperties.Notify, value: nil, permissions: CBAttributePermissions.Readable)
-        let rxchar = CBMutableCharacteristic(type: SCCommon.RX_CHARACTERISTIC_UUID, properties: [CBCharacteristicProperties.Write, CBCharacteristicProperties.WriteWithoutResponse], value: nil, permissions: CBAttributePermissions.Writeable)
-        service.characteristics = [infochar, txchar, rxchar]
-        cbPeripheralManager.addService(service)
+    public func sendData(data:NSData, onPriorityQueue priorityQueue:UInt8, flushQueue:Bool=false) {
+        sendData(data, onPriorityQueue: priorityQueue, flushQueue: flushQueue, internalData: false)
+    }
+    
+    
+    
+    private func sendData(data:NSData, onPriorityQueue priorityQueue:UInt8, flushQueue:Bool, internalData:Bool) {
+        transmission.addToQueue(data, onPriorityQueue: priorityQueue, flushQueue: flushQueue, internalData: internalData)
+        flushData()
+    }
+    
+    private func flushData() {
+        if isWriting {
+            return
+        }
+        
+        isWriting = true
+        while let packet = transmission.getNextPacket(lastPacketDidNotTransmit) {
+            lastPacketDidNotTransmit = !cbPeripheralManager.updateValue(packet, forCharacteristic: txchar!, onSubscribedCentrals: nil)
+            if lastPacketDidNotTransmit {
+                return
+            }
+        }
+        isWriting = false
+    }
+    
+    private func onReceptionData(data:NSData, queue:UInt8) {
+        delegate?.peripheral(self, didReceivedData: data, onPriorityQueue: queue, fromCentral: peer)
+    }
+    
+    private func onReceptionInternalData(data:NSData, queue:UInt8) {
+        // Parse internal data
     }
     
     private class PeripheralManagerDelegate: NSObject, CBPeripheralManagerDelegate {
@@ -76,13 +117,10 @@ public class SCBluetoothPeripheral : NSObject {
         init(outer: SCBluetoothPeripheral) {
             self.outer = outer
             super.init()
-            reception.onData = onReceptionData
+            reception.onData = outer.onReceptionData
+            reception.onInternalData = outer.onReceptionInternalData
         }
         
-        func onReceptionData(data:NSData, queue:UInt8) {
-            print("Received \(data.length) bytes on queue \(queue)")
-            print(data)
-        }
         
         @objc func peripheralManagerDidUpdateState(peripheral: CBPeripheralManager) {
             
@@ -105,6 +143,15 @@ public class SCBluetoothPeripheral : NSObject {
                     reception.parsePacket(data)
                 }
             }
+        }
+        
+        @objc private func peripheralManager(peripheral: CBPeripheralManager, central: CBCentral, didSubscribeToCharacteristic characteristic: CBCharacteristic) {
+            print("peripheralManager didSubscribeToCharacteristic")
+        }
+        
+        @objc private func peripheralManagerIsReadyToUpdateSubscribers(peripheral: CBPeripheralManager) {
+            outer.isWriting = false
+            outer.flushData()
         }
     }
 }

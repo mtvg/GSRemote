@@ -38,6 +38,14 @@ public class SCBluetoothCentral :NSObject {
         }
     }
     
+    private func sendInternalData(data:NSData, onPriorityQueue priorityQueue:UInt8, flushQueue:Bool=false) {
+        for device in connectedDevices {
+            if device.peer != nil {
+                device.sendData(data, onPriorityQueue: priorityQueue, flushQueue: flushQueue, internalData: true)
+            }
+        }
+    }
+    
 
     private class Device: NSObject, CBPeripheralDelegate {
         let peripheral:CBPeripheral
@@ -65,14 +73,12 @@ public class SCBluetoothCentral :NSObject {
         }
         
         
-        func sendData(data:NSData, onPriorityQueue priorityQueue:UInt8, flushQueue:Bool=false) {
-            transmission.addToQueue(data, onPriorityQueue: priorityQueue, flushQueue: flushQueue)
+        func sendData(data:NSData, onPriorityQueue priorityQueue:UInt8, flushQueue:Bool=false, internalData:Bool=false) {
+            transmission.addToQueue(data, onPriorityQueue: priorityQueue, flushQueue: flushQueue, internalData: internalData)
             flushData()
         }
         
         func onReceptionData(data:NSData, queue:UInt8) {
-            print("Received \(data.length) bytes on queue \(queue)")
-            print(data)
             outer.delegate?.central(outer, didReceivedData: data, onPriorityQueue: queue, fromPeripheral: peer)
         }
         
@@ -88,7 +94,6 @@ public class SCBluetoothCentral :NSObject {
             
             if let packet = transmission.getNextPacket(repeatLastPacket) {
                 peripheral.writeValue(packet, forCharacteristic: rxchar, type: .WithResponse)
-                print(packet)
                 isWriting = true
             }
         }
@@ -99,7 +104,7 @@ public class SCBluetoothCentral :NSObject {
         }
         
         @objc func peripheral(peripheral: CBPeripheral, didUpdateValueForCharacteristic characteristic: CBCharacteristic, error: NSError?) {
-            if characteristic == rxchar && error == nil && characteristic.value?.length > 1 {
+            if characteristic == txchar && error == nil && characteristic.value?.length > 1 {
                 reception.parsePacket(characteristic.value!)
             }
         }

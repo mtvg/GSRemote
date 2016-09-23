@@ -10,6 +10,7 @@ import Foundation
 
 internal class SCDataReception: NSObject {
     var onData:((NSData, UInt8)->())?
+    var onInternalData:((NSData, UInt8)->())?
     
     private var receptionQueues = [UInt8:SCReceptionQueue]()
     
@@ -20,7 +21,11 @@ internal class SCDataReception: NSObject {
         data.getBytes(&header, length: 1)
         packetPointer += 1
         
-        let priorityQueue:UInt8 = header >> 4
+        var priorityQueue:UInt8 = header >> 4
+        if header&2 == 2 {
+            priorityQueue += 0x10
+        }
+        
         if receptionQueues[priorityQueue] == nil {
             receptionQueues[priorityQueue] = SCReceptionQueue()
         }
@@ -33,9 +38,12 @@ internal class SCDataReception: NSObject {
         }
         
         queue.dataBuffer.appendData(data.subdataWithRange(NSMakeRange(packetPointer, data.length-packetPointer)))
-        if queue.dataBuffer.length == queue.totalLength {
-            if onData != nil {
-                onData!(queue.dataBuffer, priorityQueue)
+        if queue.dataBuffer.length == Int(queue.totalLength) {
+            let data = NSData(data: queue.dataBuffer)
+            if priorityQueue > 0xF {
+                onInternalData?(data, priorityQueue-0x10)
+            } else {
+                onData?(data, priorityQueue)
             }
             
             queue.dataBuffer.length = 0
@@ -46,7 +54,7 @@ internal class SCDataReception: NSObject {
     
     private class SCReceptionQueue {
         var dataBuffer = NSMutableData()
-        var totalLength:Int = 0
+        var totalLength:UInt32 = 0
     }
 }
     
