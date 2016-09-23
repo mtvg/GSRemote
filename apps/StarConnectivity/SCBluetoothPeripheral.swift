@@ -71,9 +71,17 @@ public class SCBluetoothPeripheral : NSObject {
         private weak var outer: SCBluetoothPeripheral!
         private var oldPeripheralState:Int?
         
+        private let reception = SCDataReception()
+        
         init(outer: SCBluetoothPeripheral) {
             self.outer = outer
             super.init()
+            reception.onData = onReceptionData
+        }
+        
+        func onReceptionData(data:NSData, queue:UInt8) {
+            print("Received \(data.length) bytes on queue \(queue)")
+            print(data)
         }
         
         @objc func peripheralManagerDidUpdateState(peripheral: CBPeripheralManager) {
@@ -88,19 +96,15 @@ public class SCBluetoothPeripheral : NSObject {
             }
         }
         
-        private var count = 0
-        
         @objc private func peripheralManager(peripheral: CBPeripheralManager, didReceiveWriteRequests requests: [CBATTRequest]) {
             
             for req in requests {
                 if let data = req.value {
                     peripheral.respondToRequest(req, withResult: CBATTError.Success)
                     
-                    count = count + data.length
+                    reception.parsePacket(data)
                 }
             }
-            
-            print("received \(count) bytes total")
         }
     }
 }

@@ -80,7 +80,8 @@ central.delegate = del
 stdinLoop: while true {
     
     if stdin.availableData.length > 0 {
-        central.sendData(NSMutableData(length: 51200)!, onPriorityQueue: 1000)
+        central.sendData(NSMutableData(length: 200)!, onPriorityQueue: 8)
+        central.sendData(NSMutableData(length: 12)!, onPriorityQueue: 10)
     }
     
 }

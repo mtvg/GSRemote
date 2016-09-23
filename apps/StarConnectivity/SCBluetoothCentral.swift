@@ -30,7 +30,7 @@ public class SCBluetoothCentral :NSObject {
         cbCentralManager.delegate = cbCentralManagerDelegate
     }
     
-    func sendData(data:NSData, onPriorityQueue priorityQueue:Int, flushQueue:Bool=false) {
+    func sendData(data:NSData, onPriorityQueue priorityQueue:UInt8, flushQueue:Bool=false) {
         for device in connectedDevices {
             if device.peer != nil {
                 device.sendData(data, onPriorityQueue: priorityQueue, flushQueue: flushQueue)
@@ -46,6 +46,10 @@ public class SCBluetoothCentral :NSObject {
         let infochar:CBCharacteristic
         var peer:SCPeer!
         
+        private let transmission = SCDataTransmission()
+        private let reception = SCDataReception()
+        private var isWriting = false
+        
         private weak var outer: SCBluetoothCentral!
         
         init(outer:SCBluetoothCentral, peripheral:CBPeripheral, rxchar: CBCharacteristic, txchar: CBCharacteristic, infochar: CBCharacteristic) {
@@ -54,42 +58,50 @@ public class SCBluetoothCentral :NSObject {
             self.rxchar = rxchar
             self.txchar = txchar
             self.infochar = infochar
+            
+            super.init()
+            
+            reception.onData = onReceptionData
         }
         
-        private var currentDataSent = 0
-        private var currentData:NSData!
-        private var sendingData = false
         
+        func sendData(data:NSData, onPriorityQueue priorityQueue:UInt8, flushQueue:Bool=false) {
+            transmission.addToQueue(data, onPriorityQueue: priorityQueue, flushQueue: flushQueue)
+            flushData()
+        }
         
-        func sendData(data:NSData, onPriorityQueue priorityQueue:Int, flushQueue:Bool=false) {
-            if !sendingData {
-                print("sending \(data.length) bytes")
-                currentData = data
-                currentDataSent = 0
-                sendingData = true
-                flushData()
+        func onReceptionData(data:NSData, queue:UInt8) {
+            print("Received \(data.length) bytes on queue \(queue)")
+            print(data)
+            outer.delegate?.central(outer, didReceivedData: data, onPriorityQueue: queue, fromPeripheral: peer)
+        }
+        
+        func flushData(repeatLastPacket:Bool=false) {
+            if isWriting {
+                return
             }
-        }
-        
-        func flushData() {
-            let sizeLeft = min(20, currentData.length-currentDataSent)
-            peripheral.writeValue(currentData.subdataWithRange(NSRange(location: currentDataSent, length: sizeLeft)), forCharacteristic: rxchar, type: CBCharacteristicWriteType.WithResponse)
-            currentDataSent += sizeLeft
-            if currentDataSent == currentData.length {
-                sendingData = false
+            
+            if transmission.lastPacketErrorCount > 5 {
+                return
+            }
+            
+            
+            if let packet = transmission.getNextPacket(repeatLastPacket) {
+                peripheral.writeValue(packet, forCharacteristic: rxchar, type: .WithResponse)
+                print(packet)
+                isWriting = true
             }
         }
         
         @objc func peripheral(peripheral: CBPeripheral, didWriteValueForCharacteristic characteristic: CBCharacteristic, error: NSError?) {
-            let percent = Int(Float(currentDataSent)/Float(currentData.length)*100)
-            print("sent \(percent)%")
-            if sendingData {
-                flushData()
-            }
+            isWriting = false
+            flushData(error != nil)
         }
         
         @objc func peripheral(peripheral: CBPeripheral, didUpdateValueForCharacteristic characteristic: CBCharacteristic, error: NSError?) {
-            outer.delegate?.central(outer, didReceivedData: characteristic.value!, fromPeripheral: peer)
+            if characteristic == rxchar && error == nil && characteristic.value?.length > 1 {
+                reception.parsePacket(characteristic.value!)
+            }
         }
     }
     
