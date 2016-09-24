@@ -83,6 +83,6 @@ central.delegate = del
 stdinLoop: while true {
     
     if stdin.availableData.length > 0 {
-        
+        central.disconnectPeers()
     }
 }

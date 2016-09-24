@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
@@ -18,7 +18,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connecting..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I0m-aO-5Ba">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Disconnected" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I0m-aO-5Ba">
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -30,15 +30,35 @@
                                 </constraints>
                                 <state key="normal" title="Send"/>
                                 <connections>
-                                    <action selector="onClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="VpD-KR-xva"/>
+                                    <action selector="onSend:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zTa-Z2-80b"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ePe-xy-iGP">
+                                <state key="normal" title="Disconnect"/>
+                                <connections>
+                                    <action selector="onDisconnect:" destination="BYZ-38-t0r" eventType="touchUpInside" id="V5m-O5-DBq"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r1t-lT-yXp">
+                                <state key="normal" title="Connect"/>
+                                <connections>
+                                    <action selector="onConnect:" destination="BYZ-38-t0r" eventType="touchUpInside" id="CpZ-Ls-crj"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="ePe-xy-iGP" firstAttribute="leading" secondItem="LRS-f9-xJg" secondAttribute="leading" id="6Zf-2K-xJT"/>
+                            <constraint firstItem="ePe-xy-iGP" firstAttribute="top" secondItem="LRS-f9-xJg" secondAttribute="bottom" constant="8" symbolic="YES" id="FBg-0O-EFq"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="r1t-lT-yXp" secondAttribute="bottom" constant="232" id="LSj-kM-ihG"/>
+                            <constraint firstItem="r1t-lT-yXp" firstAttribute="leading" secondItem="ePe-xy-iGP" secondAttribute="leading" id="OLu-5n-Ft1"/>
                             <constraint firstItem="LRS-f9-xJg" firstAttribute="top" secondItem="I0m-aO-5Ba" secondAttribute="bottom" constant="70" id="V6X-I9-eei"/>
+                            <constraint firstItem="r1t-lT-yXp" firstAttribute="trailing" secondItem="ePe-xy-iGP" secondAttribute="trailing" id="cg5-ai-bpF"/>
+                            <constraint firstItem="ePe-xy-iGP" firstAttribute="trailing" secondItem="LRS-f9-xJg" secondAttribute="trailing" id="ost-2J-agL"/>
                             <constraint firstItem="I0m-aO-5Ba" firstAttribute="centerX" secondItem="LRS-f9-xJg" secondAttribute="centerX" id="oyV-WS-rDG"/>
                             <constraint firstItem="I0m-aO-5Ba" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" symbolic="YES" id="qaH-xd-9rn"/>
+                            <constraint firstItem="r1t-lT-yXp" firstAttribute="top" secondItem="ePe-xy-iGP" secondAttribute="bottom" constant="8" symbolic="YES" id="t5p-vP-ish"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="ePe-xy-iGP" secondAttribute="bottom" constant="340" id="u9D-90-r3A"/>
                             <constraint firstItem="I0m-aO-5Ba" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="xTm-IT-Ouc"/>
                         </constraints>
                     </view>

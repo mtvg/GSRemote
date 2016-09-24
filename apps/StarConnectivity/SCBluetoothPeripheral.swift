@@ -15,6 +15,10 @@ public class SCBluetoothPeripheral : NSObject {
     public let centralPeer:SCPeer
     public let peer:SCPeer
     
+    private(set) public var connected = false
+    private var cancelingConnection = false
+    private var disconnectionInitiated = false
+    
     private let serviceUUID:CBUUID
     private let advData:[String:AnyObject]
     private let cbPeripheralManager:CBPeripheralManager
@@ -55,7 +59,30 @@ public class SCBluetoothPeripheral : NSObject {
         cbPeripheralManager.addService(service)
     }
     
-    public func startAdvertising() {
+    public func sendData(data:NSData, onPriorityQueue priorityQueue:UInt8, flushQueue:Bool=false) {
+        sendData(data, onPriorityQueue: priorityQueue, flushQueue: flushQueue, internalData: false)
+    }
+    
+    public func disconnect() {
+        if disconnectionInitiated {
+            return
+        }
+        
+        disconnectionInitiated = true
+        if connected {
+            sendData(SCCommon.INTERNAL_PERIPHERAL_DISCONNECTION_REQUEST_DATA, onPriorityQueue: SCCommon.INTERNAL_CONNECTION_QUEUE, flushQueue: false, internalData: true)
+        } else {
+            cancelingConnection = true
+            stopAdvertising()
+            cbPeripheralManager.removeAllServices()
+        }
+    }
+    
+    deinit {
+        disconnect()
+    }
+    
+    private func startAdvertising() {
         advertisingRequested = true
         
         if cbPeripheralManager.state == .PoweredOn {
@@ -68,13 +95,9 @@ public class SCBluetoothPeripheral : NSObject {
         }
     }
     
-    public func stopAdvertising() {
+    private func stopAdvertising() {
         advertisingRequested = false
         cbPeripheralManager.stopAdvertising()
-    }
-    
-    public func sendData(data:NSData, onPriorityQueue priorityQueue:UInt8, flushQueue:Bool=false) {
-        sendData(data, onPriorityQueue: priorityQueue, flushQueue: flushQueue, internalData: false)
     }
     
     
@@ -104,7 +127,35 @@ public class SCBluetoothPeripheral : NSObject {
     }
     
     private func onReceptionInternalData(data:NSData, queue:UInt8) {
-        // Parse internal data
+        if queue == SCCommon.INTERNAL_CONNECTION_QUEUE && data.isEqualToData(SCCommon.INTERNAL_CENTRAL_DISCONNECTION_DATA) {
+            disconnect()
+        }
+    }
+    
+    private func onSubscribed() {
+        stopAdvertising()
+        
+        if cancelingConnection {
+            sendData(SCCommon.INTERNAL_PERIPHERAL_DISCONNECTION_REQUEST_DATA, onPriorityQueue: SCCommon.INTERNAL_CONNECTION_QUEUE, flushQueue: false, internalData: true)
+            return
+        }
+        
+        connected = true
+        delegate?.peripheral(self, didConnectCentral: centralPeer)
+    }
+    
+    private func onUnsubscribed() {
+        connected = false
+        var error:NSError?
+        if !disconnectionInitiated {
+            error = NSError(domain: "UnexpectedDisconnection", code: -1, userInfo: [NSLocalizedDescriptionKey:"Unexpected disconnection from Central"])
+        }
+        delegate?.peripheral(self, didDisconnectCentral: centralPeer, withError: error)
+        
+        cbPeripheralManager.removeAllServices()
+        servicesInitialised = false
+        
+        cbPeripheralManager.delegate = nil
     }
     
     private class PeripheralManagerDelegate: NSObject, CBPeripheralManagerDelegate {
@@ -146,7 +197,11 @@ public class SCBluetoothPeripheral : NSObject {
         }
         
         @objc private func peripheralManager(peripheral: CBPeripheralManager, central: CBCentral, didSubscribeToCharacteristic characteristic: CBCharacteristic) {
-            print("peripheralManager didSubscribeToCharacteristic")
+            outer.onSubscribed()
+        }
+        
+        @objc private func peripheralManager(peripheral: CBPeripheralManager, central: CBCentral, didUnsubscribeFromCharacteristic characteristic: CBCharacteristic) {
+            outer.onUnsubscribed()
         }
         
         @objc private func peripheralManagerIsReadyToUpdateSubscribers(peripheral: CBPeripheralManager) {

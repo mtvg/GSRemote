@@ -23,30 +23,30 @@ public class SCPeer {
     static private var savedCBPeripheralPeers = [CBPeripheral:SCPeer]()
     static private var savedCBCentralPeers = [CBCentral:SCPeer]()
     
-    private let _protocolVersion:UInt8
-    private let _identifier:NSUUID
-    private var _identifierBytes = [UInt8](count: 16, repeatedValue: 0)
-    private var _discoveryInfo:JSON?
-    private var _discoveryData:NSData!
+    public let protocolVersion:UInt8
+    public let identifier:NSUUID
+    private(set) public var identifierBytes = [UInt8](count: 16, repeatedValue: 0)
+    private(set) public var discoveryInfo:JSON?
+    private(set) public var discoveryData:NSData!
     
     init() {
-        _protocolVersion = SCCommon.STARCONNECTIVITY_PROTOCOL_VERSION
-        _identifier = NSUUID()
+        protocolVersion = SCCommon.STARCONNECTIVITY_PROTOCOL_VERSION
+        identifier = NSUUID()
         generateUuidBytes()
         generateDiscoveryData()
     }
     
     init(id:NSUUID) {
-        _protocolVersion = SCCommon.STARCONNECTIVITY_PROTOCOL_VERSION
-        _identifier = id
+        protocolVersion = SCCommon.STARCONNECTIVITY_PROTOCOL_VERSION
+        identifier = id
         generateUuidBytes()
         generateDiscoveryData()
     }
     
     init?(withDiscoveryInfo discoveryInfo:JSON) {
-        _protocolVersion = SCCommon.STARCONNECTIVITY_PROTOCOL_VERSION
-        _identifier = NSUUID()
-        _discoveryInfo = discoveryInfo
+        protocolVersion = SCCommon.STARCONNECTIVITY_PROTOCOL_VERSION
+        identifier = NSUUID()
+        self.discoveryInfo = discoveryInfo
         generateUuidBytes()
         if !generateDiscoveryData() {
             return nil
@@ -54,27 +54,27 @@ public class SCPeer {
     }
     
     private init?(fromDiscoveryData discoveryData:NSData) {
-        _discoveryData = discoveryData
-        if _discoveryData.length < 17 {
+        self.discoveryData = discoveryData
+        if discoveryData.length < 17 {
             return nil
         }
         
-        _discoveryData.getBytes(&_identifierBytes, length: 16)
+        self.discoveryData.getBytes(&identifierBytes, length: 16)
         var protocolBytes = [UInt8](count: 1, repeatedValue: 0)
-        _discoveryData.getBytes(&protocolBytes, length: 1)
-        _protocolVersion = protocolBytes[0]
+        discoveryData.getBytes(&protocolBytes, length: 1)
+        protocolVersion = protocolBytes[0]
         
         
-        _identifier = NSUUID(UUIDBytes: _identifierBytes)
+        identifier = NSUUID(UUIDBytes: identifierBytes)
         
-        if _discoveryData.length > 17 {
-            _discoveryInfo = JSON(data: _discoveryData.subdataWithRange(NSMakeRange(17, _discoveryData.length-17)))
+        if discoveryData.length > 17 {
+            discoveryInfo = JSON(data: discoveryData.subdataWithRange(NSMakeRange(17, discoveryData.length-17)))
         }
         
     }
     
     private func generateUuidBytes() {
-        identifier.getUUIDBytes(&_identifierBytes)
+        identifier.getUUIDBytes(&identifierBytes)
     }
     
     private func generateDiscoveryData() -> Bool {
@@ -82,46 +82,16 @@ public class SCPeer {
         buildDiscoveryData.appendBytes(identifierBytes, length: 16)
         buildDiscoveryData.appendBytes([protocolVersion], length: 1)
         
-        if _discoveryInfo != nil, let infoData = try? _discoveryInfo?.rawData() {
+        if discoveryInfo != nil, let infoData = try? discoveryInfo?.rawData() {
             if infoData == nil || infoData?.length > 400 {
                 return false
             }
             buildDiscoveryData.appendData(infoData!)
         }
         
-        _discoveryData = NSData(data: buildDiscoveryData)
+        discoveryData = NSData(data: buildDiscoveryData)
         
         return true
-    }
-    
-    public var protocolVersion:UInt8 {
-        get {
-            return _protocolVersion
-        }
-    }
-    
-    public var identifier:NSUUID {
-        get {
-            return _identifier
-        }
-    }
-    
-    public var identifierBytes:[UInt8] {
-        get {
-            return _identifierBytes
-        }
-    }
-    
-    public var discoveryInfo:JSON? {
-        get {
-            return _discoveryInfo
-        }
-    }
-    
-    public var discoveryData:NSData {
-        get {
-            return _discoveryData
-        }
     }
    
     static func savePeer(withDiscoveryData discoveryData:NSData, fromCBPeripheral peripheral:CBPeripheral) -> SCPeer? {
@@ -152,4 +122,9 @@ public class SCPeer {
     static func forgetPeer(fromCBCentral central:CBCentral) -> SCPeer? {
         return savedCBCentralPeers.removeValueForKey(central)
     }
+}
+
+
+func ==(lpeer: SCPeer, rpeer: SCPeer) -> Bool {
+    return lpeer.discoveryData.isEqualToData(rpeer.discoveryData)
 }
