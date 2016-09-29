@@ -36,7 +36,7 @@ public class SCPeer {
         generateDiscoveryData()
     }
     
-    init(id:NSUUID) {
+    init(withUUID id:NSUUID) {
         protocolVersion = SCCommon.STARCONNECTIVITY_PROTOCOL_VERSION
         identifier = id
         generateUuidBytes()
@@ -53,7 +53,7 @@ public class SCPeer {
         }
     }
     
-    private init?(fromDiscoveryData discoveryData:NSData) {
+    init?(fromDiscoveryData discoveryData:NSData) {
         self.discoveryData = discoveryData
         if discoveryData.length < 17 {
             return nil
@@ -92,35 +92,6 @@ public class SCPeer {
         discoveryData = NSData(data: buildDiscoveryData)
         
         return true
-    }
-   
-    static func savePeer(withDiscoveryData discoveryData:NSData, fromCBPeripheral peripheral:CBPeripheral) -> SCPeer? {
-        if let peer = SCPeer(fromDiscoveryData: discoveryData) {
-            savedCBPeripheralPeers[peripheral] = peer
-            return peer
-        } else {
-            return nil
-        }
-    }
-    static func savePeer(withDiscoveryData discoveryData:NSData, fromCBCentral central:CBCentral) -> SCPeer? {
-        if let peer = SCPeer(fromDiscoveryData: discoveryData) {
-            savedCBCentralPeers[central] = peer
-            return peer
-        } else {
-            return nil
-        }
-    }
-    static func getPeer(fromCBPeripheral peripheral:CBPeripheral) -> SCPeer? {
-        return savedCBPeripheralPeers[peripheral]
-    }
-    static func getPeer(fromCBCentral central:CBCentral) -> SCPeer? {
-        return savedCBCentralPeers[central]
-    }
-    static func forgetPeer(fromCBPeripheral peripheral:CBPeripheral) -> SCPeer? {
-        return savedCBPeripheralPeers.removeValueForKey(peripheral)
-    }
-    static func forgetPeer(fromCBCentral central:CBCentral) -> SCPeer? {
-        return savedCBCentralPeers.removeValueForKey(central)
     }
 }
 

@@ -57,7 +57,8 @@ stdinLoop: while true {
 
 
 let service = SCUUID(string: "0799eb34-73a7-48c0-8839-615cdf1b495b")
-let myPeer = SCPeer(id: NSUUID(UUIDString: "0799eb34-73a7-48c0-8839-615cdf1b495b")!)
+let myPeer = SCPeer(withUUID: NSUUID(UUIDString: "0799eb34-73a7-48c0-8839-615cdf1b495b")!)
+
 
 class MyCentralDelegate : SCBluetoothCentralDelegate {
     func central(central: SCBluetoothCentral, didConnectPeripheral peripheral: SCPeer) {
@@ -72,13 +73,13 @@ class MyCentralDelegate : SCBluetoothCentralDelegate {
     }
 }
 
-
 //let adv = SCBluetoothAdvertiser(centralPeer:myPeer, serviceUUID: service)
 //adv.startAdvertising()
 
 let central = SCBluetoothCentral(centralPeer: myPeer)
 let del = MyCentralDelegate()
 central.delegate = del
+
 
 stdinLoop: while true {
     

@@ -17,10 +17,3 @@ public class SCRemoteFile {
     }
 }
 
-extension NSData {
-    func MD5() -> NSData {
-        let result = NSMutableData(length: Int(CC_MD5_DIGEST_LENGTH))!
-        CC_MD5(bytes, CC_LONG(length), UnsafeMutablePointer<UInt8>(result.mutableBytes))
-        return NSData(data: result)
-    }
-}

@@ -8,14 +8,28 @@
 
 import UIKit
 
-class ViewController: UIViewController, SCBluetoothPeripheralDelegate {
+class ViewController: UIViewController, SCBluetoothPeripheralDelegate, SCBluetoothScannerDelegate {
     
     var peripheral:SCBluetoothPeripheral?
+    var scanner:SCBluetoothScanner?
 
     @IBOutlet weak var label: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
         UIApplication.sharedApplication().idleTimerDisabled = true
+        
+        /*scanner = SCBluetoothScanner(serviceToBrowse: SCUUID(string: "0799eb34-73a7-48c0-8839-615cdf1b495b"))
+        scanner?.centralScanTimeout = 10
+        scanner?.delegate = self
+        scanner?.startScanning()*/
+    }
+    
+    func scanner(scanner: SCBluetoothScanner, didFindCentral central: SCPeer) {
+        print("Found central with info: \(central.discoveryInfo)")
+    }
+    
+    func scanner(scanner: SCBluetoothScanner, didLooseCentral central: SCPeer) {
+        print("Lost central: \(central.discoveryData)")
     }
     
     func peripheral(peripheral: SCBluetoothPeripheral, didReceivedData data: NSData, onPriorityQueue priorityQueue: UInt8, fromCentral central: SCPeer) {
@@ -52,7 +66,7 @@ class ViewController: UIViewController, SCBluetoothPeripheralDelegate {
         if peripheral != nil {
             return
         }
-        peripheral = SCBluetoothPeripheral(peripheralPeer: SCPeer(), toCentralPeer: SCPeer(id: NSUUID(UUIDString: "0799eb34-73a7-48c0-8839-615cdf1b495b")!))
+        peripheral = SCBluetoothPeripheral(peripheralPeer: SCPeer(), toCentralPeer: SCPeer(withUUID: NSUUID(UUIDString: "0799eb34-73a7-48c0-8839-615cdf1b495b")!))
         peripheral?.delegate = self
         self.label.text = "Connecting..."
     }

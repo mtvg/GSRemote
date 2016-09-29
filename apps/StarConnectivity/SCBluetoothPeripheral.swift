@@ -59,8 +59,8 @@ public class SCBluetoothPeripheral : NSObject {
         cbPeripheralManager.addService(service)
     }
     
-    public func sendData(data:NSData, onPriorityQueue priorityQueue:UInt8, flushQueue:Bool=false) {
-        sendData(data, onPriorityQueue: priorityQueue, flushQueue: flushQueue, internalData: false)
+    public func sendData(data:NSData, onPriorityQueue priorityQueue:UInt8, flushQueue:Bool=false, callback:(Bool -> Void)?=nil) {
+        sendData(data, onPriorityQueue: priorityQueue, flushQueue: flushQueue, internalData: false, callback: callback)
     }
     
     public func disconnect() {
@@ -100,10 +100,12 @@ public class SCBluetoothPeripheral : NSObject {
         cbPeripheralManager.stopAdvertising()
     }
     
+    private func transmitted() {
+        print("Data transmitted")
+    }
     
-    
-    private func sendData(data:NSData, onPriorityQueue priorityQueue:UInt8, flushQueue:Bool, internalData:Bool) {
-        transmission.addToQueue(data, onPriorityQueue: priorityQueue, flushQueue: flushQueue, internalData: internalData)
+    private func sendData(data:NSData, onPriorityQueue priorityQueue:UInt8, flushQueue:Bool, internalData:Bool, callback:(Bool -> Void)?=nil) {
+        transmission.addToQueue(data, onPriorityQueue: priorityQueue, flushQueue: flushQueue, internalData: internalData, callback: callback)
         flushData()
     }
     

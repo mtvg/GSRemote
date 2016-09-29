@@ -53,12 +53,11 @@ public class SCBluetoothCentral :NSObject {
     private func removePeripheral(peripheral:CBPeripheral) {
         
         if let dIndex = connectedDevices.indexOf({$0.peripheral == peripheral}) {
+            if let peer = connectedDevices[dIndex].peer {
+                delegate?.central(self, didDisconnectPeripheral: peer)
+            }
             connectedDevices[dIndex].peer = nil
             connectedDevices.removeAtIndex(dIndex)
-        }
-        
-        if let peer = SCPeer.forgetPeer(fromCBPeripheral: peripheral) {
-            delegate?.central(self, didDisconnectPeripheral: peer)
         }
         
     }
@@ -91,8 +90,8 @@ public class SCBluetoothCentral :NSObject {
         }
         
         
-        func sendData(data:NSData, onPriorityQueue priorityQueue:UInt8, flushQueue:Bool=false, internalData:Bool=false) {
-            transmission.addToQueue(data, onPriorityQueue: priorityQueue, flushQueue: flushQueue, internalData: internalData)
+        func sendData(data:NSData, onPriorityQueue priorityQueue:UInt8, flushQueue:Bool=false, internalData:Bool=false, callback:(Bool -> Void)?=nil) {
+            transmission.addToQueue(data, onPriorityQueue: priorityQueue, flushQueue: flushQueue, internalData: internalData, callback: callback)
             flushData()
         }
         
@@ -111,10 +110,6 @@ public class SCBluetoothCentral :NSObject {
         
         func flushData(repeatLastPacket:Bool=false) {
             if isWriting {
-                return
-            }
-            
-            if transmission.lastPacketErrorCount > 5 {
                 return
             }
             
@@ -264,8 +259,8 @@ public class SCBluetoothCentral :NSObject {
             
             if let dIndex = outer.connectedDevices.indexOf({$0.peripheral == peripheral}) where error == nil {
                 let device = outer.connectedDevices[dIndex]
-                if characteristic == device.txchar {
-                    if let peer = SCPeer.savePeer(withDiscoveryData: device.infochar.value!, fromCBPeripheral: peripheral) {
+                if characteristic == device.txchar && characteristic.isNotifying {
+                    if let peer = SCPeer(fromDiscoveryData: device.infochar.value!) {
                         device.peer = peer
                         peripheral.delegate = device
                         outer.delegate?.central(outer, didConnectPeripheral: peer)

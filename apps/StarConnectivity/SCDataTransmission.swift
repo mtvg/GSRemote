@@ -10,6 +10,7 @@ import Foundation
 
 internal class SCDataTransmission: NSObject {
     
+    private let MAX_ERROR = 5
     private let PACKET_SIZE = 100
     private var transmissionQueues = [UInt8:SCTransmissionQueue]()
     private var transmissionQueuesKeys = [UInt8]()
@@ -17,12 +18,24 @@ internal class SCDataTransmission: NSObject {
     private var lastTransmitedQueue:SCTransmissionQueue?
     private var lastTransmitedLength = 0
     
-    var lastPacketErrorCount = 0
+    private var lastPacketErrorCount = 0
     
     func getNextPacket(repeatLastPacket:Bool=false) -> NSData? {
         
         if repeatLastPacket {
             lastPacketErrorCount += 1
+            
+            if lastPacketErrorCount >= MAX_ERROR, let queue = lastTransmitedQueue {
+                queue.dataQueue.removeFirst()
+                queue.bytesSent = 0
+                lastPacketErrorCount = 0
+                lastTransmitedQueue = nil
+                lastTransmitedLength = 0
+                
+                if let callback = queue.callbackQueue.removeFirst() {
+                    callback(false)
+                }
+            }
         } else if let queue = lastTransmitedQueue {
             
             queue.bytesSent += lastTransmitedLength
@@ -30,6 +43,10 @@ internal class SCDataTransmission: NSObject {
             if queue.bytesSent == queue.dataQueue[0].length {
                 queue.dataQueue.removeFirst()
                 queue.bytesSent = 0
+                
+                if let callback = queue.callbackQueue.removeFirst() {
+                    callback(true)
+                }
             }
             
             lastPacketErrorCount = 0
@@ -74,7 +91,7 @@ internal class SCDataTransmission: NSObject {
         return nil
     }
     
-    func addToQueue(data:NSData, onPriorityQueue priorityQueue:UInt8, flushQueue:Bool, internalData:Bool) {
+    func addToQueue(data:NSData, onPriorityQueue priorityQueue:UInt8, flushQueue:Bool, internalData:Bool, callback:(Bool -> Void)?) {
         
         if priorityQueue > 0xF {
             return
@@ -98,10 +115,12 @@ internal class SCDataTransmission: NSObject {
         }
         
         queue.dataQueue.append(data)
+        queue.callbackQueue.append(callback)
     }
     
     private class SCTransmissionQueue {
         var dataQueue = [NSData]()
+        var callbackQueue:[(Bool -> Void)?] = []
         var bytesSent = 0
     }
     

@@ -34,7 +34,7 @@ class GSBluetoothScanner: NSObject, CBCentralManagerDelegate, CBPeripheralDelega
     }
     
     func centralManagerDidUpdateState(central: CBCentralManager) {
-        if central.state == CBCentralManagerState.PoweredOn {
+        if central.state == .PoweredOn {
             if scanIsRequested {
                 startScanning()
             }
@@ -43,7 +43,7 @@ class GSBluetoothScanner: NSObject, CBCentralManagerDelegate, CBPeripheralDelega
     
     func startScanning() {
         scanIsRequested = true
-        if manager.state == CBCentralManagerState.PoweredOn {
+        if manager.state == .PoweredOn {
             manager.scanForPeripheralsWithServices([GSREMOTE_DEVSERVICE], options: [CBCentralManagerScanOptionAllowDuplicatesKey:true])
             peripheralLifeTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(checkPeripheralsLife), userInfo: nil, repeats: true)
             isScanning = true
